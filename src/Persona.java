@@ -1,16 +1,16 @@
 import java.util.Objects;
 public class Persona {
-    private idPersona idPersona;
+    private IdPersona IdPersona;
     private Nombre nombreCompleto;
     private String telefono;
 
-    public Persona(idPersona id, Nombre nombre) {
-        this.idPersona = id;
+    public Persona(IdPersona id, Nombre nombre) {
+        this.IdPersona = id;
         this.nombreCompleto = nombre;
     }
 
-    public idPersona getIdpersona() {
-        return idPersona;
+    public IdPersona getIdPersona() {
+        return IdPersona;
     }
 
     public Nombre getNombreCompleto() {
@@ -32,7 +32,7 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "{" + idPersona.toString() + ", " + nombreCompleto.toString() + ", " + telefono + "}";
+        return "{" + IdPersona.toString() + ", " + nombreCompleto.toString() + ", " + telefono + "}";
     }
 
     @Override
@@ -40,6 +40,6 @@ public class Persona {
         if (this == otro) return true;
         if (otro == null || this.getClass() != otro.getClass()) return false;
         Persona persona = (Persona) otro;
-        return idPersona == persona.idPersona && nombreCompleto == persona.nombreCompleto && Objects.equals(telefono, persona.telefono);
+        return IdPersona == persona.IdPersona && nombreCompleto == persona.nombreCompleto && Objects.equals(telefono, persona.telefono);
     }
 }
