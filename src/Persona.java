@@ -4,9 +4,11 @@ public class Persona {
     private Nombre nombreCompleto;
     private String telefono;
 
+
     public Persona(idPersona id, Nombre nombre) {
         this.idPersona = id;
         this.nombreCompleto = nombre;
+        System.out.println();
     }
 
     public idPersona getIdpersona() {
