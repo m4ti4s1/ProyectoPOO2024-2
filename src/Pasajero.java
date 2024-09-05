@@ -1,7 +1,6 @@
 public class Pasajero extends Persona {
     private Nombre nomContacto;
-    private String fonoContancto;
-
+    private String fonoContacto;
 
     public Nombre getNomContacto() {
         return nomContacto;
@@ -12,10 +11,10 @@ public class Pasajero extends Persona {
     }
 
     public String getFonoContancto() {
-        return fonoContancto;
+        return fonoContacto;
     }
 
     public void setFonoContancto(String fono) {
-        this.fonoContancto = fono;
+        this.fonoContacto = fono;
     }
 }
