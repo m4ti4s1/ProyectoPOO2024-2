@@ -17,49 +17,53 @@ public class Viaje {
         this.precio = precio;
         this.bus=bus;
     }
-
+//?----------------Getter and Setter---------------------------------------------------
     public LocalDate getFecha() {
         return fecha;
     }
-
     public LocalTime getHora() {
         return hora;
     }
-
     public int getPrecio() {
         return precio;
     }
-
     public void setPrecio(int precio) {
         this.precio = precio;
     }
     public Bus getBus(){
         return bus;
     }
+    //?-------------------------------------------------------------------------------------
     public void addPasaje(Pasaje pasaje){
         boolean agregar =true;
-        for(int i = 0; i<= Listapasajes.size(); i++){
-            if(Listapasajes.get(i).getNumero()==pasaje.getNumero()){
-                if(Listapasajes.get(i).getAsiento()==pasaje.getAsiento()){
-                    System.out.println("---Este Pasaje ya Existe dentro del Viaje---");
-                    agregar=false;
+        if(Listapasajes.size()!=0){
+            for(int i = 0; i< Listapasajes.size(); i++){
+                if(Listapasajes.get(i).getNumero()==pasaje.getNumero()){
+                    if(Listapasajes.get(i).getAsiento()==pasaje.getAsiento()){
+                        System.out.println("---Este Pasaje ya Existe dentro del Viaje---");
+                        agregar=false;
+                        break;
+                    }
                 }
             }
-        }
+        }else{agregar=true;}
         if(agregar){
             Listapasajeros.add(pasaje.getPasajero());
-            Listapasajes.add(pasaje);}
+            Listapasajes.add(pasaje);
+            System.out.println("--- Se agregado Correctamente ---");
+        }
 
     }
     //!------------Lista de Asientos---------------------------------------------
+
     public String[][] getAsientos(){
         String [][] ListaAsientos=new String[bus.getNroAsientos()][2];
-        for(int i=0;i<= bus.getNroAsientos();i++){
-            ListaAsientos[i][0]=""+i+1;
+        for(int i=0;i< bus.getNroAsientos();i++){
+            ListaAsientos[i][0]=""+(i+1);
             ListaAsientos[i][1]="vacío";
         }
-        for (int i=0;i<=Listapasajes.size();i++){
-            ListaAsientos[Listapasajes.get(i).getAsiento()][1]="Ocupado";
+        for (int i=0;i<Listapasajes.size();i++){
+            ListaAsientos[(Listapasajes.get(i).getAsiento())-1][1]="Ocupado";
 
         }
 
@@ -70,7 +74,7 @@ public class Viaje {
     //!------------------Lista de Pasajeros ------------------------------------------------
     public String[][] getListaPasajeros(){
         String [][] MatrizPasajero= new String[Listapasajeros.size()][4];
-        for(int i=0;i<=Listapasajeros.size();i++){
+        for(int i=0;i<Listapasajeros.size();i++){
             MatrizPasajero[i][0]=" "+Listapasajeros.get(i).getIdPersona();
             MatrizPasajero[i][1]=" "+Listapasajeros.get(i).getNombreCompleto();
             MatrizPasajero[i][2]=" "+Listapasajeros.get(i).getNomContacto();
