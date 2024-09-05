@@ -4,6 +4,7 @@ public class Venta {
     private String idDocumento;
     private TipoDocumento tipo;
     private LocalDate fecha;
+    private Cliente cliente;
 
     public Venta(String id, TipoDocumento tipo, LocalDate fec, Cliente cli) {
         this.idDocumento = idDocumento;
