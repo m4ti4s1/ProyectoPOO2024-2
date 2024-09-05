@@ -10,6 +10,7 @@ public class Viaje {
 
     List<Pasaje> Listapasajes =new ArrayList<>();
     List<Pasajero> Listapasajeros =new ArrayList<>();
+
     public Viaje(LocalDate fecha, LocalTime hora, int precio,Bus bus) {
         this.fecha = fecha;;
         this.hora = hora;
@@ -50,6 +51,23 @@ public class Viaje {
             Listapasajes.add(pasaje);}
 
     }
+    //!------------Lista de Asientos---------------------------------------------
+    public String[][] getAsientos(){
+        String [][] ListaAsientos=new String[bus.getNroAsientos()][2];
+        for(int i=0;i<= bus.getNroAsientos();i++){
+            ListaAsientos[i][0]=""+i+1;
+            ListaAsientos[i][1]="vacío";
+        }
+        for (int i=0;i<=Listapasajes.size();i++){
+            ListaAsientos[Listapasajes.get(i).getAsiento()][1]="Ocupado";
+
+        }
+
+
+        return ListaAsientos;
+    }
+
+    //!------------------Lista de Pasajeros ------------------------------------------------
     public String[][] getListaPasajeros(){
         String [][] MatrizPasajero= new String[Listapasajeros.size()][4];
         for(int i=0;i<=Listapasajeros.size();i++){
