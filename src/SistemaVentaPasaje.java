@@ -1,5 +1,7 @@
 import java.time.*;
+import java.util.ArrayList;
 public class SistemaVentaPasaje {
+    ArrayList<Cliente> clientes = new ArrayList<>();
     public boolean createCliente(IdPersona id, Nombre nom, String fono, String email) {
         Persona cliente = new Cliente(id, nom, email);
         return true;
@@ -28,4 +30,5 @@ public class SistemaVentaPasaje {
         return asientos;
 
     }
+
 }
