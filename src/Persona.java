@@ -9,6 +9,9 @@ public class Persona {
         this.nombreCompleto = nombre;
     }
 
+    public Persona() {
+
+    }
     public IdPersona getIdPersona() {
         return IdPersona;
     }

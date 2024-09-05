@@ -3,6 +3,10 @@ public class Pasajero extends Persona {
     private String fonoContancto;
 
 
+    public Pasajero() {
+        super();
+    }
+
     public Nombre getNomContacto() {
         return nomContacto;
     }
