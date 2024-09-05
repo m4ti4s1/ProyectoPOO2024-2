@@ -2,9 +2,9 @@ public class Cliente extends Persona {
     private String email;
     private Persona persona;
 
-    public Cliente(idPersona id, Nombre nom, String email) {
+    public Cliente(IdPersona id, Nombre nom, String email) {
         this.persona = new Persona(id, nom);
-        this.email = email
+        this.email = email;
     }
 
     public String getEmail() {
