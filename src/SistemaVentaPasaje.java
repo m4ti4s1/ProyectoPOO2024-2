@@ -1,6 +1,10 @@
 import java.time.*;
 import java.util.ArrayList;
+import java.util.List;
+
 public class SistemaVentaPasaje {
+    private List<Venta> ventas = new ArrayList<>();
+    private List<Pasajero> pasajeros = new ArrayList<>();
     ArrayList<Cliente> clientes = new ArrayList<>();
     public boolean createCliente(IdPersona id, Nombre nom, String fono, String email) {
         Persona cliente = new Cliente(id, nom, email);
@@ -31,4 +35,21 @@ public class SistemaVentaPasaje {
 
     }
 
+    public int getMontoVenta(String idDocumento, TipoDocumento tipo) {
+        for (Venta venta : ventas) {
+            if (venta.getIdDocumento().equals(idDocumento) && venta.getTipo().equals(tipo)) {
+                return venta.getMonto();
+            }
+        }
+        return 0;
+    }
+
+    public String getNombrePasajero(IdPersona idPasajero) {
+        for (Pasajero pasajero : pasajeros) {
+            if (pasajero.getIdPersona().equals(idPasajero)) {
+                return pasajero.getNombreCompleto().toString();
+            }
+        }
+        return null;
+    }
 }
