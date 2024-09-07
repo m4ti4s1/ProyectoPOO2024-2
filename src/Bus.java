@@ -8,7 +8,7 @@ public class Bus {
     private String marca;
     private String modelo;
     private int nroAsientos;
-    private List<Viaje> viajes;
+    private ArrayList<Viaje> viajes;
 
     //constructor
     public Bus(String patente, int nroAsientos) {
@@ -43,5 +43,8 @@ public class Bus {
 
     public void addViaje(Viaje viaje) {
         this.viajes.add(viaje);
+    }
+    public ArrayList<Viaje> getViajes() {
+        return viajes;
     }
 }
