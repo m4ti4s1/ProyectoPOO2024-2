@@ -11,7 +11,7 @@ public class SistemaVentaPasaje {
 
     public boolean createCliente(IdPersona id, Nombre nom, String fono, String email) {
         Cliente cliente = new Cliente(id, nom, email);
-        if (clientes.contains(cliente)) {
+        if (findCliente(id) != null) {
             //logica para cliente que ya existe
             return false;
         } else {
@@ -26,18 +26,19 @@ public class SistemaVentaPasaje {
         bus.setMarca(marca);
         bus.setModelo(modelo);
         // Arreglar bus no puede utilizar contains, porque no tiene definido el equals
-        if (buses.contains(bus)) {
+        if (findBus(patente) != null) {
             //logica para bus que ya existe
             return false;
         } else {
             //mensaje para bus creado exitosamente
             buses.add(bus);
-
             return true;
         }
     }
 
     public boolean createViaje(LocalDate fecha, LocalTime hora, int precio, String patente) {
+
+
 
         for (Bus bus : buses) {
             if (bus.getPatente().equals(patente)) {
