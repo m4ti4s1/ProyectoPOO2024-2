@@ -3,11 +3,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SistemaVentaPasaje {
-    private List<Venta> ventas = new ArrayList<>();
-    private List<Pasajero> pasajeros = new ArrayList<>();
-    ArrayList<Cliente> clientes = new ArrayList<>();
-    ArrayList<Bus> buses = new ArrayList<>();
-    ArrayList<Viaje> viajes = new ArrayList<>(); // No se para que se implementa el SistemaVentaPasajes
+    private ArrayList<Venta> ventas = new ArrayList<>();
+    private ArrayList<Pasajero> pasajeros = new ArrayList<>();
+    private ArrayList<Cliente> clientes = new ArrayList<>();
+    private ArrayList<Bus> buses = new ArrayList<>();
+    private ArrayList<Viaje> viajes = new ArrayList<>(); // No se para que se implementa el SistemaVentaPasajes
 
     public boolean createCliente(IdPersona id, Nombre nom, String fono, String email) {
         Cliente cliente = new Cliente(id, nom, email);
@@ -104,4 +104,74 @@ public class SistemaVentaPasaje {
         }
         return null;
     }
+
+    public int vendePasaje(String idDoc, LocalDate fecha , LocalTime hora, String patBus, int asiento, IdPersona idCli, IdPersona idPas, Nombre nomPas, Nombre nomCto, String fonoCto) {
+        return 0;
+    }
+
+    public String[][] listVentas() {
+        String[][] ventas = new String[8][8];
+        return ventas;
+    }
+
+    public String[][] listViajes() {
+        String[][] pasajes = new String[8][8];
+        return pasajes;
+
+    }
+
+    public String[][] listPasajeros(LocalDate fecha, LocalTime hora, String patBus) {
+        String[][] pasajeros = new String[8][8];
+        return pasajeros;
+
+    }
+
+    private Cliente findCliente(IdPersona id) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getIdPersona() == id) {
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    private Venta findVenta(String idDocumento, TipoDocumento tipoDocumento) {
+        for (Venta venta : ventas) {
+            if (venta.getIdDocumento().equals(idDocumento) && venta.getTipo() == tipoDocumento) {
+                return venta;
+            }
+        }
+        return null;
+    }
+
+
+    private Bus findBus(String patente) {
+        for (Bus bus : buses) {
+            if (bus.getPatente().equals(patente)) {
+                return bus;
+            }
+        }
+        return null;
+    }
+
+    private Viaje findViaje(String fecha, String hora, String patenteBus) {
+        for (Viaje viaje : viajes) {
+            if (viaje.getFecha().equals(fecha) && viaje.getHora().equals(hora) && viaje.getBus().getPatente().equals(patenteBus)) {
+                return viaje;
+            }
+        }
+        return null;
+    }
+
+    private Pasajero findPasajero(IdPersona idPersona) {
+        for (Pasajero pasajero : pasajeros) {
+            if (pasajero.getIdPersona() == idPersona) {
+                return pasajero;
+            }
+        }
+        return null;
+
+    }
+
+
 }
