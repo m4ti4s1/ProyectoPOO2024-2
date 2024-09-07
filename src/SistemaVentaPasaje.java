@@ -38,38 +38,22 @@ public class SistemaVentaPasaje {
 
     public boolean createViaje(LocalDate fecha, LocalTime hora, int precio, String patente) {
 
+        Viaje viaje = new Viaje(fecha, hora, precio, findBus(patente));
 
-
-        for (Bus bus : buses) {
-            if (bus.getPatente().equals(patente)) {
-                // ArrayList de los viajes del bus que tiene igual patente
-                ArrayList<Viaje> viajesBus = bus.getViajes();
-
-                Viaje viaje = new Viaje(fecha, hora, precio, bus);
-
-                // Verificar si el viaje existe en el bus
-                for (Viaje viajeBus : viajesBus) {
-                    if (viajeBus.getFecha() == viaje.getFecha() && viajeBus.getHora() == viaje.getHora() && viajeBus.getBus() == viaje.getBus()) {
-                        // viaje existe en el bus
-                        // Mensaje diciendo que el viaje ya existe
-                        return false;
-                    }
-                }
-                // agregar viaje al bus si no existe
-                bus.addViaje(viaje);
-
-                // agregar viaje a la lista de viajes
-                viajes.add(viaje);
-
-            } else {
-
-                //  Bus no existe, no se puede crear viaje
-
+        if (findBus(patente) != null) {
+            // si existe el viaje
+            if (findViaje(fecha.toString() , hora.toString() , patente) != null) {
+                // viaje existe en el bus
                 return false;
+            } else {
+                viajes.add(viaje);
+                return true;
             }
+
+        } else {
+            //logica bus no existe, viaje no se puede crear
+            return false;
         }
-        // mensaje viaje agregado exitosamente
-        return true;
     }
 
 
@@ -156,8 +140,9 @@ public class SistemaVentaPasaje {
     }
 
     private Viaje findViaje(String fecha, String hora, String patenteBus) {
+
         for (Viaje viaje : viajes) {
-            if (viaje.getFecha().equals(fecha) && viaje.getHora().equals(hora) && viaje.getBus().getPatente().equals(patenteBus)) {
+            if (viaje.getFecha().toString().equals(fecha) && viaje.getHora().toString().equals(hora)  && viaje.getBus().getPatente().equals(patenteBus)) {
                 return viaje;
             }
         }
