@@ -156,8 +156,10 @@ public class Rut implements IdPersona {
         } else {
             dvCalculado = (char) (modulo + '0');
         }
-
-        return true;
+        if(dvCalculado==toChar[toChar.length-1]){
+            return true;
+        }
+        return false;
     }
 
 }
