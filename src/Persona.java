@@ -9,6 +9,9 @@ public class Persona {
         this.nombreCompleto = nombre;
     }
 
+    public Persona() {
+
+    }
     public IdPersona getIdPersona() {
         return IdPersona;
     }
@@ -32,7 +35,7 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "{" + IdPersona.toString() + ", " + nombreCompleto.toString() + ", " + telefono + "}";
+        return  IdPersona.toString() + ", " + nombreCompleto.toString() + ", " + telefono;
     }
 
     @Override
@@ -40,6 +43,6 @@ public class Persona {
         if (this == otro) return true;
         if (otro == null || this.getClass() != otro.getClass()) return false;
         Persona persona = (Persona) otro;
-        return IdPersona == persona.IdPersona && nombreCompleto == persona.nombreCompleto && Objects.equals(telefono, persona.telefono);
+        return IdPersona == persona.IdPersona;
     }
 }
