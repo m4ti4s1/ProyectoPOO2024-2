@@ -2,15 +2,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Venta {
+
     private String idDocumento;
     private TipoDocumento tipo;
     private LocalDate fecha;
-    private Cliente cliente;
+    private Cliente cliente; // Relacion con clase Cliente
 
-    private ArrayList<Pasaje> pasajes;
+    private ArrayList<Pasaje> pasajes; // Relacion con clase Pasaje
 
     public Venta(String id, TipoDocumento tipo, LocalDate fec, Cliente cli) {
-        this.idDocumento = idDocumento;
+        this.idDocumento = id;
         this.tipo = tipo;
         this.fecha = fec;
         this.cliente = cli;
@@ -40,17 +41,22 @@ public class Venta {
         pasajes.add(pasaje);
     }
 
-    public String[] getPasajes(){
-        String[] listaPasajes = new String[pasajes.size()];
+    public Pasaje[] getPasajes(){
+        Pasaje[] listaPasajes = new Pasaje[pasajes.size()];
 
-        for (Pasaje pasaje : pasajes) {
-            // Terminar para imitar figura 10
+
+        for (int i = 0; i < listaPasajes.length; i++) {
+            listaPasajes[i] = pasajes.get(i);
         }
 
         return listaPasajes;
 
     }
     public int getMonto(){
+        int monto = 0;
+        for (Pasaje pasaje : pasajes) {
+            monto += pasaje.getViaje().getPrecio();
+        }
         return monto;
     }
 
