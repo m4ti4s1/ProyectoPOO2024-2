@@ -15,7 +15,7 @@ public class Main {
 
             switch(opc) {
                 case 1:
-                    main.createCliente();
+                    main.createCliente(sc);
                     break;
                 case 2:
                     main.createBus();
@@ -57,8 +57,21 @@ public class Main {
         System.out.print("..:: Ingrese numero de opcion: ");
     }
 
-    private void createCliente() {
+    private void createCliente(Scanner sc) {
+        System.out.println("...::: Crear un nuevo Cliente :::...");
+        System.out.print("Rut[1] o Pasaporte[2] : ");
+        int tipoDocumento = elegirOpc(2, sc);
+        switch(tipoDocumento) {
+            case 1:
+                // Rut
+                String rut = sc.next();
 
+                //Rut rutCliente = new Rut(Rut.of(rut));
+                break;
+            case 2:
+                // Pasaporte
+                break;
+        }
     }
 
     private void createBus() {
