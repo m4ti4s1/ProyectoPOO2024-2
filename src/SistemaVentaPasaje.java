@@ -57,7 +57,25 @@ public class SistemaVentaPasaje {
 
 
     public boolean iniciaVenta(String idDoc, TipoDocumento tipo, LocalDate fecha, IdPersona idCliente) {
-        return true;
+        // Verificar si el cliente existe
+        Cliente cliente = findCliente(idCliente);
+        if (cliente == null) {
+            return false; // El cliente no existe
+        }
+
+        // Verificar si ya existe una venta con el mismo idDocumento y tipoDocumento
+        Venta ventaExistente = findVenta(idDoc, tipo);
+        if (ventaExistente != null) {
+            return false; // Ya existe una venta con este idDocumento y tipoDocumento
+        }
+
+        // Crear una nueva venta
+        Venta nuevaVenta = new Venta(idDoc, tipo, fecha, cliente);
+
+        // Añadir la venta directamente a la lista de ventas
+        ventas.add(nuevaVenta);
+
+        return true; // Venta creada exitosamente
     }
 
     public String[][] getHorariosDisponibles(LocalDate fecha) {
