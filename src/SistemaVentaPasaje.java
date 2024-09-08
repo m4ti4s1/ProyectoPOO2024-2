@@ -20,6 +20,22 @@ public class SistemaVentaPasaje {
         }
     }
 
+    public boolean createPasajero(IdPersona id, Nombre nom, String fono, Nombre nomContacto, String fonoContacto){
+        Pasajero pasajero  = new Pasajero(id, nom);
+        pasajero.setTelefono(fono);
+        pasajero.setNomContacto(nomContacto);
+        pasajero.setFonoContancto(fonoContacto);
+
+
+        if (findPasajero(id) != null){
+            return false;
+        } else {
+            pasajeros.add(pasajero);
+            return true;
+        }
+
+    }
+
     public boolean createBus(String patente, String marca, String modelo, int nroAsientos) {
         Bus bus = new Bus(patente, nroAsientos);
         bus.setMarca(marca);
