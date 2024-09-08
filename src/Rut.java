@@ -1,3 +1,5 @@
+import jdk.dynalink.beans.StaticClass;
+
 import java.util.Objects;
 
 public class Rut implements IdPersona {
@@ -50,13 +52,11 @@ public class Rut implements IdPersona {
         return dv;
     }
     //?---------Metodo rut-----------
-    public Rut of(String rutConDv) {
+    public static Rut of(String rutConDv) {
         if(!VerificarRut(rutConDv)){
             return null;
         }
-        if (!(Verificar(dv,numero,rutConDv))){
-            return null;
-        }
+
         char[] toChar = rutConDv.toCharArray();
         int cont=0;
         char[] rutvacio=new char[20];
@@ -74,35 +74,12 @@ public class Rut implements IdPersona {
         }
         int numerorut= Integer.parseInt(numString);
 
-        return new Rut(numerorut,dv);
+        return new Rut(numerorut,rutvacio[cont-1]);
 
     }
 
     //?--------- FUNCIONES Para  RUT OF-----------
-    private static boolean Verificar(int dv,int numero,String rutConDv){
-        char[] toChar = rutConDv.toCharArray();
-        int cont=0;
-        char[] rutvacio=new char[20];
-        for (int i = 0; i < toChar.length ; i++) {
 
-            if (toChar[i] != '.' && toChar[i] != '-' ) {
-                rutvacio[cont] = toChar[i];
-                cont++;
-            }
-        }
-
-        if(!((dv+"").equals(rutvacio[cont-1]+""))){
-            return false;
-        }
-        String numerorut="";
-        for (int i=0;i<cont-1;i++){
-            numerorut+=rutvacio[i];
-        }
-        if (!(numerorut.equals(numero+""))){
-            return false;
-        }
-        return true;
-    }
     private static boolean VerificarRut(String rutConDv) {
         for (int i = 0; i < rutConDv.length() - 1; i++) {
             if (!Character.isDigit(rutConDv.charAt(i)) && rutConDv.charAt(i) != '.' && rutConDv.charAt(i) != '-') {
