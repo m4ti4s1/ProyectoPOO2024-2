@@ -94,9 +94,33 @@ public class SistemaVentaPasaje {
         return true; // Venta creada exitosamente
     }
 
-    public String[][] getHorariosDisponibles(LocalDate fecha) {
-        String[][] horarios = new String[3][3];
-        return horarios;
+    public String[][] getHorariosDisponibles(LocalDate fechaViaje) {
+        // Crea una lista temporal para almacenar los datos de los viajes que coinciden con la fecha
+        ArrayList<String[]> horarios = new ArrayList<>();
+
+        // Recorre todos los viajes
+        for (Viaje viaje : viajes) {
+            // Verifica si la fecha del viaje coincide con la fecha dada
+            if (viaje.getFecha().equals(fechaViaje)) {
+                // Obtener los datos relevantes
+                String patenteBus = viaje.getBus().getPatente(); // Obtener la patente del bus
+                String horaViaje = viaje.getHora().toString();   // Obtener la hora del viaje
+                String precioPasaje = String.valueOf(viaje.getPrecio()); // Obtener el precio del pasaje
+                String asientosDisponibles = String.valueOf(viaje.getNroAsientosDisponibles()); // Obtener asientos disponibles
+
+                // Añade estos datos como un arreglo unidimensional a la lista
+                horarios.add(new String[] {patenteBus, horaViaje, precioPasaje, asientosDisponibles});
+            }
+        }
+
+        // Convierte la lista a un arreglo bidimensional
+        String[][] resultado = new String[horarios.size()][4];
+        for (int i = 0; i < horarios.size(); i++) {
+            resultado[i] = horarios.get(i);
+        }
+
+        // Retorna el arreglo con los horarios disponibles, o un arreglo vacío si no hay viajes
+        return resultado;
     }
 
     public String[][] listAsientosDeViaje(LocalDate fecha, LocalTime hora, String patBus) {
