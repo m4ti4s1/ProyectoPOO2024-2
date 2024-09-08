@@ -1,6 +1,5 @@
 import java.time.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SistemaVentaPasaje {
     private ArrayList<Venta> ventas = new ArrayList<>();
@@ -95,19 +94,37 @@ public class SistemaVentaPasaje {
     }
 
     public String[][] listVentas() {
-        String[][] ventas = new String[8][8];
-        return ventas;
+        String[][] listventas = new String[ventas.size()][7];
+        for (int i=0;i<listventas.length;i++){
+            listventas[i][0]=""+ventas.get(i).getIdDocumento();
+            listventas[i][1]=""+ventas.get(i).getTipo();
+            listventas[i][2]=""+ventas.get(i).getFecha();
+            listventas[i][3]=""+ventas.get(i).getCliente().getIdPersona();
+            listventas[i][4]=""+ventas.get(i).getCliente().getNombreCompleto();
+            listventas[i][5]=""+ventas.get(i).getPasajes().length;
+            listventas[i][6]=""+ventas.get(i).getMonto();
+
+        }
+        return listventas;
     }
 
     public String[][] listViajes() {
-        String[][] pasajes = new String[8][8];
+        String[][] pasajes = new String[viajes.size()][5] ;
+        for(int i=0;i<pasajes.length;i++){
+            pasajes[i][0]=""+viajes.get(i).getFecha();
+            pasajes[i][1]=""+viajes.get(i).getHora();
+            pasajes[i][2]=""+viajes.get(i).getPrecio();
+            pasajes[i][3]=""+viajes.get(i).getNroAsientosDisponibles();
+            pasajes[i][4]=""+viajes.get(i).getBus().getPatente();
+        }
         return pasajes;
 
     }
 
     public String[][] listPasajeros(LocalDate fecha, LocalTime hora, String patBus) {
-        String[][] pasajeros = new String[8][8];
-        return pasajeros;
+        String [][]ListaPasajeros;
+        ListaPasajeros= findViaje(fecha+"",hora+"",patBus).getListaPasajeros();
+        return ListaPasajeros;
 
     }
 
