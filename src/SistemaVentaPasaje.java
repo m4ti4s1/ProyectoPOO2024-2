@@ -89,8 +89,10 @@ public class SistemaVentaPasaje {
         return null;
     }
 
-    public int vendePasaje(String idDoc, LocalDate fecha , LocalTime hora, String patBus, int asiento, IdPersona idCli, IdPersona idPas, Nombre nomPas, Nombre nomCto, String fonoCto) {
-        return 0;
+    public boolean vendePasaje(String idDoc, LocalDate fecha , LocalTime hora, String patBus, int asiento, IdPersona idCli, IdPersona idPas, Nombre nomPas, Nombre nomCto, String fonoCto) {
+         if(null==findViaje(""+fecha,""+hora,""+patBus)){return false;}
+
+        return false;
     }
 
     public String[][] listVentas() {
