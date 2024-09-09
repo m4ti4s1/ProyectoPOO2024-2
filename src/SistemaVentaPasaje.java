@@ -124,8 +124,9 @@ public class SistemaVentaPasaje {
     }
 
     public String[][] listAsientosDeViaje(LocalDate fecha, LocalTime hora, String patBus) {
-        String[][] asientos= new String[3][3];
-        return asientos;
+        if(null==findViaje(""+fecha,""+hora,patBus)){return new String[][];}
+        return findViaje(""+fecha,""+hora,patBus).getAsientos();
+        
 
     }
 
@@ -147,8 +148,13 @@ public class SistemaVentaPasaje {
         return null;
     }
 
-    public boolean vendePasaje(String idDoc, LocalDate fecha , LocalTime hora, String patBus, int asiento, IdPersona idCli, IdPersona idPas, Nombre nomPas, Nombre nomCto, String fonoCto) {
+    public boolean vendePasaje(String idDoc,TipoDocumento tipo , LocalDate fecha , LocalTime hora, String patBus, int asiento, IdPersona idCli, IdPersona idPas, Nombre nomPas, Nombre nomCto, String fonoCto) {
          if(null==findViaje(""+fecha,""+hora,""+patBus)){return false;}
+         if(null==findBus(patBus)){return false;}
+         if(null==findCliente(idCli)){return false;}
+         Venta ventapasaje =new Venta(idDoc,tipo,fecha,findCliente(idCli));
+         Pasaje createPasaje=new Pasaje(asiento,findViaje(""+fecha,""+hora,""+patBus),findPasajero(idCli), ventapasaje);
+        findViaje(""+fecha,""+hora,""+patBus).addPasaje(createPasaje);
 
         return false;
     }

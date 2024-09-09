@@ -36,8 +36,21 @@ public class Pasaporte implements IdPersona {
     public String getNacionalidad() {
         return nacionalidad;
     }
-    public Pasaporte of(String numero,String nacionalidad){
+    public static Pasaporte of(String numero,String nacionalidad){
+        if(!esAlfanumerico(numero)){
+            return null;
+        }
         return new Pasaporte(numero, nacionalidad);
+    }
+    private static boolean esAlfanumerico(String texto) {
+        char[] caracteres = texto.toCharArray();
+
+        for (char c : caracteres) {
+            if (!Character.isLetterOrDigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

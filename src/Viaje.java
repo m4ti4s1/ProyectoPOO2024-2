@@ -60,7 +60,7 @@ public class Viaje {
         String [][] ListaAsientos=new String[bus.getNroAsientos()][2];
         for(int i=0;i< bus.getNroAsientos();i++){
             ListaAsientos[i][0]=""+(i+1);
-            ListaAsientos[i][1]="vacío";
+            ListaAsientos[i][1]="Vacío";
         }
         for (int i=0;i<Listapasajes.size();i++){
             ListaAsientos[(Listapasajes.get(i).getAsiento())-1][1]="Ocupado";
