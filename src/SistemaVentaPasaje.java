@@ -1,5 +1,6 @@
 import java.time.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SistemaVentaPasaje {
     private ArrayList<Venta> ventas = new ArrayList<>();
@@ -8,13 +9,61 @@ public class SistemaVentaPasaje {
     private ArrayList<Bus> buses = new ArrayList<>();
     private ArrayList<Viaje> viajes = new ArrayList<>(); // No se para que se implementa el SistemaVentaPasajes
 
+    public static void main(String[] args) {
+        SistemaVentaPasaje svp = new SistemaVentaPasaje();
+        IdPersona id1 = Pasaporte.of("11.111.111-1", "chileno");
+        IdPersona id2 = Pasaporte.of("22.222.222-2", "argentino");
+        IdPersona id3 = Pasaporte.of("33.333.333-3", "boliviano");
+        IdPersona id4 = Pasaporte.of("11.111.111-1", "chileno");
+
+
+        Nombre n1 = new Nombre();
+        n1.setNombres("Lucas Daniel");
+        n1.setApellidoPaterno("Fernandez");
+        n1.setApellidoMaterno("Garcia");
+
+        Nombre n2 = new Nombre();
+        n2.setNombres("Sofia Isabel");
+        n2.setApellidoPaterno("Martinez");
+        n2.setApellidoMaterno("Lopez");
+
+        Nombre n3 = new Nombre();
+        n3.setNombres("Carlos Alberto");
+        n3.setApellidoPaterno("Rodriguez");
+        n3.setApellidoMaterno("Silva");
+
+        Nombre n4 = new Nombre();
+        n4.setNombres("Carlos Alberto");
+        n4.setApellidoPaterno("Rodriguez");
+        n4.setApellidoMaterno("Silva");
+
+        /*
+         * Verificado que la creacion de clientes no acepta duplicados
+
+        System.out.println(svp.createCliente(id1, n1, "123", "23@gmail.com"));
+        System.out.println(svp.createCliente(id2, n2, "123", "23@gmail.com"));
+        System.out.println(svp.createCliente(id3, n3, "123", "23@gmail.com"));
+        System.out.println(svp.createCliente(id4, n4, "123", "23@gmail.com"));
+
+         * Verificado que la creacion de pasajeros no acepta duplicados
+        System.out.println(svp.createPasajero(id1, n1, "123", n1, "123"));
+        System.out.println(svp.createPasajero(id2, n2, "123", n2,  "123"));
+        System.out.println(svp.createPasajero(id3, n3, "123", n3, "123"));
+        System.out.println(svp.createPasajero(id4, n4, "123", n4, "123"));
+
+         */
+
+
+
+    }
+
+    // Verificado
     public boolean createCliente(IdPersona id, Nombre nom, String fono, String email) {
         Cliente cliente = new Cliente(id, nom, email);
         cliente.setTelefono(fono);
 
         if (findCliente(id) == null) {
             clientes.add(cliente);
-            System.out.println(cliente);
             return true;
         } else {
             return false;
@@ -22,12 +71,12 @@ public class SistemaVentaPasaje {
         }
     }
 
+
     public boolean createPasajero(IdPersona id, Nombre nom, String fono, Nombre nomContacto, String fonoContacto){
         Pasajero pasajero  = new Pasajero(id, nom);
         pasajero.setTelefono(fono);
         pasajero.setNomContacto(nomContacto);
         pasajero.setFonoContancto(fonoContacto);
-
 
         if (findPasajero(id) != null){
             return false;
@@ -192,7 +241,7 @@ public class SistemaVentaPasaje {
 
     private Cliente findCliente(IdPersona id) {
         for (Cliente cliente : clientes) {
-            if (cliente.getIdPersona() == id) {
+            if (Objects.equals(cliente.getIdPersona(), id)) {
                 return cliente;
             }
         }
@@ -230,7 +279,7 @@ public class SistemaVentaPasaje {
 
     private Pasajero findPasajero(IdPersona idPersona) {
         for (Pasajero pasajero : pasajeros) {
-            if (pasajero.getIdPersona() == idPersona) {
+            if (Objects.equals(pasajero.getIdPersona(), idPersona)) {
                 return pasajero;
             }
         }

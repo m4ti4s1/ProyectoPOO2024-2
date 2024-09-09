@@ -63,18 +63,22 @@ public class Main {
         System.out.print("Rut[1] o Pasaporte[2] : ");
         int tipoDocumento = elegirOpc(2, sc);
         IdPersona idPersona = null;
-
+        String rut = "";
+        String numero = "";
+        String nacionalidad = "";
         switch(tipoDocumento) {
             case 1:
                 // Rut
-                String rut = sc.nextLine();
+                rut = sc.next();
                 idPersona = Rut.of(rut);
 
                 break;
             case 2:
                 // Pasaporte
-                String numero = sc.next();
-                String nacionalidad = sc.next();
+                System.out.print("Ingresa numero de pasaporte: ");
+                numero = sc.next();
+                System.out.print("Ingresa nacionalidad: ");
+                nacionalidad = sc.next();
 
                 idPersona = Pasaporte.of(numero, nacionalidad);
                 break;
@@ -83,7 +87,7 @@ public class Main {
 
         Nombre nombreCliente = new Nombre();
 
-        System.out.print("\nSr. [1] o Sra. [2]: ");
+        System.out.print("Sr. [1] o Sra. [2]: ");
         int opcTratamiento = elegirOpc(2, sc);
         switch(opcTratamiento) {
             case 1:
@@ -94,30 +98,49 @@ public class Main {
                 break;
         }
 
-        System.out.print("\nNombres: ");
+        System.out.println("Nombres");
+        System.out.print("  Primer nombre: ");
         String primerNombre = sc.next();
+        System.out.print("  Segundo nombre: ");
         String segundoNombre = sc.next();
         nombreCliente.setNombres(primerNombre + " " + segundoNombre);
 
-        System.out.print("\nApellido Paterno: ");
+        System.out.print("Apellido Paterno: ");
         String apellidoPaterno = sc.next();
         nombreCliente.setApellidoPaterno(apellidoPaterno);
 
-        System.out.print("\nApellido Materno: ");
+        System.out.print("Apellido Materno: ");
         String apellidoMaterno = sc.next();
         nombreCliente.setApellidoMaterno(apellidoMaterno);
 
-        System.out.print("\nTelefono Movil: ");
+        System.out.print("Telefono Movil: ");
         String telefono = sc.next();
 
 
-        System.out.print("\nEmail: ");
+        System.out.print("Email: ");
         String email = sc.next();
 
         if (!(svp.createCliente(idPersona, nombreCliente,telefono, email))) {
             System.out.println("Cliente ya existe");
         } else {
-            System.out.println("Cliente creado exitosamente");
+            System.out.println("\n....:::: Crear un nuevo Cliente ::::....\n");
+            System.out.printf("%25s %d%n", "Rut[1] o Pasaporte[2] :", tipoDocumento);
+            switch(tipoDocumento) {
+                case 1:
+                    System.out.printf("%25s %s%n", "R.U.T :", rut);
+                    break;
+                case 2:
+                    System.out.printf("%25s %s%n", "Numero :", numero);
+                    System.out.printf("%25s %s%n", "Nacionalidad :", nacionalidad);
+                    break;
+            }
+            System.out.printf("%25s %d%n", "Sr.[1] o Sra.[2] :", opcTratamiento);
+            System.out.printf("%25s %s%n", "Nombres :", primerNombre + " " + segundoNombre);
+            System.out.printf("%25s %s%n", "Apellido Paterno :", apellidoPaterno);
+            System.out.printf("%25s %s%n", "Apellido Materno :", apellidoMaterno);
+            System.out.printf("%25s %s%n", "Telefono movil :", telefono);
+            System.out.printf("%25s %s%n", "Email :", email);
+            System.out.println("\n....:::: Cliente guardado exitosamente ::::....");
         }
 
     }
@@ -152,7 +175,6 @@ public class Main {
         boolean valido = false;
         while (!valido) {
             opc = sc.nextInt();
-
 
             if (opc > 0 && opc <= cantOpciones){
                 valido = true;
