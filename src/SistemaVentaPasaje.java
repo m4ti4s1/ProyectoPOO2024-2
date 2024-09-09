@@ -10,13 +10,15 @@ public class SistemaVentaPasaje {
 
     public boolean createCliente(IdPersona id, Nombre nom, String fono, String email) {
         Cliente cliente = new Cliente(id, nom, email);
-        if (findCliente(id) != null) {
-            //logica para cliente que ya existe
-            return false;
-        } else {
-            //mensaje para cliente creado exitosamente
+        cliente.setTelefono(fono);
+
+        if (findCliente(id) == null) {
             clientes.add(cliente);
+            System.out.println(cliente);
             return true;
+        } else {
+            return false;
+            //mensaje para cliente creado exitosamente
         }
     }
 

@@ -59,19 +59,67 @@ public class Main {
 
     private void createCliente(Scanner sc) {
         System.out.println("...::: Crear un nuevo Cliente :::...");
+
         System.out.print("Rut[1] o Pasaporte[2] : ");
         int tipoDocumento = elegirOpc(2, sc);
+        IdPersona idPersona = null;
+
         switch(tipoDocumento) {
             case 1:
                 // Rut
-                String rut = sc.next();
+                String rut = sc.nextLine();
+                idPersona = Rut.of(rut);
 
-                //Rut rutCliente = new Rut(Rut.of(rut));
                 break;
             case 2:
                 // Pasaporte
+                String numero = sc.next();
+                String nacionalidad = sc.next();
+
+                idPersona = Pasaporte.of(numero, nacionalidad);
                 break;
         }
+
+
+        Nombre nombreCliente = new Nombre();
+
+        System.out.print("\nSr. [1] o Sra. [2]: ");
+        int opcTratamiento = elegirOpc(2, sc);
+        switch(opcTratamiento) {
+            case 1:
+                nombreCliente.setTratamiento(Tratamiento.valueOf("SR"));
+                break;
+            case 2:
+                nombreCliente.setTratamiento(Tratamiento.valueOf("SRA"));
+                break;
+        }
+
+        System.out.print("\nNombres: ");
+        String primerNombre = sc.next();
+        String segundoNombre = sc.next();
+        nombreCliente.setNombres(primerNombre + " " + segundoNombre);
+
+        System.out.print("\nApellido Paterno: ");
+        String apellidoPaterno = sc.next();
+        nombreCliente.setApellidoPaterno(apellidoPaterno);
+
+        System.out.print("\nApellido Materno: ");
+        String apellidoMaterno = sc.next();
+        nombreCliente.setApellidoMaterno(apellidoMaterno);
+
+        System.out.print("\nTelefono Movil: ");
+        String telefono = sc.next();
+
+
+        System.out.print("\nEmail: ");
+        String email = sc.next();
+
+        if (!(svp.createCliente(idPersona, nombreCliente,telefono, email))) {
+            System.out.println("Cliente ya existe");
+        } else {
+            System.out.println("Cliente creado exitosamente");
+        }
+
     }
 
     private void createBus() {
@@ -105,7 +153,6 @@ public class Main {
         while (!valido) {
             opc = sc.nextInt();
 
-            System.out.println();
 
             if (opc > 0 && opc <= cantOpciones){
                 valido = true;

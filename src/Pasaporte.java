@@ -36,7 +36,8 @@ public class Pasaporte implements IdPersona {
     public String getNacionalidad() {
         return nacionalidad;
     }
-    public Pasaporte of(String numero,String nacionalidad){
+
+    public static Pasaporte of(String numero,String nacionalidad){
         return new Pasaporte(numero, nacionalidad);
     }
 
