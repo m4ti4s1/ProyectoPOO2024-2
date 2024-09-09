@@ -94,12 +94,14 @@ public class Rut implements IdPersona {
         for (int i = 0; i < toChar.length ; i++) {
             if (toChar[i] == '.' || toChar[i] == '-') {
                 num++;
+
             }
         }
         if(num!=3){
             System.out.println("--- El Formato No es el Correcto ---");return false;}
         char[] rutvacio = new char[20];
         int cont = 0;
+
         for (int i = 0; i < toChar.length ; i++) {
             if (toChar[i] == '-' ){
                 break;

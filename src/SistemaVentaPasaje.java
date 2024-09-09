@@ -175,7 +175,8 @@ public class SistemaVentaPasaje {
     }
 
     public String[][] listAsientosDeViaje(LocalDate fecha, LocalTime hora, String patBus) {
-        if(null==findViaje(""+fecha,""+hora,patBus)){return new String[][];}
+
+        if(null==findViaje(""+fecha,""+hora,patBus)){return new String[][]{{"0"}};}
         return findViaje(""+fecha,""+hora,patBus).getAsientos();
         
 
