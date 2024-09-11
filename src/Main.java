@@ -211,14 +211,12 @@ public class Main {
         switch (op){
             case 1:
                 System.out.println("R.U.T : ");String idRUT=sc.next();
-                Rut id= Rut.of(idRUT);
-                svp.getNombrePasajero(id);
+                System.out.println("\nNombre Cliente : "+svp.getNombrePasajero(Rut.of(idRUT)));
                 break;
             case 2:
                 System.out.println("..::Pasaporte::.. \n-Nacionalidad : ");String nacionalidad=sc.next();
                 System.out.println("-Numero Documento : ");String num=sc.next();
-                Pasaporte pasaporte= Pasaporte.of(num,nacionalidad);
-
+                System.out.println("\nNombre Cliente : "+svp.getNombrePasajero(Pasaporte.of(num,nacionalidad)));
                 break;
         }
 
