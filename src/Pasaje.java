@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 public class Pasaje {
     private long numero;
     private int asiento;
@@ -6,7 +9,10 @@ public class Pasaje {
     private Venta venta;
 
     public Pasaje(int asiento, Viaje viaje, Pasajero pasajero, Venta venta) {
-        this.numero = numero;
+
+        LocalDateTime now = LocalDateTime.now();
+        long timestamp = now.toInstant(ZoneOffset.UTC).toEpochMilli();
+        this.numero = timestamp;
         this.asiento = asiento;
         this.viaje = viaje;
         this.pasajero = pasajero;
