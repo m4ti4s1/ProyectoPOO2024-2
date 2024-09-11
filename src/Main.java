@@ -1,5 +1,6 @@
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Main {
     Scanner sc = new Scanner(System.in);
@@ -200,6 +201,27 @@ public class Main {
 
     private void vendePasaje() {
 
+        System.out.println(".....::: Venta de Pasajes:::....");
+        System.out.printf("%n %n %n %s %n",":::Datos de venta");
+        System.out.println("ID Documento : "); String IdDocumento = sc.next();
+        System.out.println("Tipo Documento : [1] Boleta [2] Factura : ");int tipoDocumento=sc.nextInt();
+        System.out.println("Fecha de venta[dd/mm/yyyy] : ");String fecha=sc.next();
+        System.out.printf("%n %n %n %s %n %n",":::: Datos del Cliente");
+        System.out.println("Rut [1] o Pasaporte [2] : ");int op=sc.nextInt();
+        switch (op){
+            case 1:
+                System.out.println("R.U.T : ");String idRUT=sc.next();
+                Rut id= Rut.of(idRUT);
+                svp.getNombrePasajero(id);
+                break;
+            case 2:
+                System.out.println("..::Pasaporte::.. \n-Nacionalidad : ");String nacionalidad=sc.next();
+                System.out.println("-Numero Documento : ");String num=sc.next();
+                Pasaporte pasaporte= Pasaporte.of(num,nacionalidad);
+
+                break;
+        }
+
     }
 
     private void listPasajerosViaje() {
@@ -228,5 +250,10 @@ public class Main {
             }
         }
         return opc;
+    }
+    private  static void limpiarConsola() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
     }
 }

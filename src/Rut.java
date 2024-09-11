@@ -6,7 +6,7 @@ public class Rut implements IdPersona {
     private int numero;
     private char dv;
 
-    public Rut(int num, char dv) {
+    private Rut(int num, char dv) {
         this.numero = num;
         this.dv = dv;
     }
