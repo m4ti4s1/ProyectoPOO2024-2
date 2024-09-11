@@ -3,8 +3,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Main {
-    Scanner sc = new Scanner(System.in);
-    SistemaVentaPasaje svp = new SistemaVentaPasaje();
+    private Scanner sc = new Scanner(System.in);
+    private SistemaVentaPasaje svp = new SistemaVentaPasaje();
 
 
     public static void main(String[] args) {
@@ -14,11 +14,11 @@ public class Main {
 
         do {
             main.menu();
-            opc = main.elegirOpc(8, sc);
+            opc = main.elegirOpc(8);
 
             switch(opc) {
                 case 1:
-                    main.createCliente(sc);
+                    main.createCliente();
                     break;
                 case 2:
                     main.createBus();
@@ -58,13 +58,15 @@ public class Main {
         System.out.println("8) Salir");
         System.out.println("----------------------------");
         System.out.print("..:: Ingrese numero de opcion: ");
+        elegirOpc(8);
     }
 
-    private void createCliente(Scanner sc) {
+    private void createCliente() {
+        Scanner sc = new Scanner(System.in);
         System.out.println("...::: Crear un nuevo Cliente :::...");
 
         System.out.print("Rut[1] o Pasaporte[2] : ");
-        int tipoDocumento = elegirOpc(2, sc);
+        int tipoDocumento = elegirOpc(2);
         IdPersona idPersona = null;
         String rut = "";
         String numero = "";
@@ -91,7 +93,7 @@ public class Main {
         Nombre nombreCliente = new Nombre();
 
         System.out.print("Sr. [1] o Sra. [2]: ");
-        int opcTratamiento = elegirOpc(2, sc);
+        int opcTratamiento = elegirOpc(2);
         switch(opcTratamiento) {
             case 1:
                 nombreCliente.setTratamiento(Tratamiento.valueOf("SR"));
@@ -234,7 +236,8 @@ public class Main {
 
     }
 
-    private int elegirOpc(int cantOpciones, Scanner sc) {
+    private int elegirOpc(int cantOpciones) {
+        Scanner sc = new Scanner(System.in);
         int opc = 0;
 
         boolean valido = false;
