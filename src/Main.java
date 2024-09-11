@@ -1,3 +1,5 @@
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 public class Main {
     Scanner sc = new Scanner(System.in);
@@ -146,11 +148,53 @@ public class Main {
     }
 
     private void createBus() {
+        System.out.println("...::: Creacion de un nuevo BUS :::....");
+        System.out.print("Patente : ");
+        String patente = sc.next();
+        sc.nextLine();
 
+        System.out.print("Marca : ");
+        String marca = sc.nextLine();
+
+        System.out.print("Modelo : ");
+        String modelo = sc.nextLine();
+
+        System.out.print("Número de asientos : ");
+        int nroAsientos = sc.nextInt();
+        sc.nextLine();
+
+        if (svp.createBus(patente, marca, modelo, nroAsientos)) {
+            System.out.println("\n...:::: Bus guardado exitosamente ::::....");
+        } else {
+            System.out.println("\n...:::: Ya existe un bus con esa patente ::::....");
+        }
     }
 
     private void createViaje() {
+        System.out.println("...::: Creacion de un nuevo Viaje :::....");
 
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        System.out.print("Fecha [dd/mm/yyyy] : ");
+        String fechaStr = sc.nextLine();
+        LocalDate fecha = LocalDate.parse(fechaStr, dateFormatter);
+
+        System.out.print("Hora [hh:mm] : ");
+        String horaStr = sc.nextLine();
+        LocalTime hora = LocalTime.parse(horaStr, timeFormatter);
+
+        System.out.print("Precio : ");
+        int precio = sc.nextInt();
+
+        System.out.print("Patente Bus: ");
+        String patente = sc.next();
+
+        if (svp.createViaje(fecha, hora, precio, patente)) {
+            System.out.println("\n...:::: Viaje guardado exitosamente ::::....");
+        } else {
+            System.out.println("\n...:::: No se pudo crear el viaje. Verifica los datos ::::....");
+        }
     }
 
     private void vendePasaje() {
