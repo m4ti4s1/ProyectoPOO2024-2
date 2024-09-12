@@ -3,14 +3,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Main {
-    private Scanner sc = new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in);
     private SistemaVentaPasaje svp = new SistemaVentaPasaje();
 
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         Main main = new Main();
         int opc = 0;
+
 
         do {
             main.menu();
@@ -43,10 +43,11 @@ public class Main {
                     break;
             }
         } while (opc != 8);
+
     }
 
     private void menu() {
-        System.out.println("============================");
+        System.out.println("\n============================");
         System.out.println("...::: Menu principal :::...\n");
         System.out.println("1) Crear cliente");
         System.out.println("2) Crear bus");
@@ -58,32 +59,29 @@ public class Main {
         System.out.println("8) Salir");
         System.out.println("----------------------------");
         System.out.print("..:: Ingrese numero de opcion: ");
-        elegirOpc(8);
     }
 
     private void createCliente() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("...::: Crear un nuevo Cliente :::...");
+        System.out.println("...::: Crear un nuevo Cliente :::...\n");
 
-        System.out.print("Rut[1] o Pasaporte[2] : ");
-        int tipoDocumento = elegirOpc(2);
+        int tipoDocumento = leeOpc("Rut[1] o Pasaporte[2]", 2);
+
         IdPersona idPersona = null;
         String rut = "";
         String numero = "";
         String nacionalidad = "";
+
         switch(tipoDocumento) {
             case 1:
                 // Rut
-                rut = sc.next();
+                rut = leeString("R.U.T");
                 idPersona = Rut.of(rut);
 
                 break;
             case 2:
                 // Pasaporte
-                System.out.print("Ingresa numero de pasaporte: ");
-                numero = sc.next();
-                System.out.print("Ingresa nacionalidad: ");
-                nacionalidad = sc.next();
+                numero = leeString("Numero");
+                nacionalidad = leeString("Nacionalidad");
 
                 idPersona = Pasaporte.of(numero, nacionalidad);
                 break;
@@ -92,8 +90,9 @@ public class Main {
 
         Nombre nombreCliente = new Nombre();
 
-        System.out.print("Sr. [1] o Sra. [2]: ");
-        int opcTratamiento = elegirOpc(2);
+
+        int opcTratamiento = leeOpc("Sr. [1] o Sra. [2]", 2);
+
         switch(opcTratamiento) {
             case 1:
                 nombreCliente.setTratamiento(Tratamiento.valueOf("SR"));
@@ -103,68 +102,37 @@ public class Main {
                 break;
         }
 
-        System.out.println("Nombres");
-        System.out.print("  Primer nombre: ");
-        String primerNombre = sc.next();
-        System.out.print("  Segundo nombre: ");
-        String segundoNombre = sc.next();
-        nombreCliente.setNombres(primerNombre + " " + segundoNombre);
+        String nombres = leeString("Nombres");
+        nombreCliente.setNombres(nombres);
 
-        System.out.print("Apellido Paterno: ");
-        String apellidoPaterno = sc.next();
+        String apellidoPaterno = leeString("Apellido Paterno");
         nombreCliente.setApellidoPaterno(apellidoPaterno);
 
-        System.out.print("Apellido Materno: ");
-        String apellidoMaterno = sc.next();
+        String apellidoMaterno = leeString("Apellido Materno");
         nombreCliente.setApellidoMaterno(apellidoMaterno);
 
-        System.out.print("Telefono Movil: ");
-        String telefono = sc.next();
+        String telefono = leeString("Telefono Movil");
 
 
-        System.out.print("Email: ");
-        String email = sc.next();
+        String email = leeString("Email");
 
         if (!(svp.createCliente(idPersona, nombreCliente,telefono, email))) {
-            System.out.println("Cliente ya existe");
+            System.out.println("\n....:::: Cliente ya existe ::::....\n");
         } else {
-            System.out.println("\n....:::: Crear un nuevo Cliente ::::....\n");
-            System.out.printf("%25s %d%n", "Rut[1] o Pasaporte[2] :", tipoDocumento);
-            switch(tipoDocumento) {
-                case 1:
-                    System.out.printf("%25s %s%n", "R.U.T :", rut);
-                    break;
-                case 2:
-                    System.out.printf("%25s %s%n", "Numero :", numero);
-                    System.out.printf("%25s %s%n", "Nacionalidad :", nacionalidad);
-                    break;
-            }
-            System.out.printf("%25s %d%n", "Sr.[1] o Sra.[2] :", opcTratamiento);
-            System.out.printf("%25s %s%n", "Nombres :", primerNombre + " " + segundoNombre);
-            System.out.printf("%25s %s%n", "Apellido Paterno :", apellidoPaterno);
-            System.out.printf("%25s %s%n", "Apellido Materno :", apellidoMaterno);
-            System.out.printf("%25s %s%n", "Telefono movil :", telefono);
-            System.out.printf("%25s %s%n", "Email :", email);
-            System.out.println("\n....:::: Cliente guardado exitosamente ::::....");
+            System.out.println("\n....:::: Cliente guardado exitosamente ::::....\n");
         }
 
     }
 
     private void createBus() {
-        System.out.println("...::: Creacion de un nuevo BUS :::....");
-        System.out.print("Patente : ");
-        String patente = sc.next();
-        sc.nextLine();
+        System.out.println("...::: Creacion de un nuevo BUS :::....\n");
+        String patente = leeString("Patente");
 
-        System.out.print("Marca : ");
-        String marca = sc.nextLine();
+        String marca = leeString("Marca");
 
-        System.out.print("Modelo : ");
-        String modelo = sc.nextLine();
+        String modelo = leeString("Modelo");
 
-        System.out.print("Número de asientos : ");
-        int nroAsientos = sc.nextInt();
-        sc.nextLine();
+        int nroAsientos = Integer.parseInt(leeString("Numero de asientos"));
 
         if (svp.createBus(patente, marca, modelo, nroAsientos)) {
             System.out.println("\n...:::: Bus guardado exitosamente ::::....");
@@ -237,7 +205,6 @@ public class Main {
     }
 
     private int elegirOpc(int cantOpciones) {
-        Scanner sc = new Scanner(System.in);
         int opc = 0;
 
         boolean valido = false;
@@ -256,5 +223,22 @@ public class Main {
         for (int i = 0; i < 50; i++) {
             System.out.println();
         }
+    }
+
+
+    // metodos para leer string e ints de opciones para los reportes
+    private String leeString(String msg){
+        sc.useDelimiter("\r\n|[\n\r\u2028\u2029\u0085,;\t]");
+        System.out.printf("%30s : ", msg);
+        return sc.next();
+    }
+    private int leeOpc(String msg, int cantOpc) {
+        int opc = 0;
+        do {
+            System.out.printf("%30s : ", msg);
+            opc = sc.nextInt();
+        } while (opc < 0 && opc > cantOpc);
+
+        return opc;
     }
 }
