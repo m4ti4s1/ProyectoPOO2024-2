@@ -11,10 +11,10 @@ public class SistemaVentaPasaje {
 
     public static void main(String[] args) {
         SistemaVentaPasaje svp = new SistemaVentaPasaje();
-        IdPersona id1 = Pasaporte.of("11.111.111-1", "chileno");
-        IdPersona id2 = Pasaporte.of("22.222.222-2", "argentino");
-        IdPersona id3 = Pasaporte.of("33.333.333-3", "boliviano");
-        IdPersona id4 = Pasaporte.of("11.111.111-1", "chileno");
+        IdPersona id1 = Pasaporte.of("1324", "chileno");
+        IdPersona id2 = Pasaporte.of("5678", "argentino");
+        IdPersona id3 = Pasaporte.of("91011", "boliviano");
+        IdPersona id4 = Pasaporte.of("1324", "chileno");
 
 
         Nombre n1 = new Nombre();
@@ -63,11 +63,13 @@ public class SistemaVentaPasaje {
         cliente.setTelefono(fono);
 
         if (findCliente(id) == null) {
+            // Cliente creado y agregado a lista de clientes
             clientes.add(cliente);
             return true;
         } else {
+
+            // El cliente ya existe y no puede ser agregado a la lista
             return false;
-            //mensaje para cliente creado exitosamente
         }
     }
 
@@ -78,11 +80,11 @@ public class SistemaVentaPasaje {
         pasajero.setNomContacto(nomContacto);
         pasajero.setFonoContancto(fonoContacto);
 
-        if (findPasajero(id) != null){
-            return false;
-        } else {
+        if (findPasajero(id) == null){
             pasajeros.add(pasajero);
             return true;
+        } else {
+            return false;
         }
 
     }
@@ -91,6 +93,7 @@ public class SistemaVentaPasaje {
         Bus bus = new Bus(patente, nroAsientos);
         bus.setMarca(marca);
         bus.setModelo(modelo);
+
         // Arreglar bus no puede utilizar contains, porque no tiene definido el equals
         if (findBus(patente) != null) {
             //logica para bus que ya existe
@@ -104,20 +107,22 @@ public class SistemaVentaPasaje {
 
     public boolean createViaje(LocalDate fecha, LocalTime hora, int precio, String patente) {
 
-        Viaje viaje = new Viaje(fecha, hora, precio, findBus(patente));
 
+        // verificar si existe el bus
         if (findBus(patente) != null) {
+            Viaje viaje = new Viaje(fecha, hora, precio, findBus(patente));
+
             // si existe el viaje
-            if (findViaje(fecha.toString() , hora.toString() , patente) != null) {
+            if (findViaje(fecha.toString() , hora.toString() , patente) == null) {
                 // viaje existe en el bus
-                return false;
-            } else {
                 viajes.add(viaje);
                 return true;
+            } else {
+                return false;
             }
 
         } else {
-            //logica bus no existe, viaje no se puede crear
+            // Bus no existe, viaje no se puede crear
             return false;
         }
     }
@@ -135,14 +140,28 @@ public class SistemaVentaPasaje {
         if (ventaExistente != null) {
             return false; // Ya existe una venta con este idDocumento y tipoDocumento
         }
+        /*
+        pasajes[i][0]=""+viajes.get(i).getFecha();
+        pasajes[i][1]=""+viajes.get(i).getHora();
+        pasajes[i][2]=""+viajes.get(i).getPrecio();
+        pasajes[i][3]=""+viajes.get(i).getNroAsientosDisponibles();
+        pasajes[i][4]=""+viajes.get(i).getBus().getPatente();
+        */
+        //! Falta Agregar la verificacion si asientos disponibles para la fecha indicada en algun viaje
+        String[][] viajes = listViajes();
 
-        // Crear una nueva venta
-        Venta nuevaVenta = new Venta(idDoc, tipo, fecha, cliente);
+        for (int i = 0; i < viajes.length; i++) {
+            // Verificar si existe un viaje a esa hora y asientos disponibles en ese viaje
+            if ((viajes[i][0].equals(""+fecha)) && (Integer.parseInt(viajes[i][3]) > 0)) {
 
-        // Añadir la venta directamente a la lista de ventas
-        ventas.add(nuevaVenta);
+                // Crear una nueva venta y agregarla a la lista
+                Venta nuevaVenta = new Venta(idDoc, tipo, fecha, cliente);
+                ventas.add(nuevaVenta);
 
-        return true; // Venta creada exitosamente
+                return true; // Venta creada exitosamente
+            }
+        }
+        return false;
     }
 
     public String[][] getHorariosDisponibles(LocalDate fechaViaje) {
