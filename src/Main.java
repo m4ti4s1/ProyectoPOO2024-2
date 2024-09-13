@@ -169,8 +169,10 @@ public class Main {
         System.out.println(".....::: Venta de Pasajes:::....");
         System.out.printf("%n %n %n %s %n",":::Datos de venta");
         System.out.println("ID Documento : "); String IdDocumento = sc.next();
-        System.out.println("Tipo Documento : [1] Boleta [2] Factura : ");int tipoDocumento=sc.nextInt();
-        System.out.println("Fecha de venta[dd/mm/yyyy] : ");String fecha=sc.next();
+        System.out.println("Tipo Documento : [1] Boleta [2] Factura : ");int tipo=sc.nextInt();
+        TipoDocumento tipoDocumento= TipoDocumento.valueOf("BOLETA");
+        if(tipo==2){tipoDocumento= TipoDocumento.valueOf("FACTURA");}
+        System.out.println("Fecha de venta[dd/mm/yyyy] : ");String fecha=sc.next();//feca venta
         System.out.printf("%n %n %n %s %n %n",":::: Datos del Cliente");
         System.out.println("Rut [1] o Pasaporte [2] : ");int op=sc.nextInt();
         switch (op){
@@ -181,7 +183,12 @@ public class Main {
                     return;
                 }else{
 
-                System.out.println("\nNombre Cliente : "+svp.getNombrePasajero(Rut.of(idRUT)));break;}
+                System.out.println("\nNombre Cliente : "+svp.getNombrePasajero(Rut.of(idRUT)));
+                    if(!(svp.iniciaVenta(IdDocumento,tipoDocumento,LocalDate.parse(fecha),Rut.of(idRUT)))){
+                        System.out.println("..-Ah Surgido un problema ");
+                    }
+                break;}
+
             case 2:
                 System.out.println("..::Pasaporte::.. \n-Nacionalidad : ");String nacionalidad=sc.next();
                 System.out.println("-Numero Documento : ");String num=sc.next();
@@ -190,10 +197,15 @@ public class Main {
                     return;
                 }else {
 
-                    System.out.println("\nNombre Cliente : " + svp.getNombreCliente(Pasaporte.of(num, nacionalidad)));break;}
+                    System.out.println("\nNombre Cliente : " + svp.getNombreCliente(Pasaporte.of(num, nacionalidad)));
+                    if(!(svp.iniciaVenta(IdDocumento,tipoDocumento,LocalDate.parse(fecha),Pasaporte.of(num,nacionalidad)))){
+                        System.out.println("..-Ah Surgido un problema ");
+                    }
+                    break;}
         }
+
         limpiarConsola();
-        System.out.println("::::Pasajes a Vender\n\n   Cantidad de pasajes : ");String cant=sc.next();
+        System.out.println("::::Pasajes a Vender\n\n   Cantidad de pasajes : ");int cant=sc.nextInt();
         System.out.println("Fecha de Viaje [dd/mm/yyyy] : ");String fechaViaje=sc.next();
         System.out.println("\n\n::::Listado de Horarios Disponibles");
         String [][] matrizViajes = svp.getHorariosDisponibles(LocalDate.parse(fechaViaje));
@@ -206,7 +218,25 @@ public class Main {
             System.out.printf("       +------------+----------------+------------+------------+%n");
         } //POSICION DE VIAJE ELEGIDO
         System.out.println("\n Selecione viaje en [1.."+matrizViajes.length+"] : ");int Viaje= sc.nextInt()-1;
-        String [][]matrizAsientos=svp.listAsientosDeViaje(LocalDate.parse(fechaViaje),LocalTime.parse(matrizViajes[Viaje][1]),matrizViajes[Viaje][0]);
+        String []matrizAsientos=svp.listAsientosDeViaje(LocalDate.parse(fechaViaje),LocalTime.parse(matrizViajes[Viaje][1]),matrizViajes[Viaje][0]);
+        System.out.printf("       *---*---*---*---*---*%n");
+        for (int i = 0; i < matrizAsientos.length/2; i++) {
+            int valor=i;
+            System.out.printf("       |%-2s |",matrizAsientos[i]);
+            i++;
+            System.out.printf(" %-2s|   |",matrizAsientos[i]);
+            i+=2;
+            System.out.printf(" %-2s|",matrizAsientos[i]);
+            i--;
+            System.out.printf(" %-2s|%n",matrizAsientos[i]);
+            System.out.printf("       |---+---+---+---+---|%n");
+            i++;
+        }
+        System.out.println("Seleciones su asientos[Separe por ,] : ");String asientos=sc.next();
+        int [] arregloAsientos=Separador(asientos);
+        for (int i=0;i<cant;i++) {
+        }
+        }
 
 
 
@@ -261,5 +291,14 @@ public class Main {
         } while (opc < 0 && opc > cantOpc);
 
         return opc;
+    }
+    //separa numeros por coma
+    private static int[] Separador(String numeros) {
+        String[] partes = numeros.split(",");
+        int[] arrayNumeros = new int[partes.length];
+        for (int i = 0; i < partes.length; i++) {
+            arrayNumeros[i] = Integer.parseInt(partes[i].trim());
+        }
+        return arrayNumeros;
     }
 }

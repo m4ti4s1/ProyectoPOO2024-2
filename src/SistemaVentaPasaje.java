@@ -193,11 +193,17 @@ public class SistemaVentaPasaje {
         return resultado;
     }
 
-    public String[][] listAsientosDeViaje(LocalDate fecha, LocalTime hora, String patBus) {
+    public String[] listAsientosDeViaje(LocalDate fecha, LocalTime hora, String patBus) {
 
-        if(null==findViaje(""+fecha,""+hora,patBus)){return new String[][]{{"0"}};}
-        return findViaje(""+fecha,""+hora,patBus).getAsientos();
-        
+        if(null==findViaje(""+fecha,""+hora,patBus)){return new String[]{"0"};}
+        String [][]matriz= findViaje(""+fecha,""+hora,patBus).getAsientos();
+        String []listAsientos=new String[matriz.length];
+        for (int i=0;i<listAsientos.length;i++){
+            if(matriz[i][1].equalsIgnoreCase("vacío")){
+                listAsientos[i]=""+i+1;
+            }else {listAsientos[i]="*";}
+        }
+        return listAsientos;
 
     }
 
