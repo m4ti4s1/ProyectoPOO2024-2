@@ -41,12 +41,7 @@ public class Nombre {
 
     @Override
     public String toString() {
-        return "Nombre{" +
-                "tratamiento=" + tratamiento +
-                ", nombres='" + nombres + '\'' +
-                ", apellidoPaterno='" + apellidoPaterno + '\'' +
-                ", apellidoMaterno='" + apellidoMaterno + '\'' +
-                '}';
+        return tratamiento + " " + nombres + " " + apellidoPaterno + " " + apellidoMaterno;
     }
 
     @Override
