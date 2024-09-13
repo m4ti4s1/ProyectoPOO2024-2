@@ -229,6 +229,9 @@ public class SistemaVentaPasaje {
 
         return false;
     }
+    public String getNombreCliente(IdPersona idCliente){
+    return ""+findCliente(idCliente);
+    }
 
     public String[][] listVentas() {
         String[][] listventas = new String[ventas.size()][7];

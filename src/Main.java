@@ -1,6 +1,5 @@
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Scanner;
 public class Main {
     private static Scanner sc = new Scanner(System.in);
@@ -177,14 +176,40 @@ public class Main {
         switch (op){
             case 1:
                 System.out.println("R.U.T : ");String idRUT=sc.next();
-                System.out.println("\nNombre Cliente : "+svp.getNombrePasajero(Rut.of(idRUT)));
-                break;
+                if(null==svp.getNombrePasajero(Rut.of(idRUT))){
+                    System.out.println("No se ah Encontrado al usuario");
+                    return;
+                }else{
+
+                System.out.println("\nNombre Cliente : "+svp.getNombrePasajero(Rut.of(idRUT)));break;}
             case 2:
                 System.out.println("..::Pasaporte::.. \n-Nacionalidad : ");String nacionalidad=sc.next();
                 System.out.println("-Numero Documento : ");String num=sc.next();
-                System.out.println("\nNombre Cliente : "+svp.getNombrePasajero(Pasaporte.of(num,nacionalidad)));
-                break;
+                if(null==svp.getNombrePasajero(Pasaporte.of(num,nacionalidad))){
+                    System.out.println("\nNo se ah Encontrado al Usuario");
+                    return;
+                }else {
+
+                    System.out.println("\nNombre Cliente : " + svp.getNombreCliente(Pasaporte.of(num, nacionalidad)));break;}
         }
+        limpiarConsola();
+        System.out.println("::::Pasajes a Vender\n\n   Cantidad de pasajes : ");String cant=sc.next();
+        System.out.println("Fecha de Viaje [dd/mm/yyyy] : ");String fechaViaje=sc.next();
+        System.out.println("\n\n::::Listado de Horarios Disponibles");
+        String [][] matrizViajes = svp.getHorariosDisponibles(LocalDate.parse(fechaViaje));
+        System.out.printf("       +------------+----------------+------------+------------+%n");
+        System.out.printf("       |   BUS      |     Salida     |   Valor    |  Asientos  |%n");
+        System.out.printf("       +------------+----------------+------------+------------+%n");
+        for (int i = 0; i < matrizViajes.length; i++) {
+            System.out.printf(" %-5d | %-10s | %-14s | %-10s | %-10s |%n",
+                    i + 1, matrizViajes[i][0], matrizViajes[i][1], matrizViajes[i][2], matrizViajes[i][3]);
+            System.out.printf("       +------------+----------------+------------+------------+%n");
+        } //POSICION DE VIAJE ELEGIDO
+        System.out.println("\n Selecione viaje en [1.."+matrizViajes.length+"] : ");int Viaje= sc.nextInt()-1;
+        String [][]matrizAsientos=svp.listAsientosDeViaje(LocalDate.parse(fechaViaje),LocalTime.parse(matrizViajes[Viaje][1]),matrizViajes[Viaje][0]);
+
+
+
 
     }
 
