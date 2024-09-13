@@ -147,20 +147,16 @@ public class Main {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-        System.out.print("Fecha [dd/mm/yyyy] : ");
-        String fechaStr = sc.nextLine().trim();
+        String fechaStr = leeString("Fecha [dd/mm/yyyy]");
         LocalDate fecha = LocalDate.parse(fechaStr, dateFormatter);
 
-        System.out.print("Hora [hh:mm] : ");
-        String horaStr = sc.nextLine().trim();
+        String horaStr = leeString("Hora [hh:mm]");
         LocalTime hora = LocalTime.parse(horaStr, timeFormatter);
 
-        System.out.print("Precio : ");
+        System.out.printf("%30s : ", "Precio");
         int precio = sc.nextInt();
-        sc.nextLine();
 
-        System.out.print("Patente Bus : ");
-        String patente = sc.nextLine().trim();
+        String patente = leeString("Patente Bus");
 
         if (svp.createViaje(fecha, hora, precio, patente)) {
             System.out.println("\n...:::: Viaje guardado exitosamente ::::....");
