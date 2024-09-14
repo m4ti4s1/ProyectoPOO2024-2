@@ -181,6 +181,13 @@ public class Main {
         System.out.println("...::: Creacion de un nuevo BUS :::....\n");
         String patente = leeString("Patente");
 
+        do {
+            if(!esPatenteAlfanumerica(patente)) {
+                System.out.println("La Patente debe ser alfanumerica");
+                patente = leeString("Patente");
+            }
+        } while (!esPatenteAlfanumerica(patente));
+
         String marca = leeString("Marca");
 
         String modelo = leeString("Modelo");
@@ -348,6 +355,15 @@ public class Main {
         } while (opc < 0 && opc > cantOpc);
 
         return opc;
+    }
+
+    private static boolean esPatenteAlfanumerica(String input) {
+        for (char c : input.toCharArray()) {
+            if (!Character.isLetterOrDigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 }   
     
