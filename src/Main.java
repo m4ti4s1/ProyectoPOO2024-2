@@ -7,9 +7,10 @@ public class Main {
 
 
     public static void main(String[] args) {
+
         Main main = new Main();
         int opc = 0;
-
+        main.inicia(); // cargar clientes, viajes y buses, para iniciar desde la venta
 
         do {
             main.menu();
@@ -42,6 +43,47 @@ public class Main {
                     break;
             }
         } while (opc != 8);
+
+    }
+    private void inicia() {
+        IdPersona id1 = Pasaporte.of("1234", "chileno");
+        IdPersona id2 = Rut.of("11.111.111-1");
+        IdPersona id3 = Pasaporte.of("91011", "boliviano");
+        IdPersona id4 = Pasaporte.of("1324", "chileno");
+
+
+        Nombre n1 = new Nombre();
+        n1.setNombres("Lucas Daniel");
+        n1.setApellidoPaterno("Fernandez");
+        n1.setApellidoMaterno("Garcia");
+        n1.setTratamiento(Tratamiento.valueOf("SR"));
+
+        Nombre n2 = new Nombre();
+        n2.setNombres("Sofia Isabel");
+        n2.setApellidoPaterno("Martinez");
+        n2.setApellidoMaterno("Lopez");
+        n2.setTratamiento(Tratamiento.valueOf("SRA"));
+
+        Nombre n3 = new Nombre();
+        n3.setNombres("Carlos Alberto");
+        n3.setApellidoPaterno("Rodriguez");
+        n3.setApellidoMaterno("Silva");
+
+        Nombre n4 = new Nombre();
+        n4.setNombres("Carlos Alberto");
+        n4.setApellidoPaterno("Rodriguez");
+
+        svp.createCliente(id1, n1,"95234", "matias@gmail.com"); //cliente con pasaporte
+        svp.createCliente(id2, n2,"4873", "some@gmail.com"); //cliente con rut
+
+        svp.createBus("HIID", "Mercedes", "kjfdsl", 40);
+        svp.createBus("HELLO", "Mercedes", "Benz", 80);
+
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        svp.createViaje(LocalDate.parse("20/03/2025", dateFormatter), LocalTime.parse("15:30", timeFormatter), 1000, "HIID");
+        svp.createViaje(LocalDate.parse("23/04/2025", dateFormatter), LocalTime.parse("18:00", timeFormatter), 2000, "HELLO");
 
     }
 
@@ -184,12 +226,17 @@ public class Main {
         String IdDocumento = sc.next();
         System.out.println("Tipo Documento : [1] Boleta [2] Factura : ");
         int tipo = sc.nextInt();
-        TipoDocumento tipoDocumento = TipoDocumento.valueOf("BOLETA");
-        if (tipo == 2) {
-            tipoDocumento = TipoDocumento.valueOf("FACTURA");
+        TipoDocumento tipoDocumento = null;
+        switch (tipo) {
+            case 1:
+                tipoDocumento = TipoDocumento.valueOf("BOLETA");
+            case 2:
+                tipoDocumento = TipoDocumento.valueOf("FACTURA");
         }
+
+
         System.out.println("Fecha de venta[dd/mm/yyyy] : ");
-        String fecha = sc.next();//feca venta
+        String fecha = sc.next();//fecha venta
         System.out.printf("%n %n %n %s %n %n", ":::: Datos del Cliente");
         System.out.println("Rut [1] o Pasaporte [2] : ");
         int op = sc.nextInt();
@@ -197,13 +244,13 @@ public class Main {
             case 1:
                 System.out.println("R.U.T : ");
                 String idRUT = sc.next();
-                if (null == svp.getNombrePasajero(Rut.of(idRUT))) {
+                if (null == svp.getNombreCliente(Rut.of(idRUT))) {
                     System.out.println("No se ah Encontrado al usuario");
                     return;
                 } else {
-
-                    System.out.println("\nNombre Cliente : " + svp.getNombrePasajero(Rut.of(idRUT)));
-                    if (!(svp.iniciaVenta(IdDocumento, tipoDocumento, LocalDate.parse(fecha), Rut.of(idRUT)))) {
+                    System.out.println("\nNombre Cliente : " + svp.getNombreCliente(Rut.of(idRUT)));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    if (!(svp.iniciaVenta(IdDocumento, tipoDocumento, LocalDate.parse(fecha, formatter), Rut.of(idRUT)))) {
                         System.out.println("..-Ah Surgido un problema ");
                     }
                     break;
@@ -214,7 +261,7 @@ public class Main {
                 String nacionalidad = sc.next();
                 System.out.println("-Numero Documento : ");
                 String num = sc.next();
-                if (null == svp.getNombrePasajero(Pasaporte.of(num, nacionalidad))) {
+                if (null == svp.getNombreCliente(Pasaporte.of(num, nacionalidad))) {
                     System.out.println("\nNo se ah Encontrado al Usuario");
                     return;
                 } else {
@@ -225,8 +272,12 @@ public class Main {
                     }
                     break;
                 }
+
+
         }
 
+
+        // TODO Hasta aqui, funciona bien si todos los datas son validos
 
         System.out.println("::::Pasajes a Vender\n\n   Cantidad de pasajes : ");
         int cant = sc.nextInt();

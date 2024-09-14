@@ -1,4 +1,5 @@
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -9,53 +10,6 @@ public class SistemaVentaPasajes {
     private ArrayList<Bus> buses = new ArrayList<>();
     private ArrayList<Viaje> viajes = new ArrayList<>(); // No se para que se implementa el SistemaVentaPasajes
 
-    public static void main(String[] args) {
-        SistemaVentaPasajes svp = new SistemaVentaPasajes();
-        IdPersona id1 = Pasaporte.of("1324", "chileno");
-        IdPersona id2 = Pasaporte.of("5678", "argentino");
-        IdPersona id3 = Pasaporte.of("91011", "boliviano");
-        IdPersona id4 = Pasaporte.of("1324", "chileno");
-
-
-        Nombre n1 = new Nombre();
-        n1.setNombres("Lucas Daniel");
-        n1.setApellidoPaterno("Fernandez");
-        n1.setApellidoMaterno("Garcia");
-
-        Nombre n2 = new Nombre();
-        n2.setNombres("Sofia Isabel");
-        n2.setApellidoPaterno("Martinez");
-        n2.setApellidoMaterno("Lopez");
-
-        Nombre n3 = new Nombre();
-        n3.setNombres("Carlos Alberto");
-        n3.setApellidoPaterno("Rodriguez");
-        n3.setApellidoMaterno("Silva");
-
-        Nombre n4 = new Nombre();
-        n4.setNombres("Carlos Alberto");
-        n4.setApellidoPaterno("Rodriguez");
-        n4.setApellidoMaterno("Silva");
-
-        /*
-         * Verificado que la creacion de clientes no acepta duplicados
-
-        System.out.println(svp.createCliente(id1, n1, "123", "23@gmail.com"));
-        System.out.println(svp.createCliente(id2, n2, "123", "23@gmail.com"));
-        System.out.println(svp.createCliente(id3, n3, "123", "23@gmail.com"));
-        System.out.println(svp.createCliente(id4, n4, "123", "23@gmail.com"));
-
-         * Verificado que la creacion de pasajeros no acepta duplicados
-        System.out.println(svp.createPasajero(id1, n1, "123", n1, "123"));
-        System.out.println(svp.createPasajero(id2, n2, "123", n2,  "123"));
-        System.out.println(svp.createPasajero(id3, n3, "123", n3, "123"));
-        System.out.println(svp.createPasajero(id4, n4, "123", n4, "123"));
-
-         */
-
-
-
-    }
 
     // Verificado
     public boolean createCliente(IdPersona id, Nombre nom, String fono, String email) {
@@ -132,36 +86,28 @@ public class SistemaVentaPasajes {
         // Verificar si el cliente existe
         Cliente cliente = findCliente(idCliente);
         if (cliente == null) {
+            System.out.println("Cliente no existe error");
             return false; // El cliente no existe
         }
 
         // Verificar si ya existe una venta con el mismo idDocumento y tipoDocumento
         Venta ventaExistente = findVenta(idDoc, tipo);
         if (ventaExistente != null) {
+            System.out.println("Venta ya existe");
             return false; // Ya existe una venta con este idDocumento y tipoDocumento
         }
-        /*
-        pasajes[i][0]=""+viajes.get(i).getFecha();
-        pasajes[i][1]=""+viajes.get(i).getHora();
-        pasajes[i][2]=""+viajes.get(i).getPrecio();
-        pasajes[i][3]=""+viajes.get(i).getNroAsientosDisponibles();
-        pasajes[i][4]=""+viajes.get(i).getBus().getPatente();
-        */
-        //! Falta Agregar la verificacion si asientos disponibles para la fecha indicada en algun viaje
-        String[][] viajes = listViajes();
 
-        for (int i = 0; i < viajes.length; i++) {
-            // Verificar si existe un viaje a esa hora y asientos disponibles en ese viaje
-            if ((viajes[i][0].equals(""+fecha)) && (Integer.parseInt(viajes[i][3]) > 0)) {
+        // ! Falta verificar si existe una venta similar
 
-                // Crear una nueva venta y agregarla a la lista
-                Venta nuevaVenta = new Venta(idDoc, tipo, fecha, cliente);
-                ventas.add(nuevaVenta);
-
-                return true; // Venta creada exitosamente
-            }
+        if (findVenta(idDoc, tipo) == null){
+            Venta venta = new Venta(idDoc, tipo, fecha, cliente);
+            ventas.add(venta);
+            System.out.println("Venta creada");
+            return true;
+        } else {
+            System.out.println("venta Existe, no se creo");
+            return false;
         }
-        return false;
     }
 
     public String[][] getHorariosDisponibles(LocalDate fechaViaje) {
@@ -217,7 +163,7 @@ public class SistemaVentaPasajes {
     }
 
     public String getNombrePasajero(IdPersona idPasajero) {
-        for (Pasajero pasajero : pasajeros) {
+        for (Pasajero pasajero: pasajeros) {
             if (pasajero.getIdPersona().equals(idPasajero)) {
                 return pasajero.getNombreCompleto().toString();
             }
@@ -236,7 +182,12 @@ public class SistemaVentaPasajes {
         return false;
     }
     public String getNombreCliente(IdPersona idCliente){
-    return ""+findCliente(idCliente);
+        for (Cliente cliente : clientes) {
+            if (cliente.getIdPersona().equals(idCliente)) {
+                return cliente.getNombreCompleto().toString();
+            }
+        }
+        return null;
     }
 
     public String[][] listVentas() {
