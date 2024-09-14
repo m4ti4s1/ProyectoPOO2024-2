@@ -86,14 +86,12 @@ public class SistemaVentaPasajes {
         // Verificar si el cliente existe
         Cliente cliente = findCliente(idCliente);
         if (cliente == null) {
-            System.out.println("Cliente no existe error");
             return false; // El cliente no existe
         }
 
         // Verificar si ya existe una venta con el mismo idDocumento y tipoDocumento
         Venta ventaExistente = findVenta(idDoc, tipo);
         if (ventaExistente != null) {
-            System.out.println("Venta ya existe");
             return false; // Ya existe una venta con este idDocumento y tipoDocumento
         }
 
@@ -102,10 +100,8 @@ public class SistemaVentaPasajes {
         if (findVenta(idDoc, tipo) == null){
             Venta venta = new Venta(idDoc, tipo, fecha, cliente);
             ventas.add(venta);
-            System.out.println("Venta creada");
             return true;
         } else {
-            System.out.println("venta Existe, no se creo");
             return false;
         }
     }
@@ -141,7 +137,10 @@ public class SistemaVentaPasajes {
 
     public String[] listAsientosDeViaje(LocalDate fecha, LocalTime hora, String patBus) {
 
-        if(null==findViaje(""+fecha,""+hora,patBus)){return new String[]{"0"};}
+        if(null==findViaje(""+fecha,""+hora,patBus)){
+            return new String[]{"0"};
+        }
+
         String [][]matriz= findViaje(""+fecha,""+hora,patBus).getAsientos();
         String []listAsientos=new String[matriz.length];
         for (int i=0;i<listAsientos.length;i++){

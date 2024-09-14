@@ -227,12 +227,14 @@ public class Main {
 
     private void vendePasaje() {
 
-        System.out.println(".....::: Venta de Pasajes:::....");
-        System.out.printf("%n %n %n %s %n", ":::Datos de venta");
-        System.out.println("ID Documento : ");
-        String IdDocumento = sc.next();
-        System.out.println("Tipo Documento : [1] Boleta [2] Factura : ");
-        int tipo = sc.nextInt();
+        System.out.println(".....::: Venta de Pasajes:::....\n\n");
+        System.out.println(":::Datos de venta");
+
+        String IdDocumento = leeString("ID Documento");
+
+        System.out.print("Tipo Documento : [1] Boleta [2] Factura : ");
+        int tipo = elegirOpc(2);
+
         TipoDocumento tipoDocumento = null;
         switch (tipo) {
             case 1:
@@ -242,57 +244,68 @@ public class Main {
         }
 
 
-        System.out.println("Fecha de venta[dd/mm/yyyy] : ");
-        String fecha = sc.next();//fecha venta
-        System.out.printf("%n %n %n %s %n %n", ":::: Datos del Cliente");
-        System.out.println("Rut [1] o Pasaporte [2] : ");
-        int op = sc.nextInt();
+        String fecha = leeString("Fecha de Venta [dd/mm/yyyy");
+
+        System.out.println("\n\n:::: Datos del Cliente");
+        int op = leeOpc("Rut[1] o Pasaporte[2]", 2);
+
+        IdPersona idCliente = null;
         switch (op) {
             case 1:
-                System.out.println("R.U.T : ");
-                String idRUT = sc.next();
+                String idRUT = leeString("R.U.T");
+
                 if (null == svp.getNombreCliente(Rut.of(idRUT))) {
-                    System.out.println("No se ah Encontrado al usuario");
+                    System.out.println(":::: Cliente no Encontrado");
                     return;
                 } else {
-                    System.out.println("\nNombre Cliente : " + svp.getNombreCliente(Rut.of(idRUT)));
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                    if (!(svp.iniciaVenta(IdDocumento, tipoDocumento, LocalDate.parse(fecha, formatter), Rut.of(idRUT)))) {
-                        System.out.println("..-Ah Surgido un problema ");
-                    }
+                    System.out.printf("%30s : %s", "Nombre Cliente", svp.getNombreCliente(Rut.of(idRUT)) );
+                    idCliente = Rut.of(idRUT);
                     break;
                 }
 
             case 2:
-                System.out.println("..::Pasaporte::.. \n-Nacionalidad : ");
-                String nacionalidad = sc.next();
-                System.out.println("-Numero Documento : ");
-                String num = sc.next();
+                String num = leeString("Numero Pasaporte");
+                String nacionalidad = leeString("Nacionalidad");
+
                 if (null == svp.getNombreCliente(Pasaporte.of(num, nacionalidad))) {
                     System.out.println("\nNo se ah Encontrado al Usuario");
                     return;
                 } else {
 
                     System.out.println("\nNombre Cliente : " + svp.getNombreCliente(Pasaporte.of(num, nacionalidad)));
-                    if (!(svp.iniciaVenta(IdDocumento, tipoDocumento, LocalDate.parse(fecha), Pasaporte.of(num, nacionalidad)))) {
-                        System.out.println("..-Ah Surgido un problema ");
-                    }
+
+                    idCliente = Pasaporte.of(num, nacionalidad);
                     break;
                 }
 
 
         }
 
+        // Inicializar la venta fuera del swtich
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        // TODO Hasta aqui, funciona bien si todos los datas son validos
+        // Todo: Identificar los fallos de inicializacion de la venta y desplegarlos
+        if (!(svp.iniciaVenta(IdDocumento, tipoDocumento, LocalDate.parse(fecha, formatter),idCliente))) {
+            System.out.println("....:::: Ah Surgido un problema, La venta no se pudo inicializar");
+        }
 
-        System.out.println("::::Pasajes a Vender\n\n   Cantidad de pasajes : ");
+
+
+
+
+        // TODO Hasta aqui, funciona bien si todos los datos son validos
+
+        System.out.println("\n\n::::Pasajes a Vender\n\n   Cantidad de pasajes : ");
         int cant = sc.nextInt();
         System.out.println("Fecha de Viaje [dd/mm/yyyy] : ");
         String fechaViaje = sc.next();
+
         LocalDate fechaV = LocalDate.parse(fechaViaje, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
         System.out.println("\n\n::::Listado de Horarios Disponibles");
+
         String[][] matrizViajes = svp.getHorariosDisponibles(fechaV);
+
         System.out.printf("       +------------+----------------+------------+------------+%n");
         System.out.printf("       |   BUS      |     Salida     |   Valor    |  Asientos  |%n");
         System.out.printf("       +------------+----------------+------------+------------+%n");
@@ -301,11 +314,14 @@ public class Main {
                     i + 1, matrizViajes[i][0], matrizViajes[i][1], matrizViajes[i][2], matrizViajes[i][3]);
             System.out.printf("       +------------+----------------+------------+------------+%n");
         } //POSICION DE VIAJE ELEGIDO
+
         System.out.println("\n Selecione viaje en [1.." + matrizViajes.length + "] : ");
         int Viaje = sc.nextInt() - 1;
+
         String[] matrizAsientos = svp.listAsientosDeViaje(fechaV, LocalTime.parse(matrizViajes[Viaje][1]), matrizViajes[Viaje][0]);
         System.out.printf("       *---*---*---*---*---*%n");
         for (int i = 0; i < matrizAsientos.length / 2; i++) {
+
             int valor = i;
             System.out.printf("       |%-2s |", matrizAsientos[i]);
             i++;
