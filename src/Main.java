@@ -290,8 +290,9 @@ public class Main {
         int cant = sc.nextInt();
         System.out.println("Fecha de Viaje [dd/mm/yyyy] : ");
         String fechaViaje = sc.next();
+        LocalDate fechaV = LocalDate.parse(fechaViaje, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         System.out.println("\n\n::::Listado de Horarios Disponibles");
-        String[][] matrizViajes = svp.getHorariosDisponibles(LocalDate.parse(fechaViaje));
+        String[][] matrizViajes = svp.getHorariosDisponibles(fechaV);
         System.out.printf("       +------------+----------------+------------+------------+%n");
         System.out.printf("       |   BUS      |     Salida     |   Valor    |  Asientos  |%n");
         System.out.printf("       +------------+----------------+------------+------------+%n");
@@ -302,7 +303,7 @@ public class Main {
         } //POSICION DE VIAJE ELEGIDO
         System.out.println("\n Selecione viaje en [1.." + matrizViajes.length + "] : ");
         int Viaje = sc.nextInt() - 1;
-        String[] matrizAsientos = svp.listAsientosDeViaje(LocalDate.parse(fechaViaje), LocalTime.parse(matrizViajes[Viaje][1]), matrizViajes[Viaje][0]);
+        String[] matrizAsientos = svp.listAsientosDeViaje(fechaV, LocalTime.parse(matrizViajes[Viaje][1]), matrizViajes[Viaje][0]);
         System.out.printf("       *---*---*---*---*---*%n");
         for (int i = 0; i < matrizAsientos.length / 2; i++) {
             int valor = i;
@@ -365,7 +366,7 @@ public class Main {
         }
         return true;
     }
-}   
+}
     
-    
+
 
