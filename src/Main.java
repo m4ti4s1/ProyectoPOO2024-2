@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 public class Main {
     private static Scanner sc = new Scanner(System.in);
-    private SistemaVentaPasaje svp = new SistemaVentaPasaje();
+    private SistemaVentaPasajes svp = new SistemaVentaPasajes();
 
 
     public static void main(String[] args) {

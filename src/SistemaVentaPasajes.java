@@ -2,7 +2,7 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class SistemaVentaPasaje {
+public class SistemaVentaPasajes {
     private ArrayList<Venta> ventas = new ArrayList<>();
     private ArrayList<Pasajero> pasajeros = new ArrayList<>();
     private ArrayList<Cliente> clientes = new ArrayList<>();
@@ -10,7 +10,7 @@ public class SistemaVentaPasaje {
     private ArrayList<Viaje> viajes = new ArrayList<>(); // No se para que se implementa el SistemaVentaPasajes
 
     public static void main(String[] args) {
-        SistemaVentaPasaje svp = new SistemaVentaPasaje();
+        SistemaVentaPasajes svp = new SistemaVentaPasajes();
         IdPersona id1 = Pasaporte.of("1324", "chileno");
         IdPersona id2 = Pasaporte.of("5678", "argentino");
         IdPersona id3 = Pasaporte.of("91011", "boliviano");
