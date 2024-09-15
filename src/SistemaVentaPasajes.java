@@ -145,7 +145,7 @@ public class SistemaVentaPasajes {
         String []listAsientos=new String[matriz.length];
         for (int i=0;i<listAsientos.length;i++){
             if(matriz[i][1].equalsIgnoreCase("vacío")){
-                listAsientos[i]=""+i+1;
+                listAsientos[i]=""+(i+1);
             }else {listAsientos[i]="*";}
         }
         return listAsientos;
