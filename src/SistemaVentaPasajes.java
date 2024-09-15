@@ -170,11 +170,12 @@ public class SistemaVentaPasajes {
         return null;
     }
 
-    public boolean vendePasaje(String idDoc,TipoDocumento tipo , LocalDate fecha , LocalTime hora, String patBus, int asiento, IdPersona idCli, IdPersona idPas, Nombre nomPas, Nombre nomCto, String fonoCto) {
+    public boolean vendePasaje(String idDoc,TipoDocumento tipo , LocalDate fecha , LocalTime hora, String patBus, int asiento, IdPersona idCli, IdPersona idPas, Nombre nomPas, Nombre nomCto) {
          if(null==findViaje(""+fecha,""+hora,""+patBus)){return false;}
          if(null==findBus(patBus)){return false;}
          if(null==findCliente(idCli)){return false;}
          Venta ventapasaje =new Venta(idDoc,tipo,fecha,findCliente(idCli));
+         ventas.add(ventapasaje);
          Pasaje createPasaje=new Pasaje(asiento,findViaje(""+fecha,""+hora,""+patBus),findPasajero(idCli), ventapasaje);
         findViaje(""+fecha,""+hora,""+patBus).addPasaje(createPasaje);
 

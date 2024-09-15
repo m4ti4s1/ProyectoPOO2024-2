@@ -322,7 +322,6 @@ public class Main {
         System.out.printf("       *---*---*---*---*---*%n");
         for (int i = 0; i < matrizAsientos.length ; i++) {
 
-            int valor = i;
             System.out.printf("       |%-2s |", matrizAsientos[i]);
             i++;
             System.out.printf(" %-2s|   |", matrizAsientos[i]);
@@ -335,6 +334,21 @@ public class Main {
         }
         System.out.println("Seleciones su asientos[Separe por ,] : ");
         String asientos = sc.next();
+        int [] numAsientos=separador(asientos,cant);
+        for(int i=0;i<cant;i++){
+            System.out.println("::::Datos pasajeros "+(i+1));
+            System.out.println("Rut[1] o Pasaporte[2]");int opcion= sc.nextInt();
+            switch (opcion){
+                case 1:
+                    System.out.println("R.U.T : ");String idrut=sc.next();
+                    if (null == svp.getNombrePasajero (Rut.of(idrut))) {
+                        System.out.println(":::: Cliente no Encontrado");
+
+                    }
+                    DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
+                    svp.vendePasaje(IdDocumento,tipoDocumento,LocalDate.parse(fecha),LocalTime.parse(matrizViajes[Viaje][1],formatoHora),matrizViajes[Viaje][0],numAsientos[i],idCliente,Rut.of(idrut),svp.getNombrePasajero(Rut.of(idrut)),svp.getNombreCliente(idCliente));
+            }
+        }
 
 
     }
@@ -364,7 +378,21 @@ public class Main {
         return sc.next();
     }
 //separe numero de comas
+    private int [] separador(String x,int cant){
+        char[] tochar=x.toCharArray();
+        int [] toint=new int[cant];
+        String num="";
+        int contador=0;
+        for (int i=0;i<tochar.length;i++){
 
+            if (tochar[i]==','){
+                toint[contador]=Integer.parseInt(num);
+                contador++;
+            num="";
+            }else{num=""+tochar[i];}
+        }
+        return toint;
+    }
     private int leeOpc(String msg, int cantOpc) {
         int opc = 0;
         do {
