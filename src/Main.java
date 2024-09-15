@@ -320,7 +320,7 @@ public class Main {
 
         String[] matrizAsientos = svp.listAsientosDeViaje(fechaV, LocalTime.parse(matrizViajes[Viaje][1]), matrizViajes[Viaje][0]);
         System.out.printf("       *---*---*---*---*---*%n");
-        for (int i = 0; i < matrizAsientos.length / 2; i++) {
+        for (int i = 0; i < matrizAsientos.length ; i++) {
 
             int valor = i;
             System.out.printf("       |%-2s |", matrizAsientos[i]);
@@ -363,6 +363,7 @@ public class Main {
         System.out.printf("%30s : ", msg);
         return sc.next();
     }
+//separe numero de comas
 
     private int leeOpc(String msg, int cantOpc) {
         int opc = 0;
