@@ -337,8 +337,8 @@ public class Main {
         int [] numAsientos=separador(asientos,cant);
         for(int i=0;i<cant;i++){
             System.out.println("::::Datos pasajeros "+(i+1));
-            System.out.println("Rut[1] o Pasaporte[2]");int opcion= sc.nextInt();
-            switch (opcion){
+            System.out.printf("%5s","Rut[1] o Pasaporte[2]");
+            switch (sc.nextInt()){
                 case 1:
                     System.out.println("R.U.T : ");String idrut=sc.next();
                     if (null == svp.getNombrePasajero (Rut.of(idrut))) {
@@ -350,26 +350,28 @@ public class Main {
                             case 1:newPasajero.setTratamiento(Tratamiento.valueOf("SRA"));break;
                             case 2:newPasajero.setTratamiento(Tratamiento.valueOf("SR"));break;
                         }
-
-                        System.out.println("   Ingrese nombres");newPasajero.setNombres(sc.next());
-                        System.out.println("   Apellido paterno");newPasajero.setApellidoPaterno(sc.next());
-                        System.out.println("   Apellido materno");newPasajero.setApellidoMaterno(sc.next());
+                        System.out.printf("%n %5s","Ingrese nombres");newPasajero.setNombres(sc.next());
+                        System.out.printf("%n %5s","Apellido paterno");newPasajero.setApellidoPaterno(sc.next());
+                        System.out.printf("%n %5s","Apellido materno");newPasajero.setApellidoMaterno(sc.next());
                         Nombre contacto=new Nombre();
-                        System.out.println("   Ingrese SRA[1] o SR[2] del contacto");
+                        System.out.printf("%n %5s","Ingrese SRA[1] o SR[2] del contacto");
                         switch (sc.nextInt()){
                             case 1:contacto.setTratamiento(Tratamiento.valueOf("SRA"));break;
                             case 2:contacto.setTratamiento(Tratamiento.valueOf("SR"));break;
                         }
 
-                        System.out.println("   Ingrese nombres del contacto");contacto.setNombres(sc.next());
-                        System.out.println("   Apellido paterno del contacto");contacto.setApellidoPaterno(sc.next());
-                        System.out.println("   Apellido materno del contacto");contacto.setApellidoMaterno(sc.next());
-                        System.out.println("..::Ingrese fono Pasajero");String fono=sc.next();
-                        System.out.println("..::Ingrese fono contacto");String fonocontacto=sc.next();
+                        System.out.printf("%n %5s","Ingrese nombres del contacto");contacto.setNombres(sc.next());
+                        System.out.printf("%n %5s","Apellido paterno del contacto");contacto.setApellidoPaterno(sc.next());
+                        System.out.printf("%n %5s","Apellido materno del contacto");contacto.setApellidoMaterno(sc.next());
+                        System.out.printf("%n %5s","..::Ingrese fono Pasajero");String fono=sc.next();
+                        System.out.printf("%n %5s %n","..::Ingrese fono contacto");String fonocontacto=sc.next();
                         svp.createPasajero(Rut.of(idrut),newPasajero,fono,contacto,fonocontacto);
+                        DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
+                        svp.vendePasaje(IdDocumento,tipoDocumento,LocalDate.parse(fecha),LocalTime.parse(matrizViajes[Viaje][1],formatoHora),matrizViajes[Viaje][0],numAsientos[i],idCliente,Rut.of(idrut),newPasajero,contacto);
+
                     }
                     DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
-                    svp.vendePasaje(IdDocumento,tipoDocumento,LocalDate.parse(fecha),LocalTime.parse(matrizViajes[Viaje][1],formatoHora),matrizViajes[Viaje][0],numAsientos[i],idCliente,Rut.of(idrut),svp.getNombrePasajero(Rut.of(idrut)),svp.getNombreCliente(idCliente));
+                    svp.vendePasaje(IdDocumento,tipoDocumento,LocalDate.parse(fecha),LocalTime.parse(matrizViajes[Viaje][1],formatoHora),matrizViajes[Viaje][0],numAsientos[i],idCliente,Rut.of(idrut),newPasajero,contacto);
 
             }
         }
