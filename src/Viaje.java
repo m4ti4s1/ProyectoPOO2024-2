@@ -58,6 +58,7 @@ public class Viaje {
 
     public String[][] getAsientos(){
         String [][] ListaAsientos=new String[bus.getNroAsientos()][2];
+
         for(int i=0;i< bus.getNroAsientos();i++){
             ListaAsientos[i][0]=""+(i+1);
             ListaAsientos[i][1]="Vacío";

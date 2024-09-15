@@ -141,11 +141,12 @@ public class SistemaVentaPasajes {
             return new String[]{"0"};
         }
 
-        String [][]matriz= findViaje(""+fecha,""+hora,patBus).getAsientos();
+        String[][] matriz= findViaje(""+fecha,""+hora,patBus).getAsientos();
+
         String []listAsientos=new String[matriz.length];
         for (int i=0;i<listAsientos.length;i++){
             if(matriz[i][1].equalsIgnoreCase("vacío")){
-                listAsientos[i]=""+(i+1);
+                listAsientos[i] = matriz[i][0];
             }else {listAsientos[i]="*";}
         }
         return listAsientos;
@@ -170,6 +171,7 @@ public class SistemaVentaPasajes {
         return null;
     }
 
+    /*
     public boolean vendePasaje(String idDoc,TipoDocumento tipo , LocalDate fecha , LocalTime hora, String patBus, int asiento, IdPersona idCli, IdPersona idPas, Nombre nomPas, Nombre nomCto) {
          if(null==findViaje(""+fecha,""+hora,""+patBus)){return false;}
          if(null==findBus(patBus)){return false;}
@@ -181,6 +183,32 @@ public class SistemaVentaPasajes {
 
         return false;
     }
+     */
+    public boolean vendePasaje(String idDoc,TipoDocumento tipo , LocalDate fecha, LocalTime hora, String patBus, int asiento, IdPersona idPasajero) {
+
+        // si la venta, o el viaje, o el bus o el pasajero no existen
+        if ((findVenta(idDoc, tipo) == null) || (findViaje("" + fecha, "" + hora, patBus) == null) ||
+                (findBus(patBus) == null) || (findPasajero(idPasajero) == null)) {
+            return false;
+        }
+
+        // en caso todo exista
+
+        // encontrar el pasajero y la venta correspondiente
+        Pasajero pasajero = findPasajero(idPasajero);
+        Venta venta = findVenta(idDoc, tipo);
+        Viaje viaje = findViaje("" + fecha, "" + hora, patBus);
+
+        // agregar la venta a la lista de ventas
+        ventas.add(venta);
+        // crear el pasaje y agregarlo a la lista de pasajes de la venta
+        Pasaje pasaje = new Pasaje(asiento, viaje, pasajero, venta);
+        venta.addPasaje(pasaje);
+
+        return true;
+
+    }
+
     public String getNombreCliente(IdPersona idCliente){
         for (Cliente cliente : clientes) {
             if (cliente.getIdPersona().equals(idCliente)) {
@@ -189,6 +217,7 @@ public class SistemaVentaPasajes {
         }
         return null;
     }
+
 
     public String[][] listVentas() {
         String[][] listventas = new String[ventas.size()][7];

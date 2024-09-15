@@ -19,6 +19,10 @@ public class Venta {
 
     }
 
+    public void addPasaje(Pasaje pasaje) {
+        pasajes.add(pasaje);
+    }
+
     public String getIdDocumento() {
         return idDocumento;
     }

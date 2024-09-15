@@ -318,7 +318,12 @@ public class Main {
         System.out.println("\n Selecione viaje en [1.." + matrizViajes.length + "] : ");
         int Viaje = sc.nextInt() - 1;
 
+
+        LocalTime horaV = LocalTime.parse(matrizViajes[Viaje][1], DateTimeFormatter.ofPattern("HH:mm"));
+        String patBus = matrizViajes[Viaje][0];
+
         String[] matrizAsientos = svp.listAsientosDeViaje(fechaV, LocalTime.parse(matrizViajes[Viaje][1]), matrizViajes[Viaje][0]);
+
         System.out.printf("       *---*---*---*---*---*%n");
         for (int i = 0; i < matrizAsientos.length ; i++) {
 
@@ -332,28 +337,46 @@ public class Main {
             System.out.printf("       |---+---+---+---+---|%n");
             i++;
         }
-        System.out.println("Seleciones su asientos[Separe por ,] : ");
-        String asientos = sc.next();
+
+        String asientos = leeString("Seleccione sus asientos [separe por ,]");
         int [] numAsientos=separador(asientos,cant);
-        for(int i=0;i<cant;i++){
+
+        // Todo Verificar que los asientos esten disponibles
+
+        // ciclo para cada pasaje
+        for(int i=0 ; i<cant ; i++) {
+
             System.out.println("::::Datos pasajeros "+(i+1));
-            System.out.printf("%5s","Rut[1] o Pasaporte[2]");
-            switch (sc.nextInt()){
+
+            int opcId = leeOpc("Rut[1] o Pasaporte[2]",2);
+
+            switch (opcId) {
                 case 1:
-                    System.out.println("R.U.T : ");String idrut=sc.next();
-                    if (null == svp.getNombrePasajero (Rut.of(idrut))) {
+                    // caso rut
+
+                    String idRut = leeString("R.U.T");
+
+                    if (null == svp.getNombrePasajero (Rut.of(idRut))) {
+
                         System.out.println(":::: Pasajero no Encontrado");
-                        Nombre newPasajero=new Nombre();
+
+                        Nombre newPasajero = new Nombre();
                         System.out.println("..:Cree al pasajero:..");
+
                         System.out.println("   Ingrese SRA[1] o SR[2]");
-                        switch (sc.nextInt()){
-                            case 1:newPasajero.setTratamiento(Tratamiento.valueOf("SRA"));break;
-                            case 2:newPasajero.setTratamiento(Tratamiento.valueOf("SR"));break;
+                        int opcTratamiento = leeOpc("Sr.[1] o Sra.[2]", 2);
+
+                        switch (opcTratamiento) {
+                            case 1 -> newPasajero.setTratamiento(Tratamiento.valueOf("SRA"));
+                            case 2 -> newPasajero.setTratamiento(Tratamiento.valueOf("SR"));
                         }
+
+                        // Todo Arreglar copiando el formato al crear Cliente
                         System.out.printf("%n %5s","Ingrese nombres");newPasajero.setNombres(sc.next());
                         System.out.printf("%n %5s","Apellido paterno");newPasajero.setApellidoPaterno(sc.next());
                         System.out.printf("%n %5s","Apellido materno");newPasajero.setApellidoMaterno(sc.next());
-                        Nombre contacto=new Nombre();
+
+                        Nombre contacto = new Nombre();
                         System.out.printf("%n %5s","Ingrese SRA[1] o SR[2] del contacto");
                         switch (sc.nextInt()){
                             case 1:contacto.setTratamiento(Tratamiento.valueOf("SRA"));break;
@@ -365,16 +388,64 @@ public class Main {
                         System.out.printf("%n %5s","Apellido materno del contacto");contacto.setApellidoMaterno(sc.next());
                         System.out.printf("%n %5s","..::Ingrese fono Pasajero");String fono=sc.next();
                         System.out.printf("%n %5s %n","..::Ingrese fono contacto");String fonocontacto=sc.next();
-                        svp.createPasajero(Rut.of(idrut),newPasajero,fono,contacto,fonocontacto);
-                        DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
-                        svp.vendePasaje(IdDocumento,tipoDocumento,LocalDate.parse(fecha),LocalTime.parse(matrizViajes[Viaje][1],formatoHora),matrizViajes[Viaje][0],numAsientos[i],idCliente,Rut.of(idrut),newPasajero,contacto);
+
+                        svp.createPasajero(Rut.of(idRut), newPasajero, fono, contacto, fonocontacto);
+
 
                     }
-                    DateTimeFormatter formatoHora=DateTimeFormatter.ofPattern("HH:mm");
-                    svp.vendePasaje(IdDocumento,tipoDocumento,LocalDate.parse(fecha),LocalTime.parse(matrizViajes[Viaje][1],formatoHora),matrizViajes[Viaje][0],numAsientos[i],idCliente,Rut.of(idrut),newPasajero,contacto);
 
+                    svp.vendePasaje(IdDocumento, tipoDocumento, fechaV, horaV, patBus, numAsientos[i], Rut.of(idRut));
+                    break;
+
+
+                case 2:
+                    // caso pasaporte
+                    String numeroPasaporte = leeString("Numero Pasaporte");
+                    String nacionalidad = leeString("Nacionalidad");
+                    if (null == svp.getNombrePasajero (Pasaporte.of(numeroPasaporte, nacionalidad))) {
+
+                        System.out.println(":::: Pasajero no Encontrado");
+
+                        Nombre newPasajero = new Nombre();
+                        System.out.println("..:Cree al pasajero:..");
+
+                        System.out.println("   Ingrese SRA[1] o SR[2]");
+                        int opcTratamiento = leeOpc("Sr.[1] o Sra.[2]", 2);
+
+                        switch (opcTratamiento) {
+                            case 1 -> newPasajero.setTratamiento(Tratamiento.valueOf("SRA"));
+                            case 2 -> newPasajero.setTratamiento(Tratamiento.valueOf("SR"));
+                        }
+
+                        // Todo Arreglar copiando el formato al crear Cliente
+                        System.out.printf("%n %5s","Ingrese nombres");newPasajero.setNombres(sc.next());
+                        System.out.printf("%n %5s","Apellido paterno");newPasajero.setApellidoPaterno(sc.next());
+                        System.out.printf("%n %5s","Apellido materno");newPasajero.setApellidoMaterno(sc.next());
+
+                        Nombre contacto = new Nombre();
+                        System.out.printf("%n %5s","Ingrese SRA[1] o SR[2] del contacto");
+                        switch (sc.nextInt()){
+                            case 1:contacto.setTratamiento(Tratamiento.valueOf("SRA"));break;
+                            case 2:contacto.setTratamiento(Tratamiento.valueOf("SR"));break;
+                        }
+
+                        System.out.printf("%n %5s","Ingrese nombres del contacto");contacto.setNombres(sc.next());
+                        System.out.printf("%n %5s","Apellido paterno del contacto");contacto.setApellidoPaterno(sc.next());
+                        System.out.printf("%n %5s","Apellido materno del contacto");contacto.setApellidoMaterno(sc.next());
+                        System.out.printf("%n %5s","..::Ingrese fono Pasajero");String fono=sc.next();
+                        System.out.printf("%n %5s %n","..::Ingrese fono contacto");String fonocontacto=sc.next();
+
+                        svp.createPasajero(Pasaporte.of(numeroPasaporte, nacionalidad), newPasajero, fono, contacto, fonocontacto);
+
+
+                    }
+
+                    svp.vendePasaje(IdDocumento, tipoDocumento, fechaV, horaV, patBus, numAsientos[i], Pasaporte.of(numeroPasaporte, nacionalidad));
+                    break;
             }
         }
+        // despues de finalizar la venta de pasajes, suponiendo todos exitosos
+        // todo Dar el monto de la venta
 
 
     }
@@ -399,20 +470,21 @@ public class Main {
 
     // metodos para leer string e ints de opciones para los reportes
     private String leeString(String msg) {
-        sc.useDelimiter("\r\n|[\n\r\u2028\u2029\u0085,;\t]");
+        sc.useDelimiter("\r\n|[\n\r\u2028\u2029\u0085;\t]");
         System.out.printf("%30s : ", msg);
         return sc.next();
     }
+
 //separe numero de comas
     private int [] separador(String x,int cant){
-        char[] tochar=x.toCharArray();
-        int [] toint=new int[cant];
-        String num="";
-        int contador=0;
-        for (int i=0;i<tochar.length;i++){
+        char[] tochar = x.toCharArray();
+        int [] toint = new int[cant];
 
+        String num = "";
+        int contador = 0;
+        for (int i=0;i<tochar.length;i++){
             if (tochar[i]==','){
-                toint[contador]=Integer.parseInt(num);
+                toint[contador] = Integer.parseInt(num);
                 contador++;
             num="";
             }else{num=""+tochar[i];}
