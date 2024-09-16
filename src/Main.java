@@ -92,10 +92,27 @@ public class Main {
 
 
     private void listViajes() {
+        DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        String[][] listaViajes = svp.listViajes();
+        System.out.printf(" +--------------+------------+------------+---------------+------------+%n");
+        System.out.printf(" |        FECHA |       HORA |     PRECIO |   DISPONIBLES | PATENTE    |%n");
+        System.out.printf(" +--------------+------------+------------+---------------+------------+%n");
+
+        for (int i = 0; i < listaViajes.length; i++) {
+            String fechaOriginal = listaViajes[i][0];
+            LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
+            String formattedDateString = fecha.format(nuevoFormato);
+
+            System.out.printf(" |   %-10s |      %-5s |       %-4s |            %-2s | %-10s |%n",
+                    formattedDateString, listaViajes[i][1], listaViajes[i][2], listaViajes[i][3], listaViajes[i][4]);
+            System.out.printf(" +--------------+------------+------------+---------------+------------+%n");
+        }
     }
 
     private void listPasajerosViaje() {
-        
+
     }
     
 
