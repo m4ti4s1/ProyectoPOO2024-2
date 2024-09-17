@@ -280,8 +280,10 @@ public class Main {
         switch (tipo) {
             case 1:
                 tipoDocumento = TipoDocumento.valueOf("BOLETA");
+                break;
             case 2:
                 tipoDocumento = TipoDocumento.valueOf("FACTURA");
+                break;
         }
 
 
