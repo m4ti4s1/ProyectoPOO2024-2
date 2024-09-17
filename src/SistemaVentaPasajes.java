@@ -204,6 +204,7 @@ public class SistemaVentaPasajes {
         // crear el pasaje y agregarlo a la lista de pasajes de la venta
         Pasaje pasaje = new Pasaje(asiento, viaje, pasajero, venta);
         venta.addPasaje(pasaje);
+        viaje.addPasaje(pasaje);
 
         return true;
 

@@ -85,6 +85,9 @@ public class Main {
         svp.createViaje(LocalDate.parse("20/03/2025", dateFormatter), LocalTime.parse("15:30", timeFormatter), 1000, "HIID");
         svp.createViaje(LocalDate.parse("23/04/2025", dateFormatter), LocalTime.parse("18:00", timeFormatter), 2000, "HELLO");
 
+        svp.createPasajero(id1, n1, "83247", n1, "83247"); // pasajero con pasaporte
+        svp.createPasajero(id2, n2, "1234", n2, "1234"); // pasajero con rut
+
     }
 
     private void listVentas() {
@@ -497,7 +500,12 @@ public class Main {
         }
 
         // despues de finalizar la venta de pasajes, suponiendo todos exitosos
-        // todo Dar el monto de la venta
+
+        int montoVenta =  svp.getMontoVenta(IdDocumento, tipoDocumento);
+        System.out.println("El monto de la venta es: " + montoVenta);
+
+        // todo desplegar los pasajes
+
 
 
     }
@@ -536,21 +544,17 @@ public class Main {
         return num;
     }
 
-//separe numero de comas
-    private int [] separador(String x,int cant){
-        char[] tochar = x.toCharArray();
-        int [] toint = new int[cant];
+//separe numero de comas "Arreglado"
+    private int [] separador(String asientos,int cant){
 
-        String num = "";
-        int contador = 0;
-        for (int i=0;i<tochar.length;i++){
-            if (tochar[i]==','){
-                toint[contador] = Integer.parseInt(num);
-                contador++;
-            num="";
-            }else{num=""+tochar[i];}
+        String[] numerosString = asientos.split(",");
+        int[] numAsientos = new int[cant];
+
+        for (int i = 0; i < cant; i++){
+            numAsientos[i] = Integer.parseInt(numerosString[i]);
         }
-        return toint;
+
+        return numAsientos;
     }
     private int leeOpc(String msg, int cantOpc) {
         int opc = 0;

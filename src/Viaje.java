@@ -1,4 +1,5 @@
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,10 +64,17 @@ public class Viaje {
             ListaAsientos[i][0]=""+(i+1);
             ListaAsientos[i][1]="Vacío";
         }
+
+        for (Pasaje pasaje : Listapasajes) {
+            ListaAsientos[pasaje.getAsiento()-1][1] = "Ocupado";
+        }
+        /*
         for (int i=0;i<Listapasajes.size();i++){
             ListaAsientos[(Listapasajes.get(i).getAsiento())-1][1]="Ocupado";
 
         }
+
+         */
 
 
         return ListaAsientos;
