@@ -380,12 +380,27 @@ public class Main {
             System.out.printf("       |---+---+---+---+---|%n");
             i++;
         }
+        String asientos;
+        int[] numAsientos;
+        boolean asientosDisponibles;
 
-        String asientos = leeString("Seleccione sus asientos [separe por ,]");
-        int [] numAsientos=separador(asientos,cant);
+        do {
+            asientos = leeString("Seleccione sus asientos [separe por ,]");
+            numAsientos = separador(asientos, cant);
 
-        System.out.println();
-        // Todo Verificar que los asientos esten disponibles
+            System.out.println();
+            // Todo Verificar que los asientos esten disponibles
+            asientosDisponibles = true;
+            for (int i = 0; i < numAsientos.length; i++) {
+                int asientoIndex = numAsientos[i] - 1;
+                if (asientoIndex >= 0 && asientoIndex < matrizAsientos.length) {
+                    if (matrizAsientos[asientoIndex].equals("*")) {
+                        System.out.println("Asiento " + (asientoIndex + 1) + " está ocupado");
+                        asientosDisponibles = false;
+                    }
+                }
+            }
+        } while(!asientosDisponibles);
 
         // ciclo para cada pasaje
         for(int i=0 ; i<cant ; i++) {
