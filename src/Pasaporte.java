@@ -11,10 +11,7 @@ public class Pasaporte implements IdPersona {
 
     @Override
     public String toString() {
-        return "Pasaporte{" +
-                "numero='" + numero + '\'' +
-                ", nacionalidad='" + nacionalidad + '\'' +
-                '}';
+        return String.format("%s %s", numero, nacionalidad);
     }
 
     @Override

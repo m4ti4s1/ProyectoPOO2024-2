@@ -16,18 +16,18 @@ public class Rut implements IdPersona {
         String num = "" + numero;
         char[] Arraynumero = num.toCharArray();
         if (Arraynumero.length == 9) {
-            return "Rut{ " + Arraynumero[0] + Arraynumero[1] + '.' + Arraynumero[2] +
+            return ""+Arraynumero[0] + Arraynumero[1] + '.' + Arraynumero[2] +
                     Arraynumero[3] + Arraynumero[4] + '.' + Arraynumero[5]
-                    + Arraynumero[6] + Arraynumero[7] + Arraynumero[8]+'-' + dv + '}';
+                    + Arraynumero[6] + Arraynumero[7] + Arraynumero[8]+'-' + dv;
         }
         if (Arraynumero.length == 8) {
-            return "Rut{ " + Arraynumero[0] + Arraynumero[1] + '.' + Arraynumero[2] +
+            return "" + Arraynumero[0] + Arraynumero[1] + '.' + Arraynumero[2] +
                     Arraynumero[3] + Arraynumero[4] + '.' + Arraynumero[5]
-                    + Arraynumero[6] + Arraynumero[7] + '-' + dv + '}';
+                    + Arraynumero[6] + Arraynumero[7] + '-' + dv;
         }
-        return "Rut{ " + Arraynumero[0] + '.' + Arraynumero[1] +
+        return "" + Arraynumero[0] + '.' + Arraynumero[1] +
                 Arraynumero[2] + Arraynumero[3] + '.' + Arraynumero[4]
-                + Arraynumero[5] + Arraynumero[6] + '-' + dv + '}';
+                + Arraynumero[5] + Arraynumero[6] + '-' + dv;
 
 
     }
