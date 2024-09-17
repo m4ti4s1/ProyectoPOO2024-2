@@ -99,6 +99,7 @@ public class Main {
         DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         String[][] listaViajes = svp.listViajes();
+        System.out.printf("\n%44s\n", "...:::: Listado de Viajes ::::....\n");
         System.out.printf(" +--------------+------------+------------+---------------+------------+%n");
         System.out.printf(" |        FECHA |       HORA |     PRECIO |   DISPONIBLES | PATENTE    |%n");
         System.out.printf(" +--------------+------------+------------+---------------+------------+%n");
