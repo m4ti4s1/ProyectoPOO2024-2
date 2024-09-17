@@ -264,7 +264,7 @@ public class Main {
         }
 
 
-        String fecha = leeString("Fecha de Venta [dd/mm/yyyy");
+        String fecha = leeString("Fecha de Venta [dd/mm/yyyy]");
 
         System.out.println("\n\n:::: Datos del Cliente");
         int op = leeOpc("Rut[1] o Pasaporte[2]", 2);
@@ -502,7 +502,9 @@ public class Main {
         // despues de finalizar la venta de pasajes, suponiendo todos exitosos
 
         int montoVenta =  svp.getMontoVenta(IdDocumento, tipoDocumento);
-        System.out.println("El monto de la venta es: " + montoVenta);
+        System.out.println(":::: Monto total de la venta: " + montoVenta);
+        String msg = "...:::: Venta generada exitosamente ::::....";
+        System.out.printf("\n%47s\n", msg);
 
         // todo desplegar los pasajes
 
