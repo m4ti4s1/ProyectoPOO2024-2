@@ -330,6 +330,7 @@ public class Main {
         // Todo: Identificar los fallos de inicializacion de la venta y desplegarlos
         if (!(svp.iniciaVenta(IdDocumento, tipoDocumento, LocalDate.parse(fecha, formatter),idCliente))) {
             System.out.println("....:::: Ah Surgido un problema, La venta no se pudo inicializar");
+            return;
         }
 
 

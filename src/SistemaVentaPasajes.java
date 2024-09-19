@@ -89,10 +89,11 @@ public class SistemaVentaPasajes {
             return false; // El cliente no existe
         }
 
-        // Verificar si ya existe una venta con el mismo idDocumento y tipoDocumento
-        Venta ventaExistente = findVenta(idDoc, tipo);
-        if (ventaExistente != null) {
-            return false; // Ya existe una venta con este idDocumento y tipoDocumento
+        // Verificar si ya existe una venta con el mismo idDocumento
+        for (Venta venta : ventas) {
+            if (venta.getIdDocumento().equals(idDoc)) {
+                return false; // Ya existe una venta con este idDocumento
+            }
         }
 
         // ! Falta verificar si existe una venta similar
@@ -199,8 +200,6 @@ public class SistemaVentaPasajes {
         Venta venta = findVenta(idDoc, tipo);
         Viaje viaje = findViaje("" + fecha, "" + hora, patBus);
 
-        // agregar la venta a la lista de ventas
-        ventas.add(venta);
         // crear el pasaje y agregarlo a la lista de pasajes de la venta
         Pasaje pasaje = new Pasaje(asiento, viaje, pasajero, venta);
         venta.addPasaje(pasaje);
