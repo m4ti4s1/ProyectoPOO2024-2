@@ -136,7 +136,29 @@ public class Main {
     }
 
     private void listPasajerosViaje() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
+        String fechaDelViaje = leeString("Fecha del viaje[dd/mm/yyyy]");
+        LocalDate fecha = LocalDate.parse(fechaDelViaje, dateFormatter);
+
+        String horaDelViaje = leeString("Hora del viaje[hh:mm]");
+        LocalTime hora = LocalTime.parse(horaDelViaje, timeFormatter);
+
+        String patenteBus = leeString("Patente bus");
+
+        System.out.printf("\n%44s\n", "...:::: Listado de pasajeros de un viaje ::::....\n");
+        System.out.printf(" +---------+-----------------+-------------------------------+-------------------------------+-------------------+%n");
+        System.out.printf(" | ASIENTO |        RUT/PASS | PASAJERO                      | CONTACTO                      | TELEFONO CONTACTO |%n");
+        System.out.printf(" +---------+-----------------+-------------------------------+-------------------------------+-------------------+%n");
+
+        String[][] listaPasajeros = svp.listPasajeros(fecha, hora, patenteBus);
+        for (int i = 0; i < listaPasajeros.length; i++) {
+            System.out.printf(" |   %-4s |      %-5s |       %-4s |            %-2s | %-10s |%n",
+                    //TODO OBTENER EL ASIENTO
+                    "Asiento",listaPasajeros[i][0], listaPasajeros[i][1], listaPasajeros[i][2], listaPasajeros[i][3]);
+            System.out.printf(" +---------+-----------------+-------------------------------+-------------------------------+-------------------+%n");
+        }
     }
     
 
