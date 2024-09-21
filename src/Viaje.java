@@ -82,12 +82,13 @@ public class Viaje {
 
     //!------------------Lista de Pasajeros ------------------------------------------------
     public String[][] getListaPasajeros(){
-        String [][] MatrizPasajero= new String[Listapasajeros.size()][4];
+        String [][] MatrizPasajero= new String[Listapasajeros.size()][5];
         for(int i=0;i<Listapasajeros.size();i++){
-            MatrizPasajero[i][0]=" "+Listapasajeros.get(i).getIdPersona();
-            MatrizPasajero[i][1]=" "+Listapasajeros.get(i).getNombreCompleto();
-            MatrizPasajero[i][2]=" "+Listapasajeros.get(i).getNomContacto();
-            MatrizPasajero[i][3]=" "+Listapasajeros.get(i).getFonoContancto();
+            MatrizPasajero[i][0]=" "+Listapasajes.get(i).getAsiento();
+            MatrizPasajero[i][1]=" "+Listapasajeros.get(i).getIdPersona();
+            MatrizPasajero[i][2]=" "+Listapasajeros.get(i).getNombreCompleto();
+            MatrizPasajero[i][3]=" "+Listapasajeros.get(i).getNomContacto();
+            MatrizPasajero[i][4]=" "+Listapasajeros.get(i).getFonoContancto();
 
         }
         return MatrizPasajero;

@@ -148,16 +148,15 @@ public class Main {
         String patenteBus = leeString("Patente bus");
 
         System.out.printf("\n%44s\n", "...:::: Listado de pasajeros de un viaje ::::....\n");
-        System.out.printf(" +---------+-----------------+-------------------------------+-------------------------------+-------------------+%n");
-        System.out.printf(" | ASIENTO |        RUT/PASS | PASAJERO                      | CONTACTO                      | TELEFONO CONTACTO |%n");
-        System.out.printf(" +---------+-----------------+-------------------------------+-------------------------------+-------------------+%n");
+        System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
+        System.out.printf(" | ASIENTO |        RUT/PASS | PASAJERO                          | CONTACTO                          | TELEFONO CONTACTO |%n");
+        System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
 
         String[][] listaPasajeros = svp.listPasajeros(fecha, hora, patenteBus);
         for (int i = 0; i < listaPasajeros.length; i++) {
-            System.out.printf(" |   %-4s |      %-5s |       %-4s |            %-2s | %-10s |%n",
-                    //TODO OBTENER EL ASIENTO
-                    "Asiento",listaPasajeros[i][0], listaPasajeros[i][1], listaPasajeros[i][2], listaPasajeros[i][3]);
-            System.out.printf(" +---------+-----------------+-------------------------------+-------------------------------+-------------------+%n");
+            System.out.printf(" |     %-3s |   %-13s | %-33s | %-33s | %-17s |%n",
+                    listaPasajeros[i][0],listaPasajeros[i][1], listaPasajeros[i][2], listaPasajeros[i][3], listaPasajeros[i][4]);
+            System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
         }
     }
     
