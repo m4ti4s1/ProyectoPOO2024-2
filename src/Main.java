@@ -322,7 +322,7 @@ public class Main {
                     System.out.println(":::: Cliente no Encontrado");
                     return;
                 } else {
-                    System.out.printf("%30s : %s", "Nombre Cliente", svp.getNombreCliente(Rut.of(idRUT)) );
+                    System.out.printf("%30s : %s", "Nombre Cliente", svp.getNombreCliente(Rut.of(idRUT)));
                     idCliente = Rut.of(idRUT);
                     break;
                 }
@@ -349,13 +349,10 @@ public class Main {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         // Todo: Identificar los fallos de inicializacion de la venta y desplegarlos
-        if (!(svp.iniciaVenta(IdDocumento, tipoDocumento, LocalDate.parse(fecha, formatter),idCliente))) {
+        if (!(svp.iniciaVenta(IdDocumento, tipoDocumento, LocalDate.parse(fecha, formatter), idCliente))) {
             System.out.println("....:::: Ah Surgido un problema, La venta no se pudo inicializar");
             return;
         }
-
-
-
 
 
         // TODO Hasta aqui, funciona bien si todos los datos son validos
@@ -390,7 +387,7 @@ public class Main {
         String[] matrizAsientos = svp.listAsientosDeViaje(fechaV, LocalTime.parse(matrizViajes[Viaje][1]), matrizViajes[Viaje][0]);
 
         System.out.printf("       *---*---*---*---*---*%n");
-        for (int i = 0; i < matrizAsientos.length ; i++) {
+        for (int i = 0; i < matrizAsientos.length; i++) {
 
             System.out.printf("       |%-2s |", matrizAsientos[i]);
             i++;
@@ -422,14 +419,14 @@ public class Main {
                     }
                 }
             }
-        } while(!asientosDisponibles);
+        } while (!asientosDisponibles);
 
         // ciclo para cada pasaje
-        for(int i=0 ; i<cant ; i++) {
+        for (int i = 0; i < cant; i++) {
 
-            System.out.println("\n::::Datos pasajeros "+(i+1));
+            System.out.println("\n::::Datos pasajeros " + (i + 1));
 
-            int opcId = leeOpc("Rut[1] o Pasaporte[2]",2);
+            int opcId = leeOpc("Rut[1] o Pasaporte[2]", 2);
 
             switch (opcId) {
                 case 1:
@@ -437,7 +434,7 @@ public class Main {
 
                     String idRut = leeString("R.U.T");
 
-                    if (null == svp.getNombrePasajero (Rut.of(idRut))) {
+                    if (null == svp.getNombrePasajero(Rut.of(idRut))) {
 
                         System.out.println("\n\n:::: Pasajero no Encontrado\n");
 
@@ -467,8 +464,8 @@ public class Main {
                         // No necesario porque ya lo ingreso antes
                         System.out.println("\n...::: Datos Contacto Pasajero :::...");
 
-                        opcTratamiento = leeOpc("Ingrese Sr.[1] o Sra.[2]",2);
-                        switch ((opcTratamiento)){
+                        opcTratamiento = leeOpc("Ingrese Sr.[1] o Sra.[2]", 2);
+                        switch ((opcTratamiento)) {
                             case 1 -> contacto.setTratamiento(Tratamiento.valueOf("SR"));
                             case 2 -> contacto.setTratamiento(Tratamiento.valueOf("SRA"));
                         }
@@ -483,7 +480,7 @@ public class Main {
                         contacto.setApellidoMaterno(apellidoMaterno);
 
 
-                        if(svp.createPasajero(Rut.of(idRut), newPasajero, fono, contacto, fonoContacto)){
+                        if (svp.createPasajero(Rut.of(idRut), newPasajero, fono, contacto, fonoContacto)) {
                             System.out.println("\n:::: Pasaje agregado exitosamente");
                         } else {
                             System.out.println(":::: El pasaje no pudo agregarse");
@@ -501,7 +498,7 @@ public class Main {
                     String numeroPasaporte = leeString("Numero Pasaporte");
                     String nacionalidad = leeString("Nacionalidad");
 
-                    if (null == svp.getNombrePasajero (Pasaporte.of(numeroPasaporte, nacionalidad))) {
+                    if (null == svp.getNombrePasajero(Pasaporte.of(numeroPasaporte, nacionalidad))) {
 
                         System.out.println("\n\n:::: Pasajero no Encontrado\n");
 
@@ -530,8 +527,8 @@ public class Main {
                         // No necesario porque ya lo ingreso antes
                         System.out.println("\n...::: Datos Contacto Pasajero :::...");
 
-                        opcTratamiento = leeOpc("Ingrese Sr.[1] o Sra.[2]",2);
-                        switch ((opcTratamiento)){
+                        opcTratamiento = leeOpc("Ingrese Sr.[1] o Sra.[2]", 2);
+                        switch ((opcTratamiento)) {
                             case 1 -> contacto.setTratamiento(Tratamiento.valueOf("SR"));
                             case 2 -> contacto.setTratamiento(Tratamiento.valueOf("SRA"));
                         }
@@ -546,7 +543,7 @@ public class Main {
                         contacto.setApellidoMaterno(apellidoMaterno);
 
 
-                        if(svp.createPasajero(Pasaporte.of(numeroPasaporte, nacionalidad), newPasajero, fono, contacto, fonoContacto)){
+                        if (svp.createPasajero(Pasaporte.of(numeroPasaporte, nacionalidad), newPasajero, fono, contacto, fonoContacto)) {
                             System.out.println("\n:::: Pasaje agregado exitosamente");
                         } else {
                             System.out.println(":::: El pasaje no pudo agregarse");
@@ -573,6 +570,8 @@ public class Main {
         System.out.printf("\n%47s\n", msg);
 
 // Imprimir cada pasaje vendido
+        System.out.println(":::: Imprimiendo los pasajes");
+        System.out.println();
         for (int i = 0; i < pasajes.length; i++) {
             Pasaje pasaje = pasajes[i];
 
@@ -590,8 +589,8 @@ public class Main {
             System.out.println("NOMBRE PASAJERO   : " + nombrePasajero);
             System.out.println("------------------------------------------------");
 
-            // Espacio entre pasajes si hay más de uno
             if (pasajes.length > 1 && i < pasajes.length - 1) {
+                System.out.println();
                 System.out.println();
             }
         }
