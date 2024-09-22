@@ -558,6 +558,7 @@ public class Main {
                     break;
             } //cierre del switch
         }// cierre del for
+
         // despues de finalizar la venta de pasajes, suponiendo todos exitosos
 
         Pasaje[] pasajes = new Pasaje[cant];
