@@ -200,12 +200,13 @@ public class SistemaVentaPasajes {
         Venta venta = findVenta(idDoc, tipo);
         Viaje viaje = findViaje("" + fecha, "" + hora, patBus);
 
-        // crear el pasaje y agregarlo a la lista de pasajes de la venta
-        Pasaje pasaje = new Pasaje(asiento, viaje, pasajero, venta);
-        venta.addPasaje(pasaje);
-        viaje.addPasaje(pasaje);
-
-        return true;
+        if (viaje.existeDisponibilidad()) {
+            Pasaje pasaje = new Pasaje(asiento, viaje, pasajero, venta);
+            venta.addPasaje(pasaje);
+            viaje.addPasaje(pasaje);
+            return true;
+        }
+        return false;
 
     }
 

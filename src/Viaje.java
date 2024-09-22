@@ -95,7 +95,7 @@ public class Viaje {
     }
 
     public boolean existeDisponibilidad(){
-        if(Listapasajes.size()<this.bus.getNroAsientos()){
+        if(Listapasajes.size() < this.bus.getNroAsientos()){
             return true;
         }
         return false;
