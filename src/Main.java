@@ -45,6 +45,7 @@ public class Main {
         } while (opc != 8);
 
     }
+    /*
     private void inicia() {
         IdPersona id1 = Pasaporte.of("1234", "chileno");
         IdPersona id2 = Rut.of("11.111.111-1");
@@ -90,6 +91,7 @@ public class Main {
 
     }
 
+    */
     private void listVentas() {
         DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -559,9 +561,12 @@ public class Main {
         // despues de finalizar la venta de pasajes, suponiendo todos exitosos
 
         Pasaje[] pasajes = new Pasaje[cant];
+        /* todo Finalizar la impresion de los pasajes
         for (int i = 0; i < cant; i++) {
             pasajes[i] = new Pasaje(numAsientos[i], viaje, pasajero, venta);
         }
+
+         */
 
 // Obtener monto total de la venta
         int montoVenta = svp.getMontoVenta(IdDocumento, tipoDocumento);
