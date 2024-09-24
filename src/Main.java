@@ -10,7 +10,7 @@ public class Main {
 
         Main main = new Main();
         int opc = 0;
-        main.inicia(); // cargar clientes, viajes y buses, para iniciar desde la venta
+        //main.inicia(); // cargar clientes, viajes y buses, para iniciar desde la venta
 
         do {
             main.menu();
