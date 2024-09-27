@@ -254,6 +254,32 @@ public class SistemaVentaPasajes {
         return ListaPasajeros;
 
     }
+    public void pasajesAImprimir(Pasaje[] pasajes, String fechaV, String horaV, String patBus) {
+        System.out.println(":::: Imprimiendo los pasajes");
+        System.out.println();
+        for (int i = 0; i < pasajes.length; i++) {
+            Pasaje pasaje = pasajes[i];
+
+            System.out.println("-------------------- PASAJE --------------------");
+            System.out.println("NUMERO DE PASAJE  : " + pasaje.getNumero());
+            System.out.println("FECHA DE VIAJE    : " + fechaV);
+            System.out.println("HORA DE VIAJE     : " + horaV);
+            System.out.println("PATENTE BUS       : " + patBus.substring(0, 2) + "." + patBus.substring(2, 4));
+            System.out.println("ASIENTO           : " + pasaje.getAsiento());
+
+            IdPersona idPasajeroEnPasaje = pasaje.getPasajero().getIdPersona();
+            String nombrePasajero = getNombrePasajero(idPasajeroEnPasaje);
+
+            System.out.println("RUT/PASAPORTE     : " + idPasajeroEnPasaje);
+            System.out.println("NOMBRE PASAJERO   : " + nombrePasajero);
+            System.out.println("------------------------------------------------");
+
+            if (pasajes.length > 1 && i < pasajes.length - 1) {
+                System.out.println();
+                System.out.println();
+            }
+        }
+    }
 
     private Cliente findCliente(IdPersona id) {
         for (Cliente cliente : clientes) {

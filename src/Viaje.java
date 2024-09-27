@@ -8,7 +8,6 @@ public class Viaje {
     private LocalTime hora;
     private int precio;
     private Bus bus;
-
     List<Pasaje> Listapasajes =new ArrayList<>();
     List<Pasajero> Listapasajeros =new ArrayList<>();
 
