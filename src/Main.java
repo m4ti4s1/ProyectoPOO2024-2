@@ -45,7 +45,7 @@ public class Main {
         } while (opc != 8);
 
     }
-
+    /*
     private void inicia() {
         IdPersona id1 = Pasaporte.of("1234", "chileno");
         IdPersona id2 = Rut.of("11.111.111-1");
@@ -74,8 +74,8 @@ public class Main {
         n4.setNombres("Carlos Alberto");
         n4.setApellidoPaterno("Rodriguez");
 
-        svp.createCliente(id1, n1, "95234", "matias@gmail.com"); //cliente con pasaporte
-        svp.createCliente(id2, n2, "4873", "some@gmail.com"); //cliente con rut
+        svp.createCliente(id1, n1,"95234", "matias@gmail.com"); //cliente con pasaporte
+        svp.createCliente(id2, n2,"4873", "some@gmail.com"); //cliente con rut
 
         svp.createBus("HIID", "Mercedes", "kjfdsl", 40);
         svp.createBus("HELLO", "Mercedes", "Benz", 80);
@@ -91,6 +91,7 @@ public class Main {
 
     }
 
+    */
     private void listVentas() {
         DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -108,7 +109,7 @@ public class Main {
             String fechaFormateada = fecha.format(nuevoFormato);
 
             System.out.printf(" |      %-5s | %-7s  | %-10s |    %-5s | %-32s |            %-2s|       %-6s |%n",
-                    listaVentas[i][0], listaVentas[i][1], fechaFormateada, listaVentas[i][3], listaVentas[i][4], listaVentas[i][5], "$" + listaVentas[i][6]);
+                    listaVentas[i][0], listaVentas[i][1], fechaFormateada, listaVentas[i][3], listaVentas[i][4], listaVentas[i][5], "$"+listaVentas[i][6]);
             System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
         }
 
@@ -156,11 +157,11 @@ public class Main {
         String[][] listaPasajeros = svp.listPasajeros(fecha, hora, patenteBus);
         for (int i = 0; i < listaPasajeros.length; i++) {
             System.out.printf(" |     %-3s |   %-13s | %-33s | %-33s | %-17s |%n",
-                    listaPasajeros[i][0], listaPasajeros[i][1], listaPasajeros[i][2], listaPasajeros[i][3], listaPasajeros[i][4]);
+                    listaPasajeros[i][0],listaPasajeros[i][1], listaPasajeros[i][2], listaPasajeros[i][3], listaPasajeros[i][4]);
             System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
         }
     }
-
+    
 
     private void menu() {
         System.out.println("\n============================");
@@ -245,7 +246,7 @@ public class Main {
         String patente = leeString("Patente");
 
         do {
-            if (!esPatenteAlfanumerica(patente)) {
+            if(!esPatenteAlfanumerica(patente)) {
                 System.out.println("La Patente debe ser alfanumerica");
                 patente = leeString("Patente");
             }
@@ -557,18 +558,48 @@ public class Main {
             } //cierre del switch
         }// cierre del for
 
+        // despues de finalizar la venta de pasajes, suponiendo todos exitosos
+
+        Pasaje[] pasajes = new Pasaje[cant];
+        /* todo Finalizar la impresion de los pasajes
+        for (int i = 0; i < cant; i++) {
+            pasajes[i] = new Pasaje(numAsientos[i], viaje, pasajero, venta);
+        }
+
+         */
 
 // Obtener monto total de la venta
         int montoVenta = svp.getMontoVenta(IdDocumento, tipoDocumento);
         System.out.println(":::: Monto total de la venta: " + montoVenta);
         String msg = "...:::: Venta generada exitosamente ::::....";
         System.out.printf("\n%47s\n", msg);
-        //imprimir pasajes
-        svp.pasajesAImprimir(pasaje.getNumero(), fechaV, horaV, patBus);
 
-    }
+// Imprimir cada pasaje vendido
+        System.out.println(":::: Imprimiendo los pasajes");
+        System.out.println();
+        for (int i = 0; i < pasajes.length; i++) {
+            Pasaje pasaje = pasajes[i];
 
+            System.out.println("-------------------- PASAJE --------------------");
+            System.out.println("NUMERO DE PASAJE  : " + pasaje.getNumero());
+            System.out.println("FECHA DE VIAJE    : " + fechaV.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            System.out.println("HORA DE VIAJE     : " + horaV);
+            System.out.println("PATENTE BUS       : " + patBus.substring(0, 2) + "." + patBus.substring(2, 4));
+            System.out.println("ASIENTO           : " + pasaje.getAsiento());
 
+            IdPersona idPasajeroEnPasaje = pasaje.getPasajero().getIdPersona();
+            String nombrePasajero = svp.getNombrePasajero(idPasajeroEnPasaje);
+
+            System.out.println("RUT/PASAPORTE     : " + idPasajeroEnPasaje);
+            System.out.println("NOMBRE PASAJERO   : " + nombrePasajero);
+            System.out.println("------------------------------------------------");
+
+            if (pasajes.length > 1 && i < pasajes.length - 1) {
+                System.out.println();
+                System.out.println();
+            }
+        }
+        }
 
 
 
