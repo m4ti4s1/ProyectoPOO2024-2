@@ -10,7 +10,7 @@ public class Main {
 
         Main main = new Main();
         int opc = 0;
-        //main.inicia(); // cargar clientes, viajes y buses, para iniciar desde la venta
+        main.inicia(); // cargar clientes, viajes y buses, para iniciar desde la venta
 
         do {
             main.menu();
@@ -45,7 +45,7 @@ public class Main {
         } while (opc != 8);
 
     }
-    /*
+
     private void inicia() {
         IdPersona id1 = Pasaporte.of("1234", "chileno");
         IdPersona id2 = Rut.of("11.111.111-1");
@@ -91,7 +91,7 @@ public class Main {
 
     }
 
-    */
+
     private void listVentas() {
         DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -557,6 +557,11 @@ public class Main {
                     break;
             } //cierre del switch
         }// cierre del for
+
+        int montoVenta = svp.getMontoVenta(IdDocumento, tipoDocumento);
+        System.out.println(":::: Monto Total de la venta: " + montoVenta);
+        String msg = "...:::: Venta generada exitosamente ::::....";
+        System.out.printf("\n%47s\n", msg);
 
         String[] boleta = svp.pasajesAImprimir(IdDocumento, tipoDocumento);
         for (String s : boleta) {
