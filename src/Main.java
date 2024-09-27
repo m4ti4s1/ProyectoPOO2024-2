@@ -558,48 +558,11 @@ public class Main {
             } //cierre del switch
         }// cierre del for
 
-        // despues de finalizar la venta de pasajes, suponiendo todos exitosos
-
-        Pasaje[] pasajes = new Pasaje[cant];
-        /* todo Finalizar la impresion de los pasajes
-        for (int i = 0; i < cant; i++) {
-            pasajes[i] = new Pasaje(numAsientos[i], viaje, pasajero, venta);
+        String[] boleta = svp.pasajesAImprimir(IdDocumento, tipoDocumento);
+        for (String s : boleta) {
+            System.out.println(s);
         }
-
-         */
-
-// Obtener monto total de la venta
-        int montoVenta = svp.getMontoVenta(IdDocumento, tipoDocumento);
-        System.out.println(":::: Monto total de la venta: " + montoVenta);
-        String msg = "...:::: Venta generada exitosamente ::::....";
-        System.out.printf("\n%47s\n", msg);
-
-// Imprimir cada pasaje vendido
-        System.out.println(":::: Imprimiendo los pasajes");
-        System.out.println();
-        for (int i = 0; i < pasajes.length; i++) {
-            Pasaje pasaje = pasajes[i];
-
-            System.out.println("-------------------- PASAJE --------------------");
-            System.out.println("NUMERO DE PASAJE  : " + pasaje.getNumero());
-            System.out.println("FECHA DE VIAJE    : " + fechaV.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            System.out.println("HORA DE VIAJE     : " + horaV);
-            System.out.println("PATENTE BUS       : " + patBus.substring(0, 2) + "." + patBus.substring(2, 4));
-            System.out.println("ASIENTO           : " + pasaje.getAsiento());
-
-            IdPersona idPasajeroEnPasaje = pasaje.getPasajero().getIdPersona();
-            String nombrePasajero = svp.getNombrePasajero(idPasajeroEnPasaje);
-
-            System.out.println("RUT/PASAPORTE     : " + idPasajeroEnPasaje);
-            System.out.println("NOMBRE PASAJERO   : " + nombrePasajero);
-            System.out.println("------------------------------------------------");
-
-            if (pasajes.length > 1 && i < pasajes.length - 1) {
-                System.out.println();
-                System.out.println();
-            }
-        }
-        }
+    }
 
 
 

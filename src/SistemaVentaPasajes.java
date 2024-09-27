@@ -255,6 +255,36 @@ public class SistemaVentaPasajes {
 
     }
 
+    public String[] pasajesAImprimir(String idDocumento, TipoDocumento tipoDocumento) {
+        Venta venta = findVenta(idDocumento, tipoDocumento);
+
+        if (venta == null) {
+            return new String[] {"No se encontraron pasajes para la venta con ID: " + idDocumento};
+        }
+
+        ArrayList<String> resultado = new ArrayList<>();
+
+        resultado.add(":::: Imprimiendo los pasajes\n");
+        resultado.add("------------------ PASAJE ------------------");
+
+        for (Pasaje pasaje : venta.getPasajes()) {
+            Viaje viaje = pasaje.getViaje();
+            Pasajero pasajero = pasaje.getPasajero();
+
+            resultado.add("NUMERO DE PASAJE  : " + pasaje.getNumero());
+            resultado.add("FECHA DE VIAJE    : " + viaje.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            resultado.add("HORA DE VIAJE     : " + viaje.getHora().format(DateTimeFormatter.ofPattern("HH:mm")));
+            resultado.add("PATENTE BUS       : " + viaje.getBus().getPatente());
+            resultado.add("ASIENTO           : " + pasaje.getAsiento());
+            resultado.add("RUT/PASAPORTE     : " + pasajero.getIdPersona());
+            resultado.add("NOMBRE PASAJERO   : " + pasajero.getNombreCompleto().toString());
+            resultado.add("--------------------------------------------\n");
+        }
+
+        return resultado.toArray(new String[0]);
+    }
+
+
     private Cliente findCliente(IdPersona id) {
         for (Cliente cliente : clientes) {
             if (Objects.equals(cliente.getIdPersona(), id)) {
