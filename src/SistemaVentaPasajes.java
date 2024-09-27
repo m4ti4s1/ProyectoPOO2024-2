@@ -1,5 +1,4 @@
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -254,7 +253,7 @@ public class SistemaVentaPasajes {
         return ListaPasajeros;
 
     }
-    public void pasajesAImprimir(Pasaje[] pasajes, String fechaV, String horaV, String patBus) {
+    public void pasajesAImprimir(Pasaje[] pasajes, LocalDate fechaV, LocalTime horaV, String patBus) {
         System.out.println(":::: Imprimiendo los pasajes");
         System.out.println();
         for (int i = 0; i < pasajes.length; i++) {
