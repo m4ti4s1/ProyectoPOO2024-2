@@ -10,7 +10,7 @@ public class Main {
 
         Main main = new Main();
         int opc = 0;
-        main.inicia(); // cargar clientes, viajes y buses, para iniciar desde la venta
+        //main.inicia(); // cargar clientes, viajes y buses, para iniciar desde la venta
 
         do {
             main.menu();
@@ -45,7 +45,7 @@ public class Main {
         } while (opc != 8);
 
     }
-
+    /*
     private void inicia() {
         IdPersona id1 = Pasaporte.of("1234", "chileno");
         IdPersona id2 = Rut.of("11.111.111-1");
@@ -90,7 +90,7 @@ public class Main {
         svp.createPasajero(id2, n2, "1234", n2, "1234"); // pasajero con rut
 
     }
-
+    */
 
     private void listVentas() {
         DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
