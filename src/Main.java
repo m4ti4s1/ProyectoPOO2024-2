@@ -1,3 +1,4 @@
+// Test para rama version 2 de proyecto POO
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
