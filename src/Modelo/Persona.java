@@ -1,6 +1,10 @@
-import java.util.Objects;
+package Modelo;
+
+import Utilidades.IdPersona;
+import Utilidades.Nombre;
+
 public class Persona {
-    private IdPersona IdPersona;
+    private Utilidades.IdPersona IdPersona;
     private Nombre nombreCompleto;
     private String telefono;
 

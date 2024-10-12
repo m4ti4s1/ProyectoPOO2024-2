@@ -1,3 +1,9 @@
+package Controlador;
+
+import Modelo.*;
+import Utilidades.IdPersona;
+import Utilidades.Nombre;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -8,7 +14,7 @@ public class SistemaVentaPasajes {
     private ArrayList<Pasajero> pasajeros = new ArrayList<>();
     private ArrayList<Cliente> clientes = new ArrayList<>();
     private ArrayList<Bus> buses = new ArrayList<>();
-    private ArrayList<Viaje> viajes = new ArrayList<>(); // No se para que se implementa el SistemaVentaPasajes
+    private ArrayList<Viaje> viajes = new ArrayList<>(); // No se para que se implementa el Controlador.SistemaVentaPasajes
 
 
     // Verificado
@@ -17,7 +23,7 @@ public class SistemaVentaPasajes {
         cliente.setTelefono(fono);
 
         if (findCliente(id) == null) {
-            // Cliente creado y agregado a lista de clientes
+            // Modelo.Cliente creado y agregado a lista de clientes
             clientes.add(cliente);
             return true;
         } else {
@@ -76,7 +82,7 @@ public class SistemaVentaPasajes {
             }
 
         } else {
-            // Bus no existe, viaje no se puede crear
+            // Modelo.Bus no existe, viaje no se puede crear
             return false;
         }
     }
@@ -173,19 +179,19 @@ public class SistemaVentaPasajes {
     }
 
     /*
-    public boolean vendePasaje(String idDoc,TipoDocumento tipo , LocalDate fecha , LocalTime hora, String patBus, int asiento, IdPersona idCli, IdPersona idPas, Nombre nomPas, Nombre nomCto) {
+    public boolean vendePasaje(String idDoc,Modelo.TipoDocumento tipo , LocalDate fecha , LocalTime hora, String patBus, int asiento, Utilidades.IdPersona idCli, Utilidades.IdPersona idPas, Utilidades.Nombre nomPas, Utilidades.Nombre nomCto) {
          if(null==findViaje(""+fecha,""+hora,""+patBus)){return false;}
          if(null==findBus(patBus)){return false;}
          if(null==findCliente(idCli)){return false;}
-         Venta ventapasaje =new Venta(idDoc,tipo,fecha,findCliente(idCli));
+         Modelo.Venta ventapasaje =new Modelo.Venta(idDoc,tipo,fecha,findCliente(idCli));
          ventas.add(ventapasaje);
-         Pasaje createPasaje=new Pasaje(asiento,findViaje(""+fecha,""+hora,""+patBus),findPasajero(idCli), ventapasaje);
+         Modelo.Pasaje createPasaje=new Modelo.Pasaje(asiento,findViaje(""+fecha,""+hora,""+patBus),findPasajero(idCli), ventapasaje);
         findViaje(""+fecha,""+hora,""+patBus).addPasaje(createPasaje);
 
         return false;
     }
      */
-    public boolean vendePasaje(String idDoc,TipoDocumento tipo , LocalDate fecha, LocalTime hora, String patBus, int asiento, IdPersona idPasajero) {
+    public boolean vendePasaje(String idDoc, TipoDocumento tipo , LocalDate fecha, LocalTime hora, String patBus, int asiento, IdPersona idPasajero) {
 
         // si la venta, o el viaje, o el bus o el pasajero no existen
         if ((findVenta(idDoc, tipo) == null) || (findViaje("" + fecha, "" + hora, patBus) == null) ||

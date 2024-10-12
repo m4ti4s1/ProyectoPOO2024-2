@@ -1,4 +1,8 @@
-// Test para rama version 2 de proyecto POO
+package vista;// Test para rama version 2 de proyecto POO
+
+import Controlador.SistemaVentaPasajes;
+import Utilidades.*;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -48,30 +52,30 @@ public class Main {
     }
     /*
     private void inicia() {
-        IdPersona id1 = Pasaporte.of("1234", "chileno");
-        IdPersona id2 = Rut.of("11.111.111-1");
-        IdPersona id3 = Pasaporte.of("91011", "boliviano");
-        IdPersona id4 = Pasaporte.of("1324", "chileno");
+        Utilidades.IdPersona id1 = Utilidades.Pasaporte.of("1234", "chileno");
+        Utilidades.IdPersona id2 = Utilidades.Rut.of("11.111.111-1");
+        Utilidades.IdPersona id3 = Utilidades.Pasaporte.of("91011", "boliviano");
+        Utilidades.IdPersona id4 = Utilidades.Pasaporte.of("1324", "chileno");
 
 
-        Nombre n1 = new Nombre();
+        Utilidades.Nombre n1 = new Utilidades.Nombre();
         n1.setNombres("Lucas Daniel");
         n1.setApellidoPaterno("Fernandez");
         n1.setApellidoMaterno("Garcia");
-        n1.setTratamiento(Tratamiento.valueOf("SR"));
+        n1.setTratamiento(Utilidades.Tratamiento.valueOf("SR"));
 
-        Nombre n2 = new Nombre();
+        Utilidades.Nombre n2 = new Utilidades.Nombre();
         n2.setNombres("Sofia Isabel");
         n2.setApellidoPaterno("Martinez");
         n2.setApellidoMaterno("Lopez");
-        n2.setTratamiento(Tratamiento.valueOf("SRA"));
+        n2.setTratamiento(Utilidades.Tratamiento.valueOf("SRA"));
 
-        Nombre n3 = new Nombre();
+        Utilidades.Nombre n3 = new Utilidades.Nombre();
         n3.setNombres("Carlos Alberto");
         n3.setApellidoPaterno("Rodriguez");
         n3.setApellidoMaterno("Silva");
 
-        Nombre n4 = new Nombre();
+        Utilidades.Nombre n4 = new Utilidades.Nombre();
         n4.setNombres("Carlos Alberto");
         n4.setApellidoPaterno("Rodriguez");
 
@@ -180,9 +184,9 @@ public class Main {
     }
 
     private void createCliente() {
-        System.out.println("...::: Crear un nuevo Cliente :::...\n");
+        System.out.println("...::: Crear un nuevo Modelo.Cliente :::...\n");
 
-        int tipoDocumento = leeOpc("Rut[1] o Pasaporte[2]", 2);
+        int tipoDocumento = leeOpc("Utilidades.Rut[1] o Utilidades.Pasaporte[2]", 2);
 
         IdPersona idPersona = null;
         String rut = "";
@@ -191,13 +195,13 @@ public class Main {
 
         switch (tipoDocumento) {
             case 1:
-                // Rut
+                // Utilidades.Rut
                 rut = leeString("R.U.T");
                 idPersona = Rut.of(rut);
 
                 break;
             case 2:
-                // Pasaporte
+                // Utilidades.Pasaporte
                 numero = leeString("Numero");
                 nacionalidad = leeString("Nacionalidad");
 
@@ -235,9 +239,9 @@ public class Main {
         String email = leeString("Email");
 
         if (!(svp.createCliente(idPersona, nombreCliente, telefono, email))) {
-            System.out.println("\n....:::: Cliente ya existe ::::....\n");
+            System.out.println("\n....:::: Modelo.Cliente ya existe ::::....\n");
         } else {
-            System.out.println("\n....:::: Cliente guardado exitosamente ::::....\n");
+            System.out.println("\n....:::: Modelo.Cliente guardado exitosamente ::::....\n");
         }
 
     }
@@ -260,14 +264,14 @@ public class Main {
         int nroAsientos = Integer.parseInt(leeString("Numero de asientos"));
 
         if (svp.createBus(patente, marca, modelo, nroAsientos)) {
-            System.out.println("\n...:::: Bus guardado exitosamente ::::....");
+            System.out.println("\n...:::: Modelo.Bus guardado exitosamente ::::....");
         } else {
             System.out.println("\n...:::: Ya existe un bus con esa patente ::::....");
         }
     }
 
     private void createViaje() {
-        System.out.println("...::: Creacion de un nuevo Viaje :::....");
+        System.out.println("...::: Creacion de un nuevo Modelo.Viaje :::....");
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -281,10 +285,10 @@ public class Main {
         System.out.printf("%30s : ", "Precio");
         int precio = sc.nextInt();
 
-        String patente = leeString("Patente Bus");
+        String patente = leeString("Patente Modelo.Bus");
 
         if (svp.createViaje(fecha, hora, precio, patente)) {
-            System.out.println("\n...:::: Viaje guardado exitosamente ::::....");
+            System.out.println("\n...:::: Modelo.Viaje guardado exitosamente ::::....");
         } else {
             System.out.println("\n...:::: No se pudo crear el viaje. Verifica los datos ::::....");
         }
@@ -292,7 +296,7 @@ public class Main {
 
     private void vendePasaje() {
 
-        System.out.println(".....::: Venta de Pasajes:::....\n\n");
+        System.out.println(".....::: Modelo.Venta de Pasajes:::....\n\n");
         System.out.println(":::Datos de venta");
 
         String IdDocumento = leeString("ID Documento");
@@ -311,10 +315,10 @@ public class Main {
         }
 
 
-        String fecha = leeString("Fecha de Venta [dd/mm/yyyy]");
+        String fecha = leeString("Fecha de Modelo.Venta [dd/mm/yyyy]");
 
-        System.out.println("\n\n:::: Datos del Cliente");
-        int op = leeOpc("Rut[1] o Pasaporte[2]", 2);
+        System.out.println("\n\n:::: Datos del Modelo.Cliente");
+        int op = leeOpc("Utilidades.Rut[1] o Utilidades.Pasaporte[2]", 2);
 
         IdPersona idCliente = null;
         switch (op) {
@@ -322,16 +326,16 @@ public class Main {
                 String idRUT = leeString("R.U.T");
 
                 if (null == svp.getNombreCliente(Rut.of(idRUT))) {
-                    System.out.println(":::: Cliente no Encontrado");
+                    System.out.println(":::: Modelo.Cliente no Encontrado");
                     return;
                 } else {
-                    System.out.printf("%30s : %s", "Nombre Cliente", svp.getNombreCliente(Rut.of(idRUT)));
+                    System.out.printf("%30s : %s", "Utilidades.Nombre Modelo.Cliente", svp.getNombreCliente(Rut.of(idRUT)));
                     idCliente = Rut.of(idRUT);
                     break;
                 }
 
             case 2:
-                String num = leeString("Numero Pasaporte");
+                String num = leeString("Numero Utilidades.Pasaporte");
                 String nacionalidad = leeString("Nacionalidad");
 
                 if (null == svp.getNombreCliente(Pasaporte.of(num, nacionalidad))) {
@@ -339,7 +343,7 @@ public class Main {
                     return;
                 } else {
 
-                    System.out.println("\nNombre Cliente : " + svp.getNombreCliente(Pasaporte.of(num, nacionalidad)));
+                    System.out.println("\nUtilidades.Nombre Modelo.Cliente : " + svp.getNombreCliente(Pasaporte.of(num, nacionalidad)));
 
                     idCliente = Pasaporte.of(num, nacionalidad);
                     break;
@@ -429,7 +433,7 @@ public class Main {
 
             System.out.println("\n::::Datos pasajeros " + (i + 1));
 
-            int opcId = leeOpc("Rut[1] o Pasaporte[2]", 2);
+            int opcId = leeOpc("Utilidades.Rut[1] o Utilidades.Pasaporte[2]", 2);
 
             switch (opcId) {
                 case 1:
@@ -439,11 +443,11 @@ public class Main {
 
                     if (null == svp.getNombrePasajero(Rut.of(idRut))) {
 
-                        System.out.println("\n\n:::: Pasajero no Encontrado\n");
+                        System.out.println("\n\n:::: Modelo.Pasajero no Encontrado\n");
 
                         Nombre newPasajero = new Nombre();
                         System.out.println("..: Cree al pasajero :..");
-                        System.out.println("\n...::: Datos Pasajero :::...");
+                        System.out.println("\n...::: Datos Modelo.Pasajero :::...");
 
                         int opcTratamiento = leeOpc("Sr.[1] o Sra.[2]", 2);
 
@@ -452,7 +456,7 @@ public class Main {
                             case 2 -> newPasajero.setTratamiento(Tratamiento.valueOf("SR"));
                         }
 
-                        // Todo Arreglar copiando el formato al crear Cliente
+                        // Todo Arreglar copiando el formato al crear Modelo.Cliente
                         String nombres = leeString("Nombres");
                         String apellidoPaterno = leeString("Apellido Paterno");
                         String apellidoMaterno = leeString("Apellido Materno");
@@ -465,7 +469,7 @@ public class Main {
                         Nombre contacto = new Nombre();
 
                         // No necesario porque ya lo ingreso antes
-                        System.out.println("\n...::: Datos Contacto Pasajero :::...");
+                        System.out.println("\n...::: Datos Contacto Modelo.Pasajero :::...");
 
                         opcTratamiento = leeOpc("Ingrese Sr.[1] o Sra.[2]", 2);
                         switch ((opcTratamiento)) {
@@ -484,7 +488,7 @@ public class Main {
 
 
                         if (svp.createPasajero(Rut.of(idRut), newPasajero, fono, contacto, fonoContacto)) {
-                            System.out.println("\n:::: Pasaje agregado exitosamente");
+                            System.out.println("\n:::: Modelo.Pasaje agregado exitosamente");
                         } else {
                             System.out.println(":::: El pasaje no pudo agregarse");
                         }
@@ -498,16 +502,16 @@ public class Main {
 
                 case 2:
                     // caso pasaporte
-                    String numeroPasaporte = leeString("Numero Pasaporte");
+                    String numeroPasaporte = leeString("Numero Utilidades.Pasaporte");
                     String nacionalidad = leeString("Nacionalidad");
 
                     if (null == svp.getNombrePasajero(Pasaporte.of(numeroPasaporte, nacionalidad))) {
 
-                        System.out.println("\n\n:::: Pasajero no Encontrado\n");
+                        System.out.println("\n\n:::: Modelo.Pasajero no Encontrado\n");
 
                         Nombre newPasajero = new Nombre();
                         System.out.println("..: Cree al pasajero :..");
-                        System.out.println("\n...::: Datos Pasajero :::...");
+                        System.out.println("\n...::: Datos Modelo.Pasajero :::...");
 
                         int opcTratamiento = leeOpc("Sr.[1] o Sra.[2]", 2);
 
@@ -528,7 +532,7 @@ public class Main {
                         Nombre contacto = new Nombre();
 
                         // No necesario porque ya lo ingreso antes
-                        System.out.println("\n...::: Datos Contacto Pasajero :::...");
+                        System.out.println("\n...::: Datos Contacto Modelo.Pasajero :::...");
 
                         opcTratamiento = leeOpc("Ingrese Sr.[1] o Sra.[2]", 2);
                         switch ((opcTratamiento)) {
@@ -547,7 +551,7 @@ public class Main {
 
 
                         if (svp.createPasajero(Pasaporte.of(numeroPasaporte, nacionalidad), newPasajero, fono, contacto, fonoContacto)) {
-                            System.out.println("\n:::: Pasaje agregado exitosamente");
+                            System.out.println("\n:::: Modelo.Pasaje agregado exitosamente");
                         } else {
                             System.out.println(":::: El pasaje no pudo agregarse");
                         }
@@ -561,7 +565,7 @@ public class Main {
 
         int montoVenta = svp.getMontoVenta(IdDocumento, tipoDocumento);
         System.out.println(":::: Monto Total de la venta: " + montoVenta);
-        String msg = "...:::: Venta generada exitosamente ::::....";
+        String msg = "...:::: Modelo.Venta generada exitosamente ::::....";
         System.out.printf("\n%47s\n", msg);
 
         String[] boleta = svp.pasajesAImprimir(IdDocumento, tipoDocumento);

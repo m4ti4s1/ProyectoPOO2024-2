@@ -1,3 +1,5 @@
+package Modelo;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -6,9 +8,9 @@ public class Venta {
     private String idDocumento;
     private TipoDocumento tipo;
     private LocalDate fecha;
-    private Cliente cliente; // Relacion con clase Cliente
+    private Cliente cliente; // Relacion con clase Modelo.Cliente
 
-    private ArrayList<Pasaje> pasajes; // Relacion con clase Pasaje
+    private ArrayList<Pasaje> pasajes; // Relacion con clase Modelo.Pasaje
 
     public Venta(String id, TipoDocumento tipo, LocalDate fec, Cliente cli) {
         this.idDocumento = id;

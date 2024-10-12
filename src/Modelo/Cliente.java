@@ -1,3 +1,7 @@
+package Modelo;
+
+import Utilidades.Nombre;
+
 import java.util.ArrayList;
 public class Cliente extends Persona {
 
@@ -5,7 +9,7 @@ public class Cliente extends Persona {
     private Persona persona;
     private ArrayList<Venta> ventas;
 
-    public Cliente(IdPersona id, Nombre nom, String email) {
+    public Cliente(Utilidades.IdPersona id, Nombre nom, String email) {
         super(id, nom);
         this.email = email;
     }

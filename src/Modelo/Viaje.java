@@ -1,5 +1,6 @@
+package Modelo;
+
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class Viaje {
             for(int i = 0; i< Listapasajes.size(); i++){
                 if(Listapasajes.get(i).getNumero()==pasaje.getNumero()){
                     if(Listapasajes.get(i).getAsiento()==pasaje.getAsiento()){
-                        System.out.println("---Este Pasaje ya Existe dentro del Viaje---");
+                        System.out.println("---Este Modelo.Pasaje ya Existe dentro del Modelo.Viaje---");
                         agregar=false;
                         break;
                     }

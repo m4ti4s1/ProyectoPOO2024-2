@@ -1,8 +1,12 @@
+package Modelo;
+
+import Utilidades.Nombre;
+
 public class Pasajero extends Persona {
     private Nombre nomContacto;
     private String fonoContacto;
 
-    public Pasajero(IdPersona id, Nombre nom) {
+    public Pasajero(Utilidades.IdPersona id, Nombre nom) {
         super(id, nom);
     }
 
