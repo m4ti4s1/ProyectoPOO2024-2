@@ -1,6 +1,7 @@
 package vista;// Test para rama version 2 de proyecto POO
 
 import Controlador.SistemaVentaPasajes;
+import Modelo.TipoDocumento;
 import Utilidades.*;
 
 import java.time.*;
