@@ -3,11 +3,13 @@ package Controlador;
 import Modelo.*;
 import Utilidades.IdPersona;
 import Utilidades.Nombre;
+import Excepciones.SistemaVentaPasajesExcepcion;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
+
 
 public class SistemaVentaPasajes {
     private ArrayList<Venta> ventas = new ArrayList<>();
@@ -18,18 +20,17 @@ public class SistemaVentaPasajes {
 
 
     // Verificado
-    public boolean createCliente(IdPersona id, Nombre nom, String fono, String email) {
+    public void createCliente(IdPersona id, Nombre nom, String fono, String email) throws SistemaVentaPasajesExcepcion {
         Cliente cliente = new Cliente(id, nom, email);
         cliente.setTelefono(fono);
 
         if (findCliente(id) == null) {
             // Modelo.Cliente creado y agregado a lista de clientes
             clientes.add(cliente);
-            return true;
         } else {
 
             // El cliente ya existe y no puede ser agregado a la lista
-            return false;
+            throw new SistemaVentaPasajesExcepcion("::: Ya existe cliente con el id indicado");
         }
     }
 
