@@ -30,12 +30,12 @@ public class SistemaVentaPasajes {
         } else {
 
             // El cliente ya existe y no puede ser agregado a la lista
-            throw new SistemaVentaPasajesExcepcion("::: Ya existe cliente con el id indicado");
+            throw new SistemaVentaPasajesExcepcion("Ya existe cliente con el id indicado");
         }
     }
 
 
-    public boolean createPasajero(IdPersona id, Nombre nom, String fono, Nombre nomContacto, String fonoContacto){
+    public void createPasajero(IdPersona id, Nombre nom, String fono, Nombre nomContacto, String fonoContacto) throws SistemaVentaPasajesExcepcion {
         Pasajero pasajero  = new Pasajero(id, nom);
         pasajero.setTelefono(fono);
         pasajero.setNomContacto(nomContacto);
@@ -43,26 +43,24 @@ public class SistemaVentaPasajes {
 
         if (findPasajero(id) == null){
             pasajeros.add(pasajero);
-            return true;
         } else {
-            return false;
+            throw new SistemaVentaPasajesExcepcion("Ya existe pasajero con el id indicado");
         }
 
     }
 
-    public boolean createBus(String patente, String marca, String modelo, int nroAsientos) {
+    //todo Mover a ControladorEmpresa
+    public void createBus(String patente, String marca, String modelo, int nroAsientos) throws SistemaVentaPasajesExcepcion {
         Bus bus = new Bus(patente, nroAsientos);
         bus.setMarca(marca);
         bus.setModelo(modelo);
 
         // Arreglar bus no puede utilizar contains, porque no tiene definido el equals
-        if (findBus(patente) != null) {
+        if (findBus(patente) == null) {
             //logica para bus que ya existe
-            return false;
-        } else {
-            //mensaje para bus creado exitosamente
             buses.add(bus);
-            return true;
+        } else {
+            throw new SistemaVentaPasajesExcepcion("Ya existe bus con la patente indicada");
         }
     }
 
