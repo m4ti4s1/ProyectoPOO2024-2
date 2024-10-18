@@ -3,7 +3,7 @@ package Modelo;
 import Utilidades.IdPersona;
 import Utilidades.Nombre;
 
-public class Persona {
+public abstract class Persona {
     private Utilidades.IdPersona IdPersona;
     private Nombre nombreCompleto;
     private String telefono;

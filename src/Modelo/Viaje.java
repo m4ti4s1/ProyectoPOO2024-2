@@ -9,15 +9,28 @@ public class Viaje {
     private LocalTime hora;
     private int precio;
     private Bus bus;
+    private Auxiliar auxiliar; //asociacion con auxliar
 
     List<Pasaje> Listapasajes =new ArrayList<>();
     List<Pasajero> Listapasajeros =new ArrayList<>();
+    List<Conductor> conductores; //asosiacion con conductor
 
-    public Viaje(LocalDate fecha, LocalTime hora, int precio,Bus bus) {
+    public Viaje(LocalDate fecha, LocalTime hora, int precio, Bus bus,Auxiliar aux, Conductor cond) {
         this.fecha = fecha;;
         this.hora = hora;
         this.precio = precio;
         this.bus=bus;
+        //parte de la asosiacion con conductor
+        this.conductores=new ArrayList<>();
+        if (cond !=null){
+            this.conductores.add(cond);
+            cond.addViaje(this);
+        }
+        //parte de la asociacion con auxiliar
+        if(aux!=null){
+            this.auxiliar=aux;
+            aux.addViaje(this);
+        }
     }
 //?----------------Getter and Setter---------------------------------------------------
     public LocalDate getFecha() {
