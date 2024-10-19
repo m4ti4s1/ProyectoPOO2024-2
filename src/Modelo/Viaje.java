@@ -119,5 +119,10 @@ public class Viaje {
         total-= Listapasajes.size();
         return total;
     }
+
+    public Venta[] getVentas() {
+        Venta[] ap={};
+        return ap;
+    }
 }
 

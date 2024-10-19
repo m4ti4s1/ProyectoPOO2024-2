@@ -1,5 +1,6 @@
 package Modelo;
 
+import Utilidades.Direccion;
 import Utilidades.IdPersona;
 import Utilidades.Nombre;
 
@@ -8,8 +9,8 @@ import java.util.ArrayList;
 public class Conductor extends Tripulante {
     ArrayList<Viaje> conductorViajes; //asociacion con viaje
 
-    public Conductor(Utilidades.IdPersona id, Nombre nom, Direccion dir) {
-        super(id, nom, dir);
+    public Conductor(IdPersona id, Nombre nom, Direccion dir) {
+        super(id,nom,dir);
         this.conductorViajes = new ArrayList<>();
     }
 
