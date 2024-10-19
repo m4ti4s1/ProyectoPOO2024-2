@@ -41,7 +41,7 @@ public class SistemaVentaPasajes {
         Cliente cliente = new Cliente(id, nom, email);
         cliente.setTelefono(fono);
 
-        if (findCliente(id) == null) {
+        if (findCliente(id).isEmpty()) {
             clientes.add(cliente);
         } else {
             // El cliente ya existe y no puede ser agregado a la lista
@@ -56,7 +56,7 @@ public class SistemaVentaPasajes {
         pasajero.setNomContacto(nomContacto);
         pasajero.setFonoContancto(fonoContacto);
 
-        if (findPasajero(id) == null){
+        if (findPasajero(id).isEmpty()){
             pasajeros.add(pasajero);
         } else {
             throw new SistemaVentaPasajesExcepcion("Ya existe pasajero con el id indicado");
@@ -91,14 +91,12 @@ public class SistemaVentaPasajes {
 
     public void iniciaVenta(String idDoc, TipoDocumento tipo, LocalDate fecha, IdPersona idCliente) throws SistemaVentaPasajesExcepcion {
         // Verificar si el cliente existe
-        Cliente cliente = findCliente(idCliente);
-        if (cliente == null) {
-            throw new SistemaVentaPasajesExcepcion("No existe cliente con el id indicado");
-        }
+        Cliente cliente = findCliente(idCliente).orElseThrow(() ->
+            new SistemaVentaPasajesExcepcion("No existe cliente con el id indicado"));
 
 
         // verificar si existe una venta igual
-        if (findVenta(idDoc, tipo) == null){
+        if (findVenta(idDoc, tipo).isEmpty()){
             Venta venta = new Venta(idDoc, tipo, fecha, cliente);
             ventas.add(venta);
         } else {
@@ -139,12 +137,12 @@ public class SistemaVentaPasajes {
     }
 
     public String[] listAsientosDeViaje(LocalDate fecha, LocalTime hora, String patBus) {
-
-        if(null==findViaje(""+fecha,""+hora,patBus)){
+        Optional<Viaje> viajeOpt = findViaje("" + fecha, "" + hora, patBus);
+        if(findViaje("" + fecha, "" + hora, patBus).isEmpty()){
             return new String[]{"0"};
         }
 
-        String[][] matriz= findViaje(""+fecha,""+hora,patBus).getAsientos();
+        String[][] matriz= viajeOpt.get().getAsientos();
 
         String []listAsientos=new String[matriz.length];
         for (int i=0;i<listAsientos.length;i++){
@@ -188,25 +186,15 @@ public class SistemaVentaPasajes {
     }
      */
     public void vendePasaje(String idDoc, TipoDocumento tipo , LocalDate fecha, LocalTime hora, String patBus, int asiento, IdPersona idPasajero) throws SistemaVentaPasajesExcepcion {
+        Venta venta = findVenta(idDoc, tipo).orElseThrow(() ->
+            new SistemaVentaPasajesExcepcion("No existe una venta con el id y tipo de documento indicados"));
 
+        Viaje viaje = findViaje("" + fecha, "" + hora, patBus).orElseThrow(() ->
+            new SistemaVentaPasajesExcepcion("No existe viaje con la fecha, hora y patente del bus indicados"));
 
-        if (findVenta(idDoc, tipo) == null) {
-            throw new SistemaVentaPasajesExcepcion("No existe una venta ocn el id y tipo de documento indicados");
-        }
-        if (findViaje("" + fecha, "" + hora, patBus) == null) {
-            throw new SistemaVentaPasajesExcepcion("No existe viaje con la fecha, hora y patente del bus indiados");
-        }
+        Pasajero pasajero = findPasajero(idPasajero).orElseThrow(() ->
+            new SistemaVentaPasajesExcepcion("No existe pasajero con el id indicado"));
 
-        if (findPasajero(idPasajero) == null) {
-            throw new SistemaVentaPasajesExcepcion("No existe pasajero con el id indicado");
-        }
-
-
-
-        // encontrar el pasajero y la venta correspondiente
-        Pasajero pasajero = findPasajero(idPasajero);
-        Venta venta = findVenta(idDoc, tipo);
-        Viaje viaje = findViaje("" + fecha, "" + hora, patBus);
 
         if (viaje.existeDisponibilidad()) {
             Pasaje pasaje = new Pasaje(asiento, viaje, pasajero, venta);
@@ -255,9 +243,10 @@ public class SistemaVentaPasajes {
     }
 
     public String[][] listPasajeros(LocalDate fecha, LocalTime hora, String patBus) {
-        String [][]ListaPasajeros;
-        ListaPasajeros= findViaje(fecha+"",hora+"",patBus).getListaPasajeros();
-        return ListaPasajeros;
+        Viaje viaje = findViaje(fecha.toString(), hora.toString(), patBus)
+                .orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe viaje con la fecha, hora y patente de bus indicados"));
+
+        return viaje.getListaPasajeros();
 
     }
 
