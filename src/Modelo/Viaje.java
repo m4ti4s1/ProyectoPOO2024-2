@@ -25,6 +25,7 @@ public class Viaje {
         this.precio = precio;
         this.duracion = dur;
 
+        //asociaciones bidireccional
         this.bus = bus;
         this.bus.addViaje(this);
 
@@ -36,7 +37,10 @@ public class Viaje {
         cond.addViaje(this);
 
         this.salida = sale;
+        this.salida.addSalida(this);
+
         this.llegada = llega;
+        this.llegada.addLlegada(this);
     }
 //?----------------Getter and Setter---------------------------------------------------
     public LocalDate getFecha() {
