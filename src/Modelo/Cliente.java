@@ -20,4 +20,15 @@ public class Cliente extends Persona {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void addVenta(Venta venta) {
+        if(!ventas.contains(venta)) {
+            ventas.add(venta);
+        }
+    }
+
+    public Venta[] getVentas() {
+        return ventas.toArray(new Venta[0]);
+    }
+
 }
