@@ -45,6 +45,7 @@ public class Bus {
     public void addViaje(Viaje viaje) {
         this.viajes.add(viaje);
     }
+
     public Viaje[] getViajes() {
         Viaje[] viajes1 = new Viaje[0];
         return viajes1;

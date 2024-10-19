@@ -24,15 +24,19 @@ public class Viaje {
         this.hora = hora;
         this.precio = precio;
         this.duracion = dur;
+
         this.bus = bus;
+        this.bus.addViaje(this);
+
         this.auxiliar=aux;
         aux.addViaje(this);
+
         this.conductores=new ArrayList<>();
         this.conductores.add(cond);
         cond.addViaje(this);
+
         this.salida = sale;
         this.llegada = llega;
-
     }
 //?----------------Getter and Setter---------------------------------------------------
     public LocalDate getFecha() {
