@@ -9,14 +9,32 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 
 public class SistemaVentaPasajes {
-    private ArrayList<Venta> ventas = new ArrayList<>();
-    private ArrayList<Pasajero> pasajeros = new ArrayList<>();
-    private ArrayList<Cliente> clientes = new ArrayList<>();
-    private ArrayList<Bus> buses = new ArrayList<>();
-    private ArrayList<Viaje> viajes = new ArrayList<>(); // No se para que se implementa el Controlador.SistemaVentaPasajes
+
+    // instancia unica (Singleton)
+    private static SistemaVentaPasajes instance;
+
+    private ArrayList<Venta> ventas;
+    private ArrayList<Pasajero> pasajeros;
+    private ArrayList<Cliente> clientes;
+    private ArrayList<Viaje> viajes; // No se para que se implementa el Controlador.SistemaVentaPasajes
+
+    private SistemaVentaPasajes() {
+        ventas = new ArrayList<>();
+        pasajeros = new ArrayList<>();
+        clientes = new ArrayList<>();
+        viajes = new ArrayList<>();
+    }
+
+    public static SistemaVentaPasajes getInstance() {
+        if (instance == null) {
+            instance = new SistemaVentaPasajes();
+        }
+        return instance;
+    }
 
 
     public void createCliente(IdPersona id, Nombre nom, String fono, String email) throws SistemaVentaPasajesExcepcion {
@@ -138,22 +156,22 @@ public class SistemaVentaPasajes {
 
     }
 
-    public int getMontoVenta(String idDocumento, TipoDocumento tipo) {
+    public Optional<Integer> getMontoVenta(String idDocumento, TipoDocumento tipo) {
         for (Venta venta : ventas) {
             if (venta.getIdDocumento().equals(idDocumento) && venta.getTipo().equals(tipo)) {
-                return venta.getMonto();
+                return Optional.of(venta.getMonto());
             }
         }
-        return 0;
+        return Optional.empty();
     }
 
-    public String getNombrePasajero(IdPersona idPasajero) {
+    public Optional<String> getNombrePasajero(IdPersona idPasajero) {
         for (Pasajero pasajero: pasajeros) {
             if (pasajero.getIdPersona().equals(idPasajero)) {
-                return pasajero.getNombreCompleto().toString();
+                return Optional.of(pasajero.getNombreCompleto().toString());
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     /*
@@ -273,42 +291,42 @@ public class SistemaVentaPasajes {
     }
 
 
-    private Cliente findCliente(IdPersona id) {
+    private Optional<Cliente> findCliente(IdPersona id) {
         for (Cliente cliente : clientes) {
             if (Objects.equals(cliente.getIdPersona(), id)) {
-                return cliente;
+                return Optional.of(cliente);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
-    private Venta findVenta(String idDocumento, TipoDocumento tipoDocumento) {
+    private Optional<Venta> findVenta(String idDocumento, TipoDocumento tipoDocumento) {
         for (Venta venta : ventas) {
             if (venta.getIdDocumento().equals(idDocumento) && venta.getTipo() == tipoDocumento) {
-                return venta;
+                return Optional.of(venta);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
 
-    private Viaje findViaje(String fecha, String hora, String patenteBus) {
+    private Optional<Viaje> findViaje(String fecha, String hora, String patenteBus) {
 
         for (Viaje viaje : viajes) {
             if (viaje.getFecha().toString().equals(fecha) && viaje.getHora().toString().equals(hora)  && viaje.getBus().getPatente().equals(patenteBus)) {
-                return viaje;
+                return Optional.of(viaje);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
-    private Pasajero findPasajero(IdPersona idPersona) {
+    private Optional<Pasajero> findPasajero(IdPersona idPersona) {
         for (Pasajero pasajero : pasajeros) {
             if (Objects.equals(pasajero.getIdPersona(), idPersona)) {
-                return pasajero;
+                return Optional.of(pasajero);
             }
         }
-        return null;
+        return Optional.empty();
 
     }
 
