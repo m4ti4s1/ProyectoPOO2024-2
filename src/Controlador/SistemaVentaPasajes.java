@@ -19,16 +19,13 @@ public class SistemaVentaPasajes {
     private ArrayList<Viaje> viajes = new ArrayList<>(); // No se para que se implementa el Controlador.SistemaVentaPasajes
 
 
-    // Verificado
     public void createCliente(IdPersona id, Nombre nom, String fono, String email) throws SistemaVentaPasajesExcepcion {
         Cliente cliente = new Cliente(id, nom, email);
         cliente.setTelefono(fono);
 
         if (findCliente(id) == null) {
-            // Modelo.Cliente creado y agregado a lista de clientes
             clientes.add(cliente);
         } else {
-
             // El cliente ya existe y no puede ser agregado a la lista
             throw new SistemaVentaPasajesExcepcion("Ya existe cliente con el id indicado");
         }
@@ -49,20 +46,7 @@ public class SistemaVentaPasajes {
 
     }
 
-    //todo Mover a ControladorEmpresa
-    public void createBus(String patente, String marca, String modelo, int nroAsientos) throws SistemaVentaPasajesExcepcion {
-        Bus bus = new Bus(patente, nroAsientos);
-        bus.setMarca(marca);
-        bus.setModelo(modelo);
 
-        // Arreglar bus no puede utilizar contains, porque no tiene definido el equals
-        if (findBus(patente) == null) {
-            //logica para bus que ya existe
-            buses.add(bus);
-        } else {
-            throw new SistemaVentaPasajesExcepcion("Ya existe bus con la patente indicada");
-        }
-    }
 
     public boolean createViaje(LocalDate fecha, LocalTime hora, int precio, String patente) {
 
@@ -87,29 +71,24 @@ public class SistemaVentaPasajes {
     }
 
 
-    public boolean iniciaVenta(String idDoc, TipoDocumento tipo, LocalDate fecha, IdPersona idCliente) {
+    public void iniciaVenta(String idDoc, TipoDocumento tipo, LocalDate fecha, IdPersona idCliente) throws SistemaVentaPasajesExcepcion {
         // Verificar si el cliente existe
         Cliente cliente = findCliente(idCliente);
         if (cliente == null) {
-            return false; // El cliente no existe
+            throw new SistemaVentaPasajesExcepcion("No existe cliente con el id indicado");
         }
 
-        // Verificar si ya existe una venta con el mismo idDocumento
-        for (Venta venta : ventas) {
-            if (venta.getIdDocumento().equals(idDoc)) {
-                return false; // Ya existe una venta con este idDocumento
-            }
-        }
 
-        // ! Falta verificar si existe una venta similar
-
+        // verificar si existe una venta igual
         if (findVenta(idDoc, tipo) == null){
             Venta venta = new Venta(idDoc, tipo, fecha, cliente);
             ventas.add(venta);
-            return true;
         } else {
-            return false;
+            throw new SistemaVentaPasajesExcepcion("Ya existe una venta con el id y tipo de documento indicados");
         }
+
+
+        // todo verificar si existen viajes diponibles en la fecha y con termianles en las comunas con salida y llega indicados
     }
 
     public String[][] getHorariosDisponibles(LocalDate fechaViaje) {
@@ -190,15 +169,21 @@ public class SistemaVentaPasajes {
         return false;
     }
      */
-    public boolean vendePasaje(String idDoc, TipoDocumento tipo , LocalDate fecha, LocalTime hora, String patBus, int asiento, IdPersona idPasajero) {
+    public void vendePasaje(String idDoc, TipoDocumento tipo , LocalDate fecha, LocalTime hora, String patBus, int asiento, IdPersona idPasajero) throws SistemaVentaPasajesExcepcion {
 
-        // si la venta, o el viaje, o el bus o el pasajero no existen
-        if ((findVenta(idDoc, tipo) == null) || (findViaje("" + fecha, "" + hora, patBus) == null) ||
-                (findBus(patBus) == null) || (findPasajero(idPasajero) == null)) {
-            return false;
+
+        if (findVenta(idDoc, tipo) == null) {
+            throw new SistemaVentaPasajesExcepcion("No existe una venta ocn el id y tipo de documento indicados");
+        }
+        if (findViaje("" + fecha, "" + hora, patBus) == null) {
+            throw new SistemaVentaPasajesExcepcion("No existe viaje con la fecha, hora y patente del bus indiados");
         }
 
-        // en caso todo exista
+        if (findPasajero(idPasajero) == null) {
+            throw new SistemaVentaPasajesExcepcion("No existe pasajero con el id indicado");
+        }
+
+
 
         // encontrar el pasajero y la venta correspondiente
         Pasajero pasajero = findPasajero(idPasajero);
@@ -209,9 +194,7 @@ public class SistemaVentaPasajes {
             Pasaje pasaje = new Pasaje(asiento, viaje, pasajero, venta);
             venta.addPasaje(pasaje);
             viaje.addPasaje(pasaje);
-            return true;
         }
-        return false;
 
     }
 
@@ -308,15 +291,6 @@ public class SistemaVentaPasajes {
         return null;
     }
 
-
-    private Bus findBus(String patente) {
-        for (Bus bus : buses) {
-            if (bus.getPatente().equals(patente)) {
-                return bus;
-            }
-        }
-        return null;
-    }
 
     private Viaje findViaje(String fecha, String hora, String patenteBus) {
 
