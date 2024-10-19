@@ -15,9 +15,7 @@ public class Auxiliar extends Tripulante {
 
     @Override
     public void addViaje(Viaje viaje){
-        if(!auxiliarViajes.contains(viaje)){
-            auxiliarViajes.add(viaje);
-        }
+        auxiliarViajes.add(viaje);
     }
 
     @Override

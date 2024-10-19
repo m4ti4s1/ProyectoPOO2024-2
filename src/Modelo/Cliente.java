@@ -22,9 +22,7 @@ public class Cliente extends Persona {
     }
 
     public void addVenta(Venta venta) {
-        if(!ventas.contains(venta)) {
-            ventas.add(venta);
-        }
+        ventas.add(venta);
     }
 
     public Venta[] getVentas() {

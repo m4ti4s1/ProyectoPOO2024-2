@@ -15,9 +15,7 @@ public class Conductor extends Tripulante {
 
     @Override
     public void addViaje(Viaje viaje){
-        if(!conductorViajes.contains(viaje)){
-            conductorViajes.add(viaje);
-        }
+        conductorViajes.add(viaje);
     }
 
     @Override
