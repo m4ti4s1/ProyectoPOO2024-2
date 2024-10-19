@@ -242,7 +242,7 @@ public class SistemaVentaPasajes {
 
     }
 
-    public String[][] listPasajeros(LocalDate fecha, LocalTime hora, String patBus) {
+    public String[][] listPasajeros(LocalDate fecha, LocalTime hora, String patBus) throws SistemaVentaPasajesExcepcion {
         Viaje viaje = findViaje(fecha.toString(), hora.toString(), patBus)
                 .orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe viaje con la fecha, hora y patente de bus indicados"));
 
