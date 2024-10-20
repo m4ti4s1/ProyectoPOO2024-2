@@ -4,9 +4,6 @@ import Modelo.*;
 import Utilidades.*;
 import Excepciones.SistemaVentaPasajesExcepcion;
 
-import java.lang.reflect.Array;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ControladorEmpresas {
@@ -129,6 +126,24 @@ public class ControladorEmpresas {
         return ArrayViajes;
 
     }
+    public String[][] listVentasEmpresa(Rut rut){
+        Optional<Empresa> up=findEmpresa(rut);
+        if(up.isEmpty()){
+            throw new SistemaVentaPasajesExcepcion("No existe empresa con el rut indicado ");
+        }
+        Venta[] ArregloEmpresa=up.get().getVentas();
+        if(ArregloEmpresa.length==0){
+            return new String[0][0];
+        }
+        String[][] fast=new String[ArregloEmpresa.length][5];
+        for (int i=0;i<ArregloEmpresa.length;i++){
+        fast[i][0]=""+ArregloEmpresa[i].getFecha();
+        fast[i][1]=""+ArregloEmpresa[i].getTipo();
+        fast[i][1]=""+ArregloEmpresa[i].getMonto();
+        fast[i][1]=ArregloEmpresa[i].getTipoPago();
+        }
+        return fast;
+    }
 
 
 
@@ -161,15 +176,40 @@ public class ControladorEmpresas {
 
 
     protected Optional<Bus> findBus(String patente) {
-        return null;
+        for (Bus n:buses){
+            if(n.getPatente().equalsIgnoreCase(patente)){
+                return Optional.of(n);
+            }
+        }
+        return Optional.empty();
     }
 
     protected Optional<Conductor> findConductor(IdPersona id, Rut rutEmpresa) {
-        return null;
+        Optional<Empresa> empre =findEmpresa(rutEmpresa);
+        if(empre.isEmpty()){
+            return Optional.empty();
+        }
+        Tripulante[] arregloTripulantes=empre.get().getTripulantes();
+        for (Tripulante n:arregloTripulantes){
+            if(n.getIdPersona().equals(id)){
+                return Optional.of((Conductor) n);
+            }
+        }
+        return Optional.empty();
     }
 
     protected Optional<Auxiliar> findAuxliar(IdPersona id, Rut rutEmpresa) {
-        return null;
+        Optional<Empresa> empre =findEmpresa(rutEmpresa);
+        if(empre.isEmpty()){
+            return Optional.empty();
+        }
+        Tripulante[] arregloTripulantes=empre.get().getTripulantes();
+        for (Tripulante n:arregloTripulantes){
+            if(n.getIdPersona().equals(id)){
+                return Optional.of((Auxiliar) n);
+            }
+        }
+        return Optional.empty();
     }
 
     protected static void hola() {
