@@ -9,6 +9,7 @@ public class Bus {
     private String marca;
     private String modelo;
     private int nroAsientos;
+    private Empresa empresa;
     private ArrayList<Viaje> viajes;
 
     //constructor
@@ -20,6 +21,10 @@ public class Bus {
 
     public String getPatente() {
         return patente;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
     }
 
     public String getMarca() {

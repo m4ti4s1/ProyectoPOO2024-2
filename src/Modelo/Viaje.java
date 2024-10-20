@@ -1,12 +1,13 @@
 package Modelo;
 
+import java.sql.Time;
 import java.time.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 public class Viaje {
-    private LocalDate fecha;
-    private LocalTime hora;
+    private Date fecha;
+    private Time hora;
     private int precio;
     private int duracion;
 
@@ -19,7 +20,7 @@ public class Viaje {
     List<Pasajero> Listapasajeros =new ArrayList<>();
     List<Conductor> conductores; //asosiacion con conductor
 
-    public Viaje(LocalDate fecha, LocalTime hora, int precio, int dur, Bus bus,Auxiliar aux, Conductor cond, Terminal sale, Terminal llega) {
+    public Viaje(Date fecha, Time hora, int precio, int dur, Bus bus,Auxiliar aux, Conductor cond, Terminal sale, Terminal llega) {
         this.fecha = fecha;;
         this.hora = hora;
         this.precio = precio;
@@ -43,10 +44,10 @@ public class Viaje {
         this.llegada.addLlegada(this);
     }
 //?----------------Getter and Setter---------------------------------------------------
-    public LocalDate getFecha() {
+    public Date getFecha() {
         return fecha;
     }
-    public LocalTime getHora() {
+    public Time getHora() {
         return hora;
     }
     public int getPrecio() {
@@ -63,11 +64,11 @@ public class Viaje {
         this.duracion = duracion;
     }
 
-    public LocalDateTime getFechaHoraTermino() {
-        LocalDateTime fechaHoraSalida = LocalDateTime.of(fecha, hora);
-        //Suma la duración en minutos a la fecha y hora de salida
-        return fechaHoraSalida.plusMinutes(duracion);
-    }
+//    public DateTime getFechaHoraTermino() {
+//        DateTime fechaHoraSalida = DateTime.of(fecha, hora);
+//        //Suma la duración en minutos a la fecha y hora de salida
+//        return fechaHoraSalida.plusMinutes(duracion);
+//    }
 
     public void addPasaje(Pasaje pasaje){
         boolean agregar =true;
