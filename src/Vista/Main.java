@@ -161,7 +161,7 @@ public class Main {
         System.out.printf(" | ASIENTO |        RUT/PASS | PASAJERO                          | CONTACTO                          | TELEFONO CONTACTO |%n");
         System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
 
-        String[][] listaPasajeros = svp.listPasajeros(fecha, hora, patenteBus);
+        String[][] listaPasajeros = svp.listPasajerosViaje(fecha, hora, patenteBus);
         for (int i = 0; i < listaPasajeros.length; i++) {
             System.out.printf(" |     %-3s |   %-13s | %-33s | %-33s | %-17s |%n",
                     listaPasajeros[i][0],listaPasajeros[i][1], listaPasajeros[i][2], listaPasajeros[i][3], listaPasajeros[i][4]);

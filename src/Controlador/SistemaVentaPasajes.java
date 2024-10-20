@@ -15,12 +15,14 @@ import java.util.Optional;
 public class SistemaVentaPasajes {
 
     // instancia unica (Singleton)
-    private static SistemaVentaPasajes instance;
+    private static SistemaVentaPasajes instance = null;
 
     private ArrayList<Venta> ventas;
     private ArrayList<Pasajero> pasajeros;
     private ArrayList<Cliente> clientes;
     private ArrayList<Viaje> viajes; // No se para que se implementa el Controlador.SistemaVentaPasajes
+
+    private ControladorEmpresas ctrlEmpresas = ControladorEmpresas.getInstance();
 
     private SistemaVentaPasajes() {
         ventas = new ArrayList<>();
@@ -66,26 +68,16 @@ public class SistemaVentaPasajes {
 
 
 
-    public boolean createViaje(LocalDate fecha, LocalTime hora, int precio, String patente) {
+    public void createViaje(LocalDate fecha, LocalTime hora, int precio, String patente) throws SistemaVentaPasajesExcepcion {
 
 
-        // verificar si existe el bus
-        if (findBus(patente) != null) {
-            Viaje viaje = new Viaje(fecha, hora, precio, findBus(patente));
+        Bus bus = ctrlEmpresas.findBus(patente).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe un bus con la patente indicada"));
 
-            // si existe el viaje
-            if (findViaje(fecha.toString() , hora.toString() , patente) == null) {
-                // viaje existe en el bus
-                viajes.add(viaje);
-                return true;
-            } else {
-                return false;
-            }
+        Viaje viaje = findViaje(fecha.toString(), hora.toString(), patente).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe viaje con fecha, hora y patente indicados"));
 
-        } else {
-            // Modelo.Bus no existe, viaje no se puede crear
-            return false;
-        }
+        viajes.add(viaje);
+
+
     }
 
 
@@ -242,7 +234,7 @@ public class SistemaVentaPasajes {
 
     }
 
-    public String[][] listPasajeros(LocalDate fecha, LocalTime hora, String patBus) throws SistemaVentaPasajesExcepcion {
+    public String[][] listPasajerosViaje(LocalDate fecha, LocalTime hora, String patBus) throws SistemaVentaPasajesExcepcion {
         Viaje viaje = findViaje(fecha.toString(), hora.toString(), patBus)
                 .orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe viaje con la fecha, hora y patente de bus indicados"));
 

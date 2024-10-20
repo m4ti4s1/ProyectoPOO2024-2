@@ -9,12 +9,22 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-// todo implementar singleton
 public class ControladorEmpresas {
 
     ArrayList<Empresa> empresas=new ArrayList<>();
     ArrayList<Bus> buses = new ArrayList<>();
     ArrayList<Terminal> terminales=new ArrayList<>();
+
+
+    private static ControladorEmpresas instance = null;
+
+
+    public static ControladorEmpresas getInstance() {
+        if (instance == null) {
+            instance = new ControladorEmpresas();
+        }
+        return instance;
+    }
 
     public void createEmpresa(Rut rut,String nombre,String url)throws SistemaVentaPasajesExcepcion{
         Empresa up=new Empresa(rut, nombre);
@@ -141,5 +151,9 @@ public class ControladorEmpresas {
 
     protected Optional<Auxiliar> findAuxliar(IdPersona id, Rut rutEmpresa) {
         return null;
+    }
+
+    protected static void hola() {
+        System.out.println("Hola");
     }
 }
