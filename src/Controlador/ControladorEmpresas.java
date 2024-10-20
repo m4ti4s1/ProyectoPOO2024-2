@@ -89,6 +89,7 @@ public class ControladorEmpresas {
         }
         return listEmpresas;
     }
+
     public String[][] listLlegadaSalidasTerminal(String nombre, Date fecha)throws SistemaVentaPasajesExcepcion{
         Optional<Terminal> terminal = findTerminal(nombre);
         if(terminal.isEmpty()){
@@ -117,6 +118,7 @@ public class ControladorEmpresas {
             ArrayViajes[n][2]=(salida.get(n).getBus()).getPatente();
             ArrayViajes[n][3]=(salida.get(n).getBus().getEmpresa()).getNombre();
             ArrayViajes[n][4]=""+(salida.get(n).getListaPasajeros().length);
+            if(n==ArrayViajes.length){break;}
             n++;
             ArrayViajes[n][0]="Llegada";
             ArrayViajes[n][1]=""+llegada.get(n).getHora();
@@ -132,12 +134,29 @@ public class ControladorEmpresas {
 
     // todo
     protected Optional<Empresa> findEmpresa(Rut rut) {
-        return null;
+        for(Empresa n:empresas){
+            if(n.getRut().equals(rut)){
+                return Optional.of(n);
+            }
+        }
+        return Optional.empty();
     }
-    Optional<Terminal> findTerminal(String nombre){return null;}
+    Optional<Terminal> findTerminal(String nombre){
+        for (Terminal n:terminales){
+            if(n.getNombre().equalsIgnoreCase(nombre)){
+                return Optional.of(n);
+            }
+            return Optional.empty();
+        }
+    }
 
     protected Optional<Terminal> findTerminalPorComuna(String comuna) {
-        return null;
+        for(Terminal n: terminales){
+            if((n.getDireccion().getComuna()).equalsIgnoreCase(comuna)){
+                return Optional.of(n);
+            }
+        }
+        return Optional.empty();
     }
 
 
