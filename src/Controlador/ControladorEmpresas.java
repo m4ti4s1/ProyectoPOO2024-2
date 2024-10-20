@@ -156,13 +156,14 @@ public class ControladorEmpresas {
         }
         return Optional.empty();
     }
-    Optional<Terminal> findTerminal(String nombre){
+    protected Optional<Terminal> findTerminal(String nombre){
         for (Terminal n:terminales){
             if(n.getNombre().equalsIgnoreCase(nombre)){
                 return Optional.of(n);
             }
-            return Optional.empty();
+
         }
+        return Optional.empty();
     }
 
     protected Optional<Terminal> findTerminalPorComuna(String comuna) {
