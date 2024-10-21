@@ -2,7 +2,7 @@ package Controlador;
 
 import Modelo.*;
 import Utilidades.*;
-import Excepciones.SistemaVentaPasajesExcepcion;
+import excepciones.SistemaVentaPasajesExcepcion;
 
 import java.time.LocalDate;
 import java.util.*;
