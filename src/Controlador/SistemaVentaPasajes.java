@@ -3,7 +3,7 @@ package Controlador;
 import Modelo.*;
 import Utilidades.IdPersona;
 import Utilidades.Nombre;
-import Excepciones.SistemaVentaPasajesExcepcion;
+import excepciones.SistemaVentaPasajesExcepcion;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -243,9 +243,9 @@ public class SistemaVentaPasajes {
     }
 
     public String[] pasajesAImprimir(String idDocumento, TipoDocumento tipoDocumento) {
-        Venta venta = findVenta(idDocumento, tipoDocumento);
+        Optional<Venta> venta = findVenta(idDocumento, tipoDocumento);
 
-        if (venta == null) {
+        if (venta.isEmpty()) {
             return new String[] {"No se encontraron pasajes para la venta con ID: " + idDocumento};
         }
 
@@ -254,7 +254,7 @@ public class SistemaVentaPasajes {
         resultado.add(":::: Imprimiendo los pasajes\n");
         resultado.add("------------------ PASAJE ------------------");
 
-        for (Pasaje pasaje : venta.getPasajes()) {
+        for (Pasaje pasaje : venta.get().getPasajes()) {
             Viaje viaje = pasaje.getViaje();
             Pasajero pasajero = pasaje.getPasajero();
 
