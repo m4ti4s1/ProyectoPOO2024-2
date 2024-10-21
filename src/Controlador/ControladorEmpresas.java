@@ -4,6 +4,7 @@ import Modelo.*;
 import Utilidades.*;
 import Excepciones.SistemaVentaPasajesExcepcion;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class ControladorEmpresas {
@@ -87,7 +88,7 @@ public class ControladorEmpresas {
         return listEmpresas;
     }
 
-    public String[][] listLlegadaSalidasTerminal(String nombre, Date fecha)throws SistemaVentaPasajesExcepcion{
+    public String[][] listLlegadaSalidasTerminal(String nombre, LocalDate fecha)throws SistemaVentaPasajesExcepcion{
         Optional<Terminal> terminal = findTerminal(nombre);
         if(terminal.isEmpty()){
             throw new SistemaVentaPasajesExcepcion("No existe terminal con el nombre indicado");}
@@ -98,12 +99,12 @@ public class ControladorEmpresas {
         ArrayList<Viaje> llegada= new ArrayList<>(Arrays.asList(llegadas));
         //Eliminar las fechas que no nos sirven
         for (int i=0;i<salida.size();i++){
-            if(salida.get(i).getFecha().before(fecha)){
+            if(salida.get(i).getFecha().isBefore(fecha)){
                 salida.remove(i);
             }
         }
         for (int i=0;i<salida.size();i++){
-            if(salida.get(i).getFecha().before(fecha)){
+            if(salida.get(i).getFecha().isBefore(fecha)){
                 salida.remove(i);
             }
         }

@@ -6,8 +6,8 @@ import java.util.*;
 import java.util.List;
 
 public class Viaje {
-    private Date fecha;
-    private Time hora;
+    private LocalDate fecha;
+    private LocalDateTime hora;
     private int precio;
     private int duracion;
 
@@ -20,7 +20,7 @@ public class Viaje {
     List<Pasajero> Listapasajeros =new ArrayList<>();
     List<Conductor> conductores; //asosiacion con conductor
 
-    public Viaje(Date fecha, Time hora, int precio, int dur, Bus bus,Auxiliar aux, Conductor cond, Terminal sale, Terminal llega) {
+    public Viaje(LocalDate fecha, LocalDateTime hora, int precio, int dur, Bus bus,Auxiliar aux, Conductor cond, Terminal sale, Terminal llega) {
         this.fecha = fecha;;
         this.hora = hora;
         this.precio = precio;
@@ -44,10 +44,10 @@ public class Viaje {
         this.llegada.addLlegada(this);
     }
 //?----------------Getter and Setter---------------------------------------------------
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
-    public Time getHora() {
+    public LocalDateTime getHora() {
         return hora;
     }
     public int getPrecio() {
@@ -64,11 +64,11 @@ public class Viaje {
         this.duracion = duracion;
     }
 
-//    public DateTime getFechaHoraTermino() {
-//        DateTime fechaHoraSalida = DateTime.of(fecha, hora);
-//        //Suma la duración en minutos a la fecha y hora de salida
-//        return fechaHoraSalida.plusMinutes(duracion);
-//    }
+    public LocalDateTime getFechaHoraTermino() {
+        LocalDateTime fechaHoraSalida = LocalDateTime.of(fecha,hora.toLocalTime());
+        //Suma la duración en minutos a la fecha y hora de salida
+        return fechaHoraSalida.plusMinutes(duracion);
+    }
 
     public void addPasaje(Pasaje pasaje){
         boolean agregar =true;
