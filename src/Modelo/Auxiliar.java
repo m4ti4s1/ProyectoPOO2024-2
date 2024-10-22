@@ -1,12 +1,13 @@
 package Modelo;
 
+import Utilidades.Direccion;
 import Utilidades.IdPersona;
 import Utilidades.Nombre;
 
 import java.util.ArrayList;
 
 public class Auxiliar extends Tripulante {
-    ArrayList<Viaje> auxiliarViajes; //asociacion con viaje
+    private ArrayList<Viaje> auxiliarViajes; //asociacion con viaje
 
     public Auxiliar(Utilidades.IdPersona id, Nombre nom, Direccion dir) {
         super(id, nom, dir);

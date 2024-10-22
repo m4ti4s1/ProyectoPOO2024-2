@@ -93,7 +93,7 @@ public class Venta {
         if (pago instanceof PagoEfectivo){
             return "Efectivo";
 
-        } else {
+        } else if (pago instanceof PagoTarjeta) {
             return "Tarjeta";
         }
 

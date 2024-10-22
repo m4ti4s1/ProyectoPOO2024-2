@@ -18,7 +18,7 @@ public class Viaje {
 
     private List<Pasaje> Listapasajes =new ArrayList<>();
     private List<Pasajero> Listapasajeros =new ArrayList<>();
-    private List<Conductor> conductores; //asosiacion con conductor
+    private List<Conductor> conductores; //asociacion con conductor
 
     public Viaje(LocalDate fecha, LocalDateTime hora, int precio, int dur, Bus bus,Auxiliar aux, Conductor[] cond, Terminal sale, Terminal llega) {
         this.fecha = fecha;;

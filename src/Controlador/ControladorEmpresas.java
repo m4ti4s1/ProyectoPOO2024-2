@@ -9,9 +9,9 @@ import java.util.*;
 
 public class ControladorEmpresas {
 
-    ArrayList<Empresa> empresas=new ArrayList<>();
-    ArrayList<Bus> buses = new ArrayList<>();
-    ArrayList<Terminal> terminales=new ArrayList<>();
+    private ArrayList<Empresa> empresas=new ArrayList<>();
+    private ArrayList<Bus> buses = new ArrayList<>();
+    private ArrayList<Terminal> terminales=new ArrayList<>();
 
 
     private static ControladorEmpresas instance = null;

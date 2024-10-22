@@ -9,8 +9,8 @@ public class Terminal {
     private String nombre;
     private Direccion direccion;
 
-    ArrayList<Viaje> llegada;
-    ArrayList<Viaje> salida;
+    private ArrayList<Viaje> llegada;
+    private ArrayList<Viaje> salida;
 
     public Terminal(String nombre, Direccion direccion) {
         this.nombre = nombre;

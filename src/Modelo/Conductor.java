@@ -7,7 +7,7 @@ import Utilidades.Nombre;
 import java.util.ArrayList;
 
 public class Conductor extends Tripulante {
-    ArrayList<Viaje> conductorViajes; //asociacion con viaje
+    private ArrayList<Viaje> conductorViajes; //asociacion con viaje
 
     public Conductor(IdPersona id, Nombre nom, Direccion dir) {
         super(id,nom,dir);
