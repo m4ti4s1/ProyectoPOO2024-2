@@ -16,26 +16,28 @@ public class Viaje {
     private Terminal salida;
     private Auxiliar auxiliar; //asociacion con auxliar
 
-    List<Pasaje> Listapasajes =new ArrayList<>();
-    List<Pasajero> Listapasajeros =new ArrayList<>();
-    List<Conductor> conductores; //asosiacion con conductor
+    private List<Pasaje> Listapasajes =new ArrayList<>();
+    private List<Pasajero> Listapasajeros =new ArrayList<>();
+    private List<Conductor> conductores; //asosiacion con conductor
 
-    public Viaje(LocalDate fecha, LocalDateTime hora, int precio, int dur, Bus bus,Auxiliar aux, Conductor cond, Terminal sale, Terminal llega) {
+    public Viaje(LocalDate fecha, LocalDateTime hora, int precio, int dur, Bus bus,Auxiliar aux, Conductor[] cond, Terminal sale, Terminal llega) {
         this.fecha = fecha;;
         this.hora = hora;
         this.precio = precio;
         this.duracion = dur;
 
-        //asociaciones bidireccional
+        //asociaciones bidireccionales
         this.bus = bus;
         this.bus.addViaje(this);
 
         this.auxiliar=aux;
         aux.addViaje(this);
 
-        this.conductores=new ArrayList<>();
-        this.conductores.add(cond);
-        cond.addViaje(this);
+        this.conductores=new ArrayList<>(Arrays.asList(cond));
+
+        for (Conductor c : conductores) {
+            c.addViaje(this); // Agrega el viaje a cada conductor
+        }
 
         this.salida = sale;
         this.salida.addSalida(this);
@@ -129,12 +131,14 @@ public class Viaje {
         return MatrizPasajero;
     }
 
-    public boolean existeDisponibilidad(){
-        if(Listapasajes.size() < this.bus.getNroAsientos()){
-            return true;
-        }
-        return false;
+    public boolean existeDisponibilidad(int nroAsientos){
+        int asientosBus= bus.getNroAsientos();
+        int asientosVendidos= Listapasajes.size();
+        int asientosLibres= asientosBus - asientosVendidos;
+
+        return asientosLibres >= nroAsientos;
     }
+
     public int getNroAsientosDisponibles(){
         int total=this.bus.getNroAsientos();
         total-= Listapasajes.size();
@@ -165,7 +169,7 @@ public class Viaje {
         tripulantes[0] = auxiliar;
 
         for (int i = 0; i < conductores.size(); i++) {
-            tripulantes[0+1] = conductores.get(i);
+            tripulantes[i+1] = conductores.get(i);
         }
         return tripulantes;
     }
