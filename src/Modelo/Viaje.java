@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Viaje {
     private LocalDate fecha;
-    private LocalDateTime hora;
+    private LocalTime hora;
     private int precio;
     private int duracion;
 
@@ -20,7 +20,7 @@ public class Viaje {
     private List<Pasajero> Listapasajeros =new ArrayList<>();
     private List<Conductor> conductores; //asociacion con conductor
 
-    public Viaje(LocalDate fecha, LocalDateTime hora, int precio, int dur, Bus bus,Auxiliar aux, Conductor[] cond, Terminal sale, Terminal llega) {
+    public Viaje(LocalDate fecha, LocalTime hora, int precio, int dur, Bus bus,Auxiliar aux, Conductor[] cond, Terminal sale, Terminal llega) {
         this.fecha = fecha;;
         this.hora = hora;
         this.precio = precio;
@@ -49,7 +49,7 @@ public class Viaje {
     public LocalDate getFecha() {
         return fecha;
     }
-    public LocalDateTime getHora() {
+    public LocalTime getHora() {
         return hora;
     }
     public int getPrecio() {
@@ -67,7 +67,7 @@ public class Viaje {
     }
 
     public LocalDateTime getFechaHoraTermino() {
-        LocalDateTime fechaHoraSalida = LocalDateTime.of(fecha,hora.toLocalTime());
+        LocalDateTime fechaHoraSalida = LocalDateTime.of(fecha,hora);
         //Suma la duración en minutos a la fecha y hora de salida
         return fechaHoraSalida.plusMinutes(duracion);
     }
@@ -132,9 +132,9 @@ public class Viaje {
     }
 
     public boolean existeDisponibilidad(int nroAsientos){
-        int asientosBus= bus.getNroAsientos();
-        int asientosVendidos= Listapasajes.size();
-        int asientosLibres= asientosBus - asientosVendidos;
+        int asientosBus = bus.getNroAsientos();
+        int asientosVendidos = Listapasajes.size();
+        int asientosLibres = asientosBus - asientosVendidos;
 
         return asientosLibres >= nroAsientos;
     }

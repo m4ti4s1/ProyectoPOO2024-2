@@ -3,7 +3,7 @@ package Controlador;
 import Modelo.*;
 import Utilidades.IdPersona;
 import Utilidades.Nombre;
-import excepciones.SistemaVentaPasajesExcepcion;
+import Excepciones.SistemaVentaPasajesExcepcion;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -65,25 +65,38 @@ public class SistemaVentaPasajes {
 
 
 
-    public void createViaje(LocalDate fecha, LocalTime hora, int precio, String patente) throws SistemaVentaPasajesExcepcion {
+    // Todo Arreglar metodo
+    public void createViaje(LocalDate fecha, LocalTime hora, int precio, int duracion,  String patBus, IdPersona[] idTripulantes, String[] comunas) throws SistemaVentaPasajesExcepcion {
 
 
-        Bus bus = ctrlEmpresas.findBus(patente).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe un bus con la patente indicada"));
+        Viaje viajeOptional = findViaje(fecha.toString(), hora.toString(), patBus).orElseThrow(() -> new SistemaVentaPasajesExcepcion("Ya existe viaje con fecha, hora y patente indicados"));
+        Bus busOptional = ctrlEmpresas.findBus(patBus).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe un bus con la patente indicada"));
 
-        Viaje viaje = findViaje(fecha.toString(), hora.toString(), patente).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe viaje con fecha, hora y patente indicados"));
 
+        //No existe auxiliar con el id indicado en la empresa con el rut indicado
+        //No existe conductor con el id indicado en la empresa con el rut indicado
+        // No existe terminal de salida en la comuna indicada
+        // No existe terminal de llegada en la comuna indicada
+
+        // todo Falta el rut de la empresa para usar este metodo
+        // ctrlEmpresas.findAuxliar(idTripulantes[0], )
+        Auxiliar auxiliar = null;
+        Conductor[] conductores = null;
+
+        Terminal salida  = ctrlEmpresas.findTerminalPorComuna(comunas[0]).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe terminal de salida en la comuna indicada"));
+        Terminal llegada = ctrlEmpresas.findTerminalPorComuna(comunas[1]).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe termial de llegada en la comuna indicada"));
+
+        Viaje viaje = new Viaje(fecha, hora, precio, duracion, busOptional, auxiliar, conductores, salida, llegada);
         viajes.add(viaje);
-
 
     }
 
 
     public void iniciaVenta(String idDoc, TipoDocumento tipo, LocalDate fechaViaje, String comSalida, String comLlegada,IdPersona idCliente, int nroPasajes) throws SistemaVentaPasajesExcepcion {
-        // Verificar si el cliente existe
+
         Cliente cliente = findCliente(idCliente).orElseThrow(() ->
             new SistemaVentaPasajesExcepcion("No existe cliente con el id indicado"));
 
-        // Busca los viajes que coinciden con la fecha y las comunas
         ArrayList<Viaje> viajesDisponibles = new ArrayList<>();
         for (Viaje v : viajes) {
             if(!(v.getFecha().equals(fechaViaje) &&
@@ -93,27 +106,24 @@ public class SistemaVentaPasajes {
             }
         }
 
-        // Si no hay viajes disponibles, lanza excepción
         if(viajesDisponibles.isEmpty()){
             throw new SistemaVentaPasajesExcepcion("No existen viajes disponibles en la fecha y con terminales en las comunas de\n" +
                     "salida y llegada indicados");
         }
 
-        // verificar si existe una venta igual
         if (findVenta(idDoc, tipo).isPresent()) {
             throw new SistemaVentaPasajesExcepcion("Ya existe una venta con el id y tipo de documento indicados");
         }
 
         Venta venta = new Venta(idDoc, tipo, fechaViaje, cliente);
 
-        // Verifica disponibilidad de asientos en los viajes encontrados
         for (Viaje viaje : viajesDisponibles) {
             if(viaje.existeDisponibilidad(nroPasajes)){
                 ventas.add(venta);
                 return;
             }
         }
-        // Si se llega aquí, no hay disponibilidad en ningún viaje
+
         throw new SistemaVentaPasajesExcepcion("No existen viajes disponibles en la fecha y con terminales en las comunas de salida y llegada indicados");
 
         // todo verificar si existen viajes diponibles en la fecha y con termianles en las comunas con salida y llega indicados
@@ -212,11 +222,9 @@ public class SistemaVentaPasajes {
             new SistemaVentaPasajesExcepcion("No existe pasajero con el id indicado"));
 
 
-        if (viaje.existeDisponibilidad()) {
-            Pasaje pasaje = new Pasaje(asiento, viaje, pasajero, venta);
-            venta.addPasaje(pasaje);
-            viaje.addPasaje(pasaje);
-        }
+        Pasaje pasaje = new Pasaje(asiento, viaje, pasajero, venta);
+        venta.addPasaje(pasaje);
+        viaje.addPasaje(pasaje);
 
     }
 
