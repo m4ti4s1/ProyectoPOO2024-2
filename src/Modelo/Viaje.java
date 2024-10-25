@@ -14,11 +14,11 @@ public class Viaje {
     private Bus bus;
     private Terminal llegada;
     private Terminal salida;
-    private Auxiliar auxiliar; //asociacion con auxliar
+    private Auxiliar auxiliar;
 
-    private List<Pasaje> Listapasajes =new ArrayList<>();
-    private List<Pasajero> Listapasajeros =new ArrayList<>();
-    private List<Conductor> conductores; //asociacion con conductor
+    private ArrayList<Pasaje> Listapasajes = new ArrayList<>();
+    private ArrayList<Pasajero> Listapasajeros = new ArrayList<>();
+    private ArrayList<Conductor> conductores;
 
     public Viaje(LocalDate fecha, LocalTime hora, int precio, int dur, Bus bus,Auxiliar aux, Conductor[] cond, Terminal sale, Terminal llega) {
         this.fecha = fecha;;
@@ -74,17 +74,18 @@ public class Viaje {
 
     public void addPasaje(Pasaje pasaje){
         boolean agregar =true;
-        if(Listapasajes.size()!=0){
-            for(int i = 0; i< Listapasajes.size(); i++){
-                if(Listapasajes.get(i).getNumero()==pasaje.getNumero()){
-                    if(Listapasajes.get(i).getAsiento()==pasaje.getAsiento()){
+        if(!Listapasajes.isEmpty()){
+            for (Pasaje listapasaje : Listapasajes) {
+                if (listapasaje.getNumero() == pasaje.getNumero()) {
+                    if (listapasaje.getAsiento() == pasaje.getAsiento()) {
                         System.out.println("---Este Modelo.Pasaje ya Existe dentro del Modelo.Viaje---");
-                        agregar=false;
+                        agregar = false;
                         break;
                     }
                 }
             }
-        }else{agregar=true;}
+        }
+
         if(agregar){
             Listapasajeros.add(pasaje.getPasajero());
             Listapasajes.add(pasaje);

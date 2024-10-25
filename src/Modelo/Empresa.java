@@ -12,9 +12,13 @@ public class Empresa {
     private Rut rut;
     private String nombre;
     private String url;
+
+
     private ArrayList<Bus> buses;
     private ArrayList<Tripulante> conductores;
     private ArrayList<Tripulante> Auxiliares;
+
+
     public Empresa(Rut rut, String nombre) {
         this.rut = rut;
         this.nombre = nombre;
@@ -35,17 +39,15 @@ public class Empresa {
     public void setUrl(String url) {
         this.url = url;
     }
+
     public void addBus(Bus bus){
-        if(buses.contains(bus)){
-            //no existe
-        }else{
+        if(!buses.contains(bus)){
             buses.add(bus);
         }
     }
 
     public Bus[] getBuses() {
-        Bus[] arreglo =buses.toArray(new Bus[0]);
-        return arreglo;
+        return buses.toArray(new Bus[0]);
     }
     public boolean addConductor(IdPersona id, Nombre nom, Direccion dir ){
         Conductor conductor=new Conductor(id,nom,dir);
