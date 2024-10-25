@@ -30,6 +30,7 @@ public class UISVP {
             String url= sc.next();
             System.out.println();
             CE.createEmpresa(Rut.of(rut),nom,url);
+            System.out.println("...:::: Empresa guardada exitosamente ::::...");
         }catch (Excepciones.SistemaVentaPasajesExcepcion e){
             System.err.println(e.getMessage());
         }

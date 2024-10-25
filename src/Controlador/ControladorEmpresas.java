@@ -150,7 +150,7 @@ public class ControladorEmpresas {
         }
 
 
-        //creamos ela arreglo de retorno
+        //creamos el arreglo de retorno
         String[][] ArrayViajes=new String[salida.size()+llegada.size()][5];
 
         for(int n=0;n<ArrayViajes.length;n++){
