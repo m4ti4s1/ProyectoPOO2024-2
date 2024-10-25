@@ -72,7 +72,7 @@ public class ControladorEmpresas {
 
 
 
-    public void hireConductorForEmpresa(Rut rutEmp,IdPersona id,Nombre nom,Direccion dir ){
+    public void hireConductorForEmpresa(Rut rutEmp,IdPersona id,Nombre nom,Direccion dir ) throws SistemaVentaPasajesExcepcion{
         Optional<Empresa> empresa=findEmpresa(rutEmp);
         if(empresa.isEmpty()){
             throw new SistemaVentaPasajesExcepcion("No existe empresa con el rut indicado ");
@@ -86,7 +86,7 @@ public class ControladorEmpresas {
 
 
 
-    public void hireAuxiliarForEmpresa(Rut rutEmp,IdPersona id,Nombre nom,Direccion dir){
+    public void hireAuxiliarForEmpresa(Rut rutEmp,IdPersona id,Nombre nom,Direccion dir) throws SistemaVentaPasajesExcepcion{
         Optional<Empresa> empresa=findEmpresa(rutEmp);
 
 
@@ -173,7 +173,7 @@ public class ControladorEmpresas {
 
 
 
-    public String[][] listVentasEmpresa(Rut rut){
+    public String[][] listVentasEmpresa(Rut rut) throws SistemaVentaPasajesExcepcion {
         Optional<Empresa> up=findEmpresa(rut);
 
         if (up.isEmpty()) {
@@ -193,8 +193,8 @@ public class ControladorEmpresas {
         for (int i=0;i<ArregloEmpresa.length;i++){
             fast[i][0]=""+ArregloEmpresa[i].getFecha();
             fast[i][1]=""+ArregloEmpresa[i].getTipo();
-            fast[i][1]=""+ArregloEmpresa[i].getMonto();
-            fast[i][1]=ArregloEmpresa[i].getTipoPago();
+            fast[i][2]=""+ArregloEmpresa[i].getMontoPagado();
+            fast[i][3]=ArregloEmpresa[i].getTipoPago();
         }
 
 

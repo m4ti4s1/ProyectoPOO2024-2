@@ -78,7 +78,6 @@ public class Viaje {
             for (Pasaje listapasaje : Listapasajes) {
                 if (listapasaje.getNumero() == pasaje.getNumero()) {
                     if (listapasaje.getAsiento() == pasaje.getAsiento()) {
-                        System.out.println("---Este Modelo.Pasaje ya Existe dentro del Modelo.Viaje---");
                         agregar = false;
                         break;
                     }
@@ -89,7 +88,6 @@ public class Viaje {
         if(agregar){
             Listapasajeros.add(pasaje.getPasajero());
             Listapasajes.add(pasaje);
-            System.out.println("--- Se agregado Correctamente ---");
         }
 
     }
