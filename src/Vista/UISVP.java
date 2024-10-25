@@ -11,8 +11,11 @@ import java.util.Scanner;
 
 public class UISVP {
     private static UISVP INSTANCE;
+    private Scanner sc;
 
     private UISVP() {
+        sc= new Scanner(System.in);
+        sc.useDelimiter("\t|\r\n|[\n\r\u2028\u2029\u0085]");
     }
     public static UISVP getInstance(){
         if(INSTANCE==null){
@@ -21,7 +24,7 @@ public class UISVP {
     }
     private static ControladorEmpresas CE=ControladorEmpresas.getInstance();
     private static SistemaVentaPasajes SVP=SistemaVentaPasajes.getInstance();
-    Scanner sc=new Scanner(System.in);
+
     public void menu(){
         try{
             System.out.println("...:::: Creando una nueva Empresa ::::....");
