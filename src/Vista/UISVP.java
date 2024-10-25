@@ -1,11 +1,11 @@
 package Vista;
 
-import Controlador.ControladorEmpresas;
-import Controlador.SistemaVentaPasajes;
-import Excepciones.SistemaVentaPasajesExcepcion;
-import Utilidades.Rut;
-import java.time.LocalDate;
+import Utilidades.*;
+import Controlador.*;
+import Modelo.*;
 
+import Excepciones.SistemaVentaPasajesExcepcion;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -22,10 +22,61 @@ public class UISVP {
         return  new UISVP();}
         return INSTANCE;
     }
+
     private static ControladorEmpresas CE=ControladorEmpresas.getInstance();
     private static SistemaVentaPasajes SVP=SistemaVentaPasajes.getInstance();
 
-    public void menu(){
+    public void menu() {
+        int opcion;
+        do {
+            System.out.println("============================");
+            System.out.println("...::: Menú Principal :::...");
+            System.out.println();
+            System.out.println("  1) Crear empresa");
+            System.out.println("  2) Contratar tripulante");
+            System.out.println("  3) Crear terminal");
+            System.out.println("  4) Crear cliente");
+            System.out.println("  5) Crear bus");
+            System.out.println("  6) Crear viaje");
+            System.out.println("  7) Vender pasajes");
+            System.out.println("  8) Listar ventas");
+            System.out.println("  9) Listar viajes");
+            System.out.println(" 10) Listar pasajeros de viaje");
+            System.out.println(" 11) Listar empresas");
+            System.out.println(" 12) Listar llegadas/salidas del terminal");
+            System.out.println(" 13) Listar ventas de empresa");
+            System.out.println(" 14) Salir");
+            System.out.println("____________________________");
+            System.out.print("..:: Ingrese número de opción: ");
+            opcion = sc.nextInt();
+            System.out.println();
+
+            if (opcion < 1 || opcion > 14) {
+                System.out.println("El número de opción ingresado no es válido");
+            }
+
+            switch (opcion) {
+                case 1 -> createEmpresa();
+                case 2 -> contrataTripulante();
+                case 3 -> createTerminal();
+                case 4 -> createCliente();
+                case 5 -> createBus();
+                case 6 -> createViaje();
+                case 7 -> vendePasajes();
+                case 8 -> listVentas();
+                case 9 -> listViajes();
+                case 10 -> listPasajerosViaje();
+                case 11 -> listEmpresas();
+                case 12 -> { /* TODO: Implementar funcionalidad */ }
+                case 13 -> { /* TODO: Implementar funcionalidad */ }
+                case 14 -> System.out.println("Saliendo del programa");
+                default -> System.out.println("Opción no válida.");
+            }
+        } while (opcion != 14);
+    }
+
+
+    private void createEmpresa(){
         try{
             System.out.println("...:::: Creando una nueva Empresa ::::....");
             System.out.print("R.U.T : ");
@@ -41,11 +92,10 @@ public class UISVP {
             System.err.println(e.getMessage());
         }
     }
-    private void createEmpresa(){}
-    private void contrataTripulante(){}
-    private void createTerminal(){}
-    private void createCliente(){}
     private void createBus(){}
+    private void createTerminal(){}
+    private void contrataTripulante(){}
+    private void createCliente(){}
     private void createViaje(){}
     private void vendePasaje(){}
     private void pagaVentaPasajes(){}

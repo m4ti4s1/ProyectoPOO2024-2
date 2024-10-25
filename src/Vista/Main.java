@@ -1,6 +1,12 @@
-package Vista;// Test para rama version 2 de proyecto POO
+package Vista; // Test para rama versión 2 de proyecto POO
+import Controlador.*;
 
-import Controlador.SistemaVentaPasajes;
+public class Main {
+    public static void main(String[] args) {
+        UISVP.getInstance().menu();
+    }
+}
+/*
 import Excepciones.SistemaVentaPasajesExcepcion;
 import Modelo.TipoDocumento;
 import Utilidades.*;
@@ -255,7 +261,7 @@ public class Main {
             System.out.println("\n....:::: Modelo.Cliente guardado exitosamente ::::....\n");
         }
 
-         */
+
 
     }
 
@@ -653,6 +659,5 @@ public class Main {
         return true;
     }
 }
-    
-
+    */
 
