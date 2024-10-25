@@ -15,7 +15,7 @@ public class UISVP {
 
     private UISVP() {
         sc= new Scanner(System.in);
-        sc.useDelimiter("\t|\r\n|[\n\r\u2028\u2029\u0085]");
+        sc.useDelimiter("\r\n|[\n\r\u2028\u2029\u0085]|\t|,");
     }
     public static UISVP getInstance(){
         if(INSTANCE==null){
