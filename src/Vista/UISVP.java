@@ -14,17 +14,19 @@ public class UISVP {
     private Scanner sc;
 
     private UISVP() {
-        sc= new Scanner(System.in);
+        sc = new Scanner(System.in);
         sc.useDelimiter("\r\n|[\n\r\u2028\u2029\u0085]|\t|,");
     }
-    public static UISVP getInstance(){
-        if(INSTANCE==null){
-        return  new UISVP();}
+
+    public static UISVP getInstance() {
+        if (INSTANCE == null) {
+            return new UISVP();
+        }
         return INSTANCE;
     }
 
-    private static ControladorEmpresas CE=ControladorEmpresas.getInstance();
-    private static SistemaVentaPasajes SVP=SistemaVentaPasajes.getInstance();
+    private static ControladorEmpresas CE = ControladorEmpresas.getInstance();
+    private static SistemaVentaPasajes SVP = SistemaVentaPasajes.getInstance();
 
     public void menu() {
         int opcion;
@@ -67,42 +69,59 @@ public class UISVP {
                 case 9 -> listViajes();
                 case 10 -> listPasajerosViaje();
                 case 11 -> listEmpresas();
-                case 12 -> { /* TODO: Implementar funcionalidad */ }
-                case 13 -> { /* TODO: Implementar funcionalidad */ }
+                case 12 -> listLlegadasSalidasTerminal();
+                case 13 -> listVentasEmpresas();
                 case 14 -> System.out.println("Saliendo del programa");
                 default -> System.out.println("Opción no válida.");
             }
         } while (opcion != 14);
     }
 
-    private void createEmpresa(){
-        try{
+    private void createEmpresa() {
+        try {
             System.out.println("...:::: Creando una nueva Empresa ::::....");
             System.out.print("R.U.T : ");
-            String rut= sc.next();
+            String rut = sc.next();
             System.out.print("\nNombre : ");
-            String nom= sc.next();
+            String nom = sc.next();
             System.out.print("\nurl : ");
-            String url= sc.next();
+            String url = sc.next();
             System.out.println();
-            CE.createEmpresa(Rut.of(rut),nom,url);
+            CE.createEmpresa(Rut.of(rut), nom, url);
             System.out.println("...:::: Empresa guardada exitosamente ::::...");
-        }catch (Excepciones.SistemaVentaPasajesExcepcion e){
+        } catch (Excepciones.SistemaVentaPasajesExcepcion e) {
             System.err.println(e.getMessage());
         }
     }
 
-    private void createBus(){}
-    private void createTerminal(){}
-    private void contrataTripulante(){}
-    private void createCliente(){}
-    private void createViaje(){}
-    private void vendePasaje(){}
-    private void pagaVentaPasajes(){}
-    private void listVentas(){}
-    private void listViajes(){}
-    private void listPasajerosViaje(){}
-    private void listEmpresas(){
+    private void contrataTripulante() {
+    }
+
+    private void createTerminal() {
+    }
+
+    private void createCliente() {
+    }
+
+    private void createBus() {
+    }
+
+    private void createViaje() {
+    }
+
+    private void vendePasaje() {
+    }
+
+    private void listVentas() {
+    }
+
+    private void listViajes() {
+    }
+
+    private void listPasajerosViaje() {
+    }
+
+    private void listEmpresas() {
         System.out.println("...:::: Listado de empresas ::::....");
         String[][] lista = CE.listEmpresas();
 
@@ -117,7 +136,7 @@ public class UISVP {
         }
     }
 
-    private void listLlegadasSalidasTerminal(){
+    private void listLlegadasSalidasTerminal() {
         try {
             System.out.println("...:::: Listado de llegadas y salidas de un terminal ::::....");
 
@@ -139,12 +158,12 @@ public class UISVP {
                         lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4]);
                 System.out.printf(" *----------------*-------*-------------*---------------------------------*----------------*%n");
             }
-        } catch (SistemaVentaPasajesExcepcion e){
+        } catch (SistemaVentaPasajesExcepcion e) {
             System.err.println(e.getMessage());
         }
     }
 
-    private void listVentasEmpresas(){
+    private void listVentasEmpresas() {
         try {
             System.out.println("...:::: Listado de ventas de una empresa ::::....");
             System.out.println("R.U.T : ");
@@ -159,8 +178,10 @@ public class UISVP {
                         lista[i][0], lista[i][1], lista[i][2], lista[i][3]);
                 System.out.printf(" *-----------*---------*---------------*--------------*%n");
             }
-        } catch (SistemaVentaPasajesExcepcion e){
+        } catch (SistemaVentaPasajesExcepcion e) {
             System.err.println(e.getMessage());
         }
     }
+
+    private void pagaVentaPasajes() {}
 }
