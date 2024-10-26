@@ -62,7 +62,7 @@ public class UISVP {
                 case 4 -> createCliente();
                 case 5 -> createBus();
                 case 6 -> createViaje();
-                case 7 -> vendePasajes();
+                case 7 -> vendePasaje();
                 case 8 -> listVentas();
                 case 9 -> listViajes();
                 case 10 -> listPasajerosViaje();
@@ -74,7 +74,6 @@ public class UISVP {
             }
         } while (opcion != 14);
     }
-
 
     private void createEmpresa(){
         try{
@@ -92,6 +91,7 @@ public class UISVP {
             System.err.println(e.getMessage());
         }
     }
+
     private void createBus(){}
     private void createTerminal(){}
     private void contrataTripulante(){}
@@ -102,7 +102,6 @@ public class UISVP {
     private void listVentas(){}
     private void listViajes(){}
     private void listPasajerosViaje(){}
-
     private void listEmpresas(){
         System.out.println("...:::: Listado de empresas ::::....");
         String[][] lista = CE.listEmpresas();
