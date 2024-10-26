@@ -4,6 +4,7 @@ import Modelo.*;
 import Utilidades.IdPersona;
 import Utilidades.Nombre;
 import Excepciones.SistemaVentaPasajesExcepcion;
+import Utilidades.Rut;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -65,7 +66,6 @@ public class SistemaVentaPasajes {
 
 
 
-    // Todo Arreglar metodo
     public void createViaje(LocalDate fecha, LocalTime hora, int precio, int duracion,  String patBus, IdPersona[] idTripulantes, String[] comunas) throws SistemaVentaPasajesExcepcion {
 
 
@@ -79,9 +79,18 @@ public class SistemaVentaPasajes {
         // No existe terminal de llegada en la comuna indicada
 
         // todo Falta el rut de la empresa para usar este metodo
+        String rutEmpresa = busOptional.getEmpresa().getRut() + "";
         // ctrlEmpresas.findAuxliar(idTripulantes[0], )
-        Auxiliar auxiliar = null;
-        Conductor[] conductores = null;
+        Auxiliar auxiliar = ctrlEmpresas.findAuxliar(idTripulantes[0], Rut.of(rutEmpresa))
+                    .orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe Auxiliar con el id indicado en la empresa con el rut indicado"));
+        Conductor[] conductores = new Conductor[idTripulantes.length - 1];
+        for (int i = 1; i < conductores.length; i++) {
+            conductores[i] = ctrlEmpresas.findConductor(idTripulantes[i], Rut.of(rutEmpresa))
+                    .orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe conductor con el id indicado en la empresa con el rut indicado"));
+        }
+
+
+
 
         Terminal salida  = ctrlEmpresas.findTerminalPorComuna(comunas[0]).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe terminal de salida en la comuna indicada"));
         Terminal llegada = ctrlEmpresas.findTerminalPorComuna(comunas[1]).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe termial de llegada en la comuna indicada"));
@@ -98,6 +107,7 @@ public class SistemaVentaPasajes {
             new SistemaVentaPasajesExcepcion("No existe cliente con el id indicado"));
 
         ArrayList<Viaje> viajesDisponibles = new ArrayList<>();
+
         for (Viaje v : viajes) {
             if(!(v.getFecha().equals(fechaViaje) &&
                     v.getTerminalSalida().getDireccion().getComuna().equals(comSalida) &&
@@ -124,9 +134,7 @@ public class SistemaVentaPasajes {
             }
         }
 
-        throw new SistemaVentaPasajesExcepcion("No existen viajes disponibles en la fecha y con terminales en las comunas de salida y llegada indicados");
 
-        // todo verificar si existen viajes diponibles en la fecha y con termianles en las comunas con salida y llega indicados
     }
 
     public String[][] getHorariosDisponibles(LocalDate fechaViaje, String comunaSalida, String comunaLlegada, int nroPasajes) {

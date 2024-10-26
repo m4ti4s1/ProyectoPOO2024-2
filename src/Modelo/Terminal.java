@@ -40,10 +40,10 @@ public class Terminal {
     }
 
     public Viaje[] getLlegadas() {
-        return llegada.toArray(new Viaje[llegada.size()]);
+        return llegada.toArray(new Viaje[0]);
     }
 
     public Viaje[] getSalidas() {
-        return salida.toArray(new Viaje[salida.size()]);
+        return salida.toArray(new Viaje[0]);
     }
 }

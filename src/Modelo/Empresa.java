@@ -16,7 +16,7 @@ public class Empresa {
 
     private ArrayList<Bus> buses;
     private ArrayList<Tripulante> conductores;
-    private ArrayList<Tripulante> Auxiliares;
+    private ArrayList<Tripulante> auxiliares;
 
 
     public Empresa(Rut rut, String nombre) {
@@ -49,6 +49,8 @@ public class Empresa {
     public Bus[] getBuses() {
         return buses.toArray(new Bus[0]);
     }
+
+
     public boolean addConductor(IdPersona id, Nombre nom, Direccion dir ){
         Conductor conductor=new Conductor(id,nom,dir);
         if(conductores.contains(conductor)){
@@ -58,6 +60,8 @@ public class Empresa {
             return true;
         }
     }
+
+
     public boolean addAuxiliar(IdPersona id, Nombre nom, Direccion dir){
         Conductor conductor=new Conductor(id,nom,dir);
         if(conductores.contains(conductor)){
@@ -67,24 +71,27 @@ public class Empresa {
             return true;
         }
     }
+
+
     public Tripulante[] getTripulantes(){
         ArrayList<Tripulante> ListaCombinada =new ArrayList<>();
         // se suman los 2 arreglos
         ListaCombinada.addAll(conductores);
-        ListaCombinada.addAll(Auxiliares);
-        Tripulante[] ArregloTripulantes=ListaCombinada.toArray(new Tripulante[0]);
-        return ArregloTripulantes;
+        ListaCombinada.addAll(auxiliares);
+        return ListaCombinada.toArray(new Tripulante[0]);
     }
+
+
+
     public Venta[] getVentas(){
         ArrayList<Venta> ListaVentas=new ArrayList<>();
-        for(int i=0;i<buses.size();i++){
-            Viaje[] viajes=buses.get(i).getViajes();
-            for (int n=0;n< viajes.length;n++){
-                ListaVentas.addAll(Arrays.asList(viajes[n].getVentas()));
+        for (Bus bus : buses) {
+            Viaje[] viajes = bus.getViajes();
+            for (Viaje viaje : viajes) {
+                ListaVentas.addAll(Arrays.asList(viaje.getVentas()));
             }
         }
-        Venta[] ArregloVentas=ListaVentas.toArray(new Venta[0]);
-        return ArregloVentas;
+        return ListaVentas.toArray(new Venta[0]);
     }
 
 }

@@ -53,15 +53,7 @@ public class Venta {
     }
 
     public Pasaje[] getPasajes(){
-        Pasaje[] listaPasajes = new Pasaje[pasajes.size()];
-
-
-        for (int i = 0; i < listaPasajes.length; i++) {
-            listaPasajes[i] = pasajes.get(i);
-        }
-
-        return listaPasajes;
-
+        return pasajes.toArray(new Pasaje[0]);
     }
 
     public int getMontoPagado(){
