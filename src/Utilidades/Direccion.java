@@ -3,12 +3,12 @@ package Utilidades;
 public class Direccion {
      private String calle;
      private  int numero;
-     private String Comuna;
+     private String comuna;
 
     public Direccion(String calle, int numero, String comuna) {
         this.calle = calle;
         this.numero = numero;
-        this.Comuna = comuna;
+        this.comuna = comuna;
     }
 
     public String getCalle() {
@@ -20,6 +20,6 @@ public class Direccion {
     }
 
     public String getComuna() {
-        return Comuna;
+        return comuna;
     }
 }
