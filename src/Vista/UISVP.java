@@ -222,10 +222,6 @@ public class UISVP {
     }
 
 
-
-
-    // todo Revisar desde este metodo hacia abajo
-
     private void createTerminal() {
         try {
             System.out.println("...:::: Creando un nuevo Terminal ::::....");
@@ -247,6 +243,7 @@ public class UISVP {
 
 
 
+    // todo Revisar desde este metodo hacia abajo
     private void createCliente() {
     }
 
