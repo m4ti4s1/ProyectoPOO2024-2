@@ -22,6 +22,8 @@ public class Empresa {
     public Empresa(Rut rut, String nombre) {
         this.rut = rut;
         this.nombre = nombre;
+        conductores = new ArrayList<>();
+        auxiliares = new ArrayList<>();
     }
 
     public Rut getRut() {
@@ -63,11 +65,11 @@ public class Empresa {
 
 
     public boolean addAuxiliar(IdPersona id, Nombre nom, Direccion dir){
-        Conductor conductor=new Conductor(id,nom,dir);
-        if(conductores.contains(conductor)){
+        Auxiliar auxiliar = new Auxiliar (id,nom,dir);
+        if(conductores.contains(auxiliar)){
             return false;
         }else{
-            conductores.add(conductor);
+            auxiliares.add(auxiliar);
             return true;
         }
     }

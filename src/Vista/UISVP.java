@@ -7,6 +7,7 @@ import Excepciones.SistemaVentaPasajesExcepcion;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UISVP {
@@ -22,13 +23,13 @@ public class UISVP {
         return INSTANCE;
     }
 
-    private static ControladorEmpresas CE = ControladorEmpresas.getInstance();
-    private static SistemaVentaPasajes SVP = SistemaVentaPasajes.getInstance();
+    private final static ControladorEmpresas CE = ControladorEmpresas.getInstance();
+    private final static SistemaVentaPasajes SVP = SistemaVentaPasajes.getInstance();
 
     public void menu() {
         int opcion;
         do {
-            System.out.println("============================");
+            System.out.println("\n\n============================");
             System.out.println("...::: Menú Principal :::...");
             System.out.println();
             System.out.println("  1) Crear empresa");
@@ -70,22 +71,77 @@ public class UISVP {
         } while (opcion != 14);
     }
 
+
+
+
+
+
+
+
+   // Metodo para cargar datos predeterminados, para tests
+
+    public void cargaDatosPredeterminados() {
+
+        // Empresa 1
+        Rut rutEmpresa1 = Rut.of("11.111.111-1");
+        String nomEmpresa1 = "Empresa 1";
+        String urlEmpresa1 = "https://empresa1.cl";
+        CE.createEmpresa(rutEmpresa1, nomEmpresa1, urlEmpresa1);
+
+        // Auxiliar 1
+        Rut rutEmpresaAuxiliar1= Rut.of("11.111.111-1");
+        IdPersona idAuxiliar1 = Rut.of("22.222.222-2");
+        Nombre nombreAuxiliar1 = new Nombre();
+        nombreAuxiliar1.setTratamiento(Tratamiento.valueOf("SR"));
+        nombreAuxiliar1.setNombres("Pedro Alejandro");
+        nombreAuxiliar1.setApellidoPaterno("Ramirez");
+        nombreAuxiliar1.setApellidoMaterno("Torres");
+        Direccion direccionAuxiliar1 = new Direccion("Avenida. UBB", 882, "Chillan");
+        CE.hireAuxiliarForEmpresa(rutEmpresaAuxiliar1, idAuxiliar1, nombreAuxiliar1, direccionAuxiliar1);
+
+        // Condutor 1
+        Rut rutEmpresaConductor1= Rut.of("11.111.111-1");
+        IdPersona idConductor1 = Rut.of("33.333.333-3");
+        Nombre nombreConductor1 = new Nombre();
+        nombreConductor1.setTratamiento(Tratamiento.valueOf("SR"));
+        nombreConductor1.setNombres("Miguel Angel");
+        nombreConductor1.setApellidoPaterno("Fernandez");
+        nombreConductor1.setApellidoMaterno("Garcia");
+        Direccion direccionConductor1 = new Direccion("Avenida. Udec", 374, "San Carlos");
+        CE.hireConductorForEmpresa(rutEmpresaConductor1, idConductor1, nombreConductor1, direccionConductor1);
+
+
+        // Terminal 1
+        String nombreT1 = "Terminal 1";
+        Direccion  direccionT1 = new Direccion("Calle terminal1", 222, "Chillan");
+        CE.createTerminal(nombreT1, direccionT1);
+
+    }
+
+
+
+
+
+
+
+
+
     private void createEmpresa() {
         try {
             System.out.println("...:::: Creando una nueva Empresa ::::....");
-            System.out.print("R.U.T : ");
-            String rut = sc.next();
-            System.out.print("\nNombre : ");
-            String nom = sc.next();
-            System.out.print("\nurl : ");
-            String url = sc.next();
-            System.out.println();
+            String rut = leeString("R.U.T");
+            String nom = leeString("Nombre");
+            String url = leeString("url");
+
             CE.createEmpresa(Rut.of(rut), nom, url);
+
             System.out.println("...:::: Empresa guardada exitosamente ::::...");
-        } catch (Excepciones.SistemaVentaPasajesExcepcion e) {
-            System.err.println(e.getMessage());
+
+        } catch (SistemaVentaPasajesExcepcion e) {
+            System.out.println("...::::Error : " + e.getMessage());
         }
     }
+
 
     private void contrataTripulante() {
         try {
@@ -161,9 +217,14 @@ public class UISVP {
                     break;
             }
         } catch (SistemaVentaPasajesExcepcion e) {
-            System.err.println(e.getMessage());
+            System.out.println("\t\t...::: Error : " + e.getMessage());
         }
     }
+
+
+
+
+    // todo Revisar desde este metodo hacia abajo
 
     private void createTerminal() {
         try {
@@ -179,9 +240,12 @@ public class UISVP {
 
             System.out.println("...:::: Terminal guardado exitosamente ::::....");
         } catch (SistemaVentaPasajesExcepcion e) {
-            System.err.println(e.getMessage());
+            System.out.println("\t\t...::: Error : " + e.getMessage());
         }
     }
+
+
+
 
     private void createCliente() {
     }
@@ -360,12 +424,17 @@ public class UISVP {
 
         boolean valido = false;
         while (!valido) {
-            opc = sc.nextInt();
+            try {
+                opc = sc.nextInt();
 
-            if (opc > 0 && opc <= cantOpciones) {
-                valido = true;
-            } else {
-                System.out.print("Opcion invalida, intente denuevo: ");
+                if (opc > 0 && opc <= cantOpciones) {
+                    valido = true;
+                } else {
+                    System.out.print("..:: Opcion fuera de rango, intente denuevo : ");
+                }
+            } catch (InputMismatchException e) {
+                System.out.print("..:: La opcion debe ser un numero entero, intente denuevo : ");
+                sc.next();
             }
         }
         return opc;
@@ -399,11 +468,24 @@ public class UISVP {
     }
     private int leeOpc(String msg, int cantOpc) {
         int opc = 0;
-        do {
-            System.out.printf("%30s : ", msg);
-            opc = sc.nextInt();
-        } while (opc < 0 && opc > cantOpc);
+        boolean valido = false;
+        while (!valido) {
 
+            try {
+                System.out.printf("%30s : ", msg);
+                opc = sc.nextInt();
+
+                if (opc < 0 || opc > cantOpc) {
+                    System.out.println("..:: Opcion fuera de rango, intente denuevo... ");
+                } else {
+                    valido = true;
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("..:: La opcion debe ser un numero entero, intente denuevo... ");
+                sc.next();
+            }
+        }
         return opc;
     }
 

@@ -82,29 +82,33 @@ public class ControladorEmpresas {
         if(empresa.isEmpty()){
             throw new SistemaVentaPasajesExcepcion("No existe empresa con el rut indicado ");
         }
-        boolean newConductor=empresa.get().addConductor(id,nom,dir);
-        if(newConductor){
+        if(findConductor(id, rutEmp).isPresent()){
             throw new SistemaVentaPasajesExcepcion("Ya está contratado conductor/auxiliar con el id dado en la empresa señalada ");
         }
+        empresa.get().addConductor(id,nom,dir);
     }
 
 
 
 
     public void hireAuxiliarForEmpresa(Rut rutEmp,IdPersona id,Nombre nom,Direccion dir) throws SistemaVentaPasajesExcepcion{
-        Optional<Empresa> empresa=findEmpresa(rutEmp);
+        Optional<Empresa> empresa = findEmpresa(rutEmp);
 
 
         if(empresa.isEmpty()){
             throw new SistemaVentaPasajesExcepcion("No existe empresa con el rut indicado ");
         }
 
-        boolean newConductor=empresa.get().addAuxiliar(id,nom,dir);
 
-        if(newConductor) {
+        if(findAuxliar(id, rutEmp).isPresent()) {
             throw new SistemaVentaPasajesExcepcion("Ya está contratado conductor/auxiliar con el id dado en la empresa señalada ");
         }
+
+        empresa.get().addAuxiliar(id,nom,dir);
     }
+
+
+
     public String[][] listEmpresas(){
         if(empresas.size()==0){return new String[0][0];}
 
