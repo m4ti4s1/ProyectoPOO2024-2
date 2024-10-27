@@ -47,12 +47,9 @@ public class UISVP {
             System.out.println(" 14) Salir");
             System.out.println("____________________________");
             System.out.print("..:: Ingrese número de opción: ");
-            opcion = sc.nextInt();
+            opcion = elegirOpc(14);
             System.out.println();
 
-            if (opcion < 1 || opcion > 14) {
-                System.out.println("El número de opción ingresado no es válido");
-            }
 
             switch (opcion) {
                 case 1 -> createEmpresa();
@@ -69,7 +66,6 @@ public class UISVP {
                 case 12 -> listLlegadasSalidasTerminal();
                 case 13 -> listVentasEmpresas();
                 case 14 -> System.out.println("Saliendo del programa");
-                default -> System.out.println("Opción no válida.");
             }
         } while (opcion != 14);
     }
@@ -329,7 +325,7 @@ public class UISVP {
             if (opc > 0 && opc <= cantOpciones) {
                 valido = true;
             } else {
-                System.out.println("Opcion invalida, intente denuevo");
+                System.out.print("Opcion invalida, intente denuevo: ");
             }
         }
         return opc;
