@@ -6,6 +6,7 @@ import Modelo.*;
 
 import Excepciones.SistemaVentaPasajesExcepcion;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -113,16 +114,82 @@ public class UISVP {
     }
 
     private void listVentas() {
+        DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        String[][] listaVentas = SVP.listVentas();
+
+        System.out.printf("\n%44s\n", "...:::: Listado de Ventas ::::....\n");
+        System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
+        System.out.printf(" | ID DOCUMENT| TIPO DOCU|      FECHA |   RUT/PASAPORTE | CLIENTE                          | CANT BOLETOS |  TOTAL VENTA |%n");
+        System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
+
+        for (int i = 0; i < listaVentas.length; i++) {
+            String fechaOriginal = listaVentas[i][2];
+            LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
+            String fechaFormateada = fecha.format(nuevoFormato);
+
+            System.out.printf(" |      %-5s | %-7s  | %-10s |    %-5s | %-32s |            %-2s|       %-6s |%n",
+                    listaVentas[i][0], listaVentas[i][1], fechaFormateada, listaVentas[i][3], listaVentas[i][4], listaVentas[i][5], "$"+listaVentas[i][6]);
+            System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
+        }
     }
 
     private void listViajes() {
+        DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        System.out.printf("\n%44s\n", "...:::: Listado de Viajes ::::....\n");
+        String[][] lista= SVP.listViajes();
+
+        System.out.printf(" *--------------*--------------*---------------*--------*----------------*---------------*----------------*-----------------*%n");
+        System.out.printf(" | FECHA        |    HORA SALE |    HORA LLEGA | PRECIO | ASIENTOS DISP. | PATENTE       | ORIGEN         | DESTINO         |%n");
+        System.out.printf(" *--------------*--------------*---------------*--------*----------------*---------------*----------------*-----------------*%n");
+
+        for (int i = 0; i < lista.length; i++) {
+            String fechaOriginal = lista[i][0];
+            LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
+            String fechaFormateada = fecha.format(nuevoFormato);
+            System.out.printf(" | %-10s   |       %-6s |       %-6s | %-8s |           %-2s | %-8s | %-8s         | %-8s         |%n",
+                    fechaFormateada, lista[i][1], lista[i][2], lista[i][3], lista[i][4], lista[i][5], lista[i][6], lista[i][7]);
+            System.out.printf(" *--------------*--------------*---------------*--------*----------------*---------------*----------------*-----------------*%n");
+        }
     }
 
     private void listPasajerosViaje() {
+        try {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+            System.out.printf("%30s : ", "Fecha del viaje[dd/mm/yyyy]");
+            String fechaDelViaje = sc.next();
+            LocalDate fecha = LocalDate.parse(fechaDelViaje, dateFormatter);
+
+            System.out.printf("%30s : ", "Hora del viaje[hh:mm]");
+            String horaDelViaje = sc.next();
+            LocalTime hora = LocalTime.parse(horaDelViaje, timeFormatter);
+
+            System.out.printf("%30s : ", "Patente bus");
+            String patenteBus = sc.next();
+
+            System.out.printf("\n%44s\n", "...:::: Listado de pasajeros de un viaje ::::....\n");
+            System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
+            System.out.printf(" | ASIENTO |        RUT/PASS | PASAJERO                          | CONTACTO                          | TELEFONO CONTACTO |%n");
+            System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
+
+            String[][] listaPasajeros = SVP.listPasajerosViaje(fecha, hora, patenteBus);
+            for (int i = 0; i < listaPasajeros.length; i++) {
+                System.out.printf(" |     %-3s |   %-13s | %-33s | %-33s | %-17s |%n",
+                        listaPasajeros[i][0], listaPasajeros[i][1], listaPasajeros[i][2], listaPasajeros[i][3], listaPasajeros[i][4]);
+                System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
+            }
+        } catch (SistemaVentaPasajesExcepcion e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     private void listEmpresas() {
-        System.out.println("...:::: Listado de empresas ::::....");
+        System.out.printf("\n%44s\n", "...:::: Listado de empresas ::::....\n");
         String[][] lista = CE.listEmpresas();
 
         System.out.printf(" *--------------*-------------------------------*-------------------------------*------------------*--------------------------*%n");
@@ -138,7 +205,7 @@ public class UISVP {
 
     private void listLlegadasSalidasTerminal() {
         try {
-            System.out.println("...:::: Listado de llegadas y salidas de un terminal ::::....");
+            System.out.println("...:::: Listado de llegadas y salidas de un terminal ::::....\n");
 
             System.out.println("Nombre terminal : ");
             String nombreTerminal = sc.next();
@@ -165,7 +232,7 @@ public class UISVP {
 
     private void listVentasEmpresas() {
         try {
-            System.out.println("...:::: Listado de ventas de una empresa ::::....");
+            System.out.println("...:::: Listado de ventas de una empresa ::::....\n");
             System.out.println("R.U.T : ");
             String rut = sc.next();
             String[][] lista = CE.listVentasEmpresa(Rut.of(rut));
