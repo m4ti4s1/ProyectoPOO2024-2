@@ -8,7 +8,7 @@ public class Direccion {
     public Direccion(String calle, int numero, String comuna) {
         this.calle = calle;
         this.numero = numero;
-        Comuna = comuna;
+        this.Comuna = comuna;
     }
 
     public String getCalle() {

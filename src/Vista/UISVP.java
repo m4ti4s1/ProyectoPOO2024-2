@@ -2,7 +2,6 @@ package Vista;
 
 import Utilidades.*;
 import Controlador.*;
-import Modelo.*;
 
 import Excepciones.SistemaVentaPasajesExcepcion;
 import java.time.LocalDate;
@@ -11,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class UISVP {
-    private static UISVP INSTANCE;
+    private static UISVP INSTANCE = new UISVP();
     private Scanner sc;
 
     private UISVP() {
@@ -20,9 +19,6 @@ public class UISVP {
     }
 
     public static UISVP getInstance() {
-        if (INSTANCE == null) {
-            return new UISVP();
-        }
         return INSTANCE;
     }
 
@@ -96,6 +92,81 @@ public class UISVP {
     }
 
     private void contrataTripulante() {
+        try {
+            System.out.println("...:::: Contratando un nuevo tripulante ::::....\n");
+
+            System.out.println(":::: Dato de la Empresa");
+
+            Rut rutEmpresa = Rut.of(leeString("R.U.T"));
+
+            System.out.println(":::: Datos tripulante");
+
+            int opcTripulante = leeOpc("Auxiliar[1] o Conductor[2]", 2);
+
+            int opcTipoDocumento = leeOpc("Rut[1] o Pasaporte[2]", 2);
+
+            IdPersona idPersona = null;
+            String rut = "";
+            String numero = "";
+            String nacionalidad = "";
+
+            switch (opcTipoDocumento) {
+                case 1:
+                    // Rut
+                    rut = leeString("R.U.T");
+                    idPersona = Rut.of(rut);
+
+                    break;
+                case 2:
+                    // Pasaporte
+                    numero = leeString("Numero");
+                    nacionalidad = leeString("Nacionalidad");
+
+                    idPersona = Pasaporte.of(numero, nacionalidad);
+                    break;
+            }
+
+            Nombre nombreTripulante = new Nombre();
+
+            int opcTratamiento = leeOpc("Sr. [1] o Sra. [2]", 2);
+
+            switch (opcTratamiento) {
+                case 1:
+                    nombreTripulante.setTratamiento(Tratamiento.valueOf("SR"));
+                    break;
+                case 2:
+                    nombreTripulante.setTratamiento(Tratamiento.valueOf("SRA"));
+                    break;
+            }
+
+            String nombres = leeString("Nombres");
+            nombreTripulante.setNombres(nombres);
+
+            String apellidoPaterno = leeString("Apellido Paterno");
+            nombreTripulante.setApellidoPaterno(apellidoPaterno);
+
+            String apellidoMaterno = leeString("Apellido Materno");
+            nombreTripulante.setApellidoMaterno(apellidoMaterno);
+
+            String calle = leeString("Calle");
+            int numCalle = leeInt("Numero");
+            String Comuna = leeString("Comuna");
+
+            Direccion dir = new Direccion(calle, numCalle, Comuna);
+
+            switch (opcTripulante) {
+                case 1:
+                    CE.hireAuxiliarForEmpresa(rutEmpresa, idPersona, nombreTripulante, dir);
+                    System.out.println("\n...:::: Auxiliar contratado exitosamente ::::....");
+                    break;
+                case 2:
+                    CE.hireConductorForEmpresa(rutEmpresa, idPersona, nombreTripulante, dir);
+                    System.out.println("\n...:::: Conductor contratado exitosamente ::::....");
+                    break;
+            }
+        } catch (SistemaVentaPasajesExcepcion e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     private void createTerminal() {
@@ -161,16 +232,13 @@ public class UISVP {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-            System.out.printf("%30s : ", "Fecha del viaje[dd/mm/yyyy]");
-            String fechaDelViaje = sc.next();
+            String fechaDelViaje = leeString("Fecha del viaje[dd/mm/yyyy]");
             LocalDate fecha = LocalDate.parse(fechaDelViaje, dateFormatter);
 
-            System.out.printf("%30s : ", "Hora del viaje[hh:mm]");
-            String horaDelViaje = sc.next();
+            String horaDelViaje = leeString("Hora del viaje[hh:mm]");
             LocalTime hora = LocalTime.parse(horaDelViaje, timeFormatter);
 
-            System.out.printf("%30s : ", "Patente bus");
-            String patenteBus = sc.next();
+            String patenteBus = leeString("Patente bus");
 
             System.out.printf("\n%44s\n", "...:::: Listado de pasajeros de un viaje ::::....\n");
             System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
@@ -207,11 +275,10 @@ public class UISVP {
         try {
             System.out.println("...:::: Listado de llegadas y salidas de un terminal ::::....\n");
 
-            System.out.println("Nombre terminal : ");
-            String nombreTerminal = sc.next();
+            String nombreTerminal = leeString("Nombre terminal");
 
-            System.out.println("Fecha[dd/mm/yyyy] : ");
-            String fecha = sc.next();
+
+            String fecha = leeString("Fecha[dd/mm/yyyy]");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate fechaFinal = LocalDate.parse(fecha, formatter);
             String[][] lista = CE.listLlegadaSalidasTerminal(nombreTerminal, fechaFinal);
@@ -233,8 +300,8 @@ public class UISVP {
     private void listVentasEmpresas() {
         try {
             System.out.println("...:::: Listado de ventas de una empresa ::::....\n");
-            System.out.println("R.U.T : ");
-            String rut = sc.next();
+
+            String rut = leeString("R.U.T");
             String[][] lista = CE.listVentasEmpresa(Rut.of(rut));
             System.out.printf(" *-----------*---------*---------------*--------------*%n");
             System.out.printf(" | FECHA     | TIPO    | MONTO PAGADO  |    TIPO PAGO |%n");
@@ -251,4 +318,56 @@ public class UISVP {
     }
 
     private void pagaVentaPasajes() {}
+
+    private int elegirOpc(int cantOpciones) {
+        int opc = 0;
+
+        boolean valido = false;
+        while (!valido) {
+            opc = sc.nextInt();
+
+            if (opc > 0 && opc <= cantOpciones) {
+                valido = true;
+            } else {
+                System.out.println("Opcion invalida, intente denuevo");
+            }
+        }
+        return opc;
+    }
+
+    // metodos para leer string e ints de opciones para los reportes
+    private String leeString(String msg) {
+        System.out.printf("%30s : ", msg);
+        return sc.next();
+    }
+    private int leeInt(String msg) {
+        System.out.printf("%30s : ", msg);
+        int num = 0;
+        do {
+            num = sc.nextInt();
+        } while (num < 0);
+        return num;
+    }
+
+    //separe numero de comas "Arreglado"
+    private int [] separador(String asientos,int cant){
+
+        String[] numerosString = asientos.split(",");
+        int[] numAsientos = new int[cant];
+
+        for (int i = 0; i < cant; i++){
+            numAsientos[i] = Integer.parseInt(numerosString[i]);
+        }
+
+        return numAsientos;
+    }
+    private int leeOpc(String msg, int cantOpc) {
+        int opc = 0;
+        do {
+            System.out.printf("%30s : ", msg);
+            opc = sc.nextInt();
+        } while (opc < 0 && opc > cantOpc);
+
+        return opc;
+    }
 }
