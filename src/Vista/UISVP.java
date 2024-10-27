@@ -166,12 +166,52 @@ public class UISVP {
     }
 
     private void createTerminal() {
+        try {
+            System.out.println("...:::: Creando un nuevo Terminal ::::....");
+
+            String nombre = leeString("Nombre");
+            String calle = leeString("Calle");
+            int numCalle = leeInt("Numero");
+            String Comuna = leeString("Comuna");
+
+            Direccion dir = new Direccion(calle, numCalle, Comuna);
+            CE.createTerminal(nombre, dir);
+
+            System.out.println("...:::: Terminal guardado exitosamente ::::....");
+        } catch (SistemaVentaPasajesExcepcion e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     private void createCliente() {
     }
 
     private void createBus() {
+        try {
+            System.out.println("...:::: Creando un nuevo Bus ::::....");
+
+            String patente = leeString("Patente");
+
+            do {
+                if (!esPatenteAlfanumerica(patente)) {
+                    System.out.println("La Patente debe ser alfanumerica");
+                    patente = leeString("Patente");
+                }
+            } while (!esPatenteAlfanumerica(patente));
+
+            String marca = leeString("Marca");
+            String modelo = leeString("Modelo");
+            int nroAsientos = leeInt("Numero de asientos");
+
+            System.out.println(":::: Dato de la empresa");
+            Rut rutEmpresa = Rut.of(leeString("R.U.T"));
+
+            CE.createBus(patente, marca, modelo, nroAsientos, rutEmpresa);
+
+            System.out.println("...:::: Bus guardado exitosamente ::::....");
+        } catch (SistemaVentaPasajesExcepcion e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     private void createViaje() {
@@ -365,5 +405,14 @@ public class UISVP {
         } while (opc < 0 && opc > cantOpc);
 
         return opc;
+    }
+
+    private static boolean esPatenteAlfanumerica(String input) {
+        for (char c : input.toCharArray()) {
+            if (!Character.isLetterOrDigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

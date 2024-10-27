@@ -56,12 +56,17 @@ public class ControladorEmpresas {
 
 
     public void createTerminal(String nombre,Direccion direccion)throws SistemaVentaPasajesExcepcion{
+
+        if(findTerminal(nombre).isPresent()) {
+            throw new SistemaVentaPasajesExcepcion("Ya existe Terminal con el nombre indicado");
+        }
+
+        if(findTerminalPorComuna(direccion.getComuna()).isPresent()) {
+            throw new SistemaVentaPasajesExcepcion("Ya existe terminal en la comuna indicada");
+        }
+
+        // Si pasa ambas verificaciones, crea y añade el terminal
         Terminal terminal =new Terminal(nombre,direccion);
-
-        findTerminal(nombre).orElseThrow(() -> new SistemaVentaPasajesExcepcion("Ya existe Terminal con el nombre indicado"));
-        findTerminalPorComuna(direccion.getComuna()).orElseThrow(() -> new SistemaVentaPasajesExcepcion("Ya existe terminal en la comunda indicada"));
-
-
         terminales.add(terminal);
 
     }
