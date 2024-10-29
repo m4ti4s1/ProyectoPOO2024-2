@@ -14,9 +14,9 @@ public class Empresa {
     private String url;
 
 
-    private ArrayList<Bus> buses;
-    private ArrayList<Tripulante> conductores;
-    private ArrayList<Tripulante> auxiliares;
+    private ArrayList<Bus> buses=new ArrayList<>();
+    private ArrayList<Tripulante> conductores=new ArrayList<>();
+    private ArrayList<Tripulante> auxiliares=new ArrayList<>();
 
 
     public Empresa(Rut rut, String nombre) {
