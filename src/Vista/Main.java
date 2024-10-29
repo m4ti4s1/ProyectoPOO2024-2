@@ -122,7 +122,7 @@ public class Main {
             LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
             String fechaFormateada = fecha.format(nuevoFormato);
 
-            System.out.printf(" |      %-5s | %-7s  | %-10s |    %-5s | %-32s |            %-2s|       %-6s |%n",
+            System1.out.printf(" |      %-5s | %-7s  | %-10s |    %-5s | %-32s |            %-2s|       %-6s |%n",
                     listaVentas[i][0], listaVentas[i][1], fechaFormateada, listaVentas[i][3], listaVentas[i][4], listaVentas[i][5], "$"+listaVentas[i][6]);
             System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
         }

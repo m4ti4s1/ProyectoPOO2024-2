@@ -48,8 +48,6 @@ public class SistemaVentaPasajes {
             throw new SistemaVentaPasajesExcepcion("Ya existe cliente con el id indicado");
         }
     }
-
-
     public void createPasajero(IdPersona id, Nombre nom, String fono, Nombre nomContacto, String fonoContacto) throws SistemaVentaPasajesExcepcion {
         Pasajero pasajero  = new Pasajero(id, nom);
         pasajero.setTelefono(fono);
@@ -61,7 +59,6 @@ public class SistemaVentaPasajes {
         } else {
             throw new SistemaVentaPasajesExcepcion("Ya existe pasajero con el id indicado");
         }
-
     }
 
 
