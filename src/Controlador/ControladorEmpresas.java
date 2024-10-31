@@ -39,7 +39,7 @@ public class ControladorEmpresas {
 
         Empresa empresa = findEmpresa(rutEmp).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe empresa con el rut indicado"));
 
-        Bus bus = new Bus(patente, nroAsientos);
+        Bus bus = new Bus(patente, nroAsientos, empresa);
         bus.setMarca(marca);
         bus.setModelo(modelo);
 
