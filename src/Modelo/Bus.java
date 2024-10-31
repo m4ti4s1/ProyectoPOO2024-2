@@ -13,9 +13,10 @@ public class Bus {
     private ArrayList<Viaje> viajes;
 
     //constructor
-    public Bus(String patente, int nroAsientos) {
+    public Bus(String patente, int nroAsientos, Empresa emp) {
         this.patente = patente;
         this.nroAsientos = nroAsientos;
+        this.empresa = emp;
         this.viajes = new ArrayList<>();
     }
 

@@ -11,6 +11,7 @@ public class Cliente extends Persona {
     public Cliente(Utilidades.IdPersona id, Nombre nom, String email) {
         super(id, nom);
         this.email = email;
+        this.ventas = new ArrayList<>();
     }
 
     public String getEmail() {
