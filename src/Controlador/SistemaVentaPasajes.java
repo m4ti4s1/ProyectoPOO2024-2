@@ -66,7 +66,12 @@ public class SistemaVentaPasajes {
     public void createViaje(LocalDate fecha, LocalTime hora, int precio, int duracion,  String patBus, IdPersona[] idTripulantes, String[] comunas) throws SistemaVentaPasajesExcepcion {
 
 
-        Viaje viajeOptional = findViaje(fecha.toString(), hora.toString(), patBus).orElseThrow(() -> new SistemaVentaPasajesExcepcion("Ya existe viaje con fecha, hora y patente indicados"));
+        Optional<Viaje> viajeOptional = findViaje(fecha.toString(), hora.toString(), patBus);
+
+        if (viajeOptional.isPresent()) {
+            throw new SistemaVentaPasajesExcepcion("Ya existe viaje con fecha, hora y patente indicados");
+        }
+
         Bus busOptional = ctrlEmpresas.findBus(patBus).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe un bus con la patente indicada"));
 
 
@@ -216,11 +221,11 @@ public class SistemaVentaPasajes {
         return false;
     }
      */
-    public void vendePasaje(String idDoc, TipoDocumento tipo , LocalDate fecha, LocalTime hora, String patBus, int asiento, IdPersona idPasajero) throws SistemaVentaPasajesExcepcion {
+    public void vendePasaje(String idDoc, TipoDocumento tipo , LocalDate fechaViaje, LocalTime hora, String patBus, int asiento, IdPersona idPasajero) throws SistemaVentaPasajesExcepcion {
         Venta venta = findVenta(idDoc, tipo).orElseThrow(() ->
             new SistemaVentaPasajesExcepcion("No existe una venta con el id y tipo de documento indicados"));
 
-        Viaje viaje = findViaje("" + fecha, "" + hora, patBus).orElseThrow(() ->
+        Viaje viaje = findViaje("" + fechaViaje, "" + hora, patBus).orElseThrow(() ->
             new SistemaVentaPasajesExcepcion("No existe viaje con la fecha, hora y patente del bus indicados"));
 
         Pasajero pasajero = findPasajero(idPasajero).orElseThrow(() ->
