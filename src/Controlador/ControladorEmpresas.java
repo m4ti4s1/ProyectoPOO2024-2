@@ -193,7 +193,7 @@ public class ControladorEmpresas {
             return new String[0][0];
         }
 
-        String[][] fast=new String[ArregloEmpresa.length][5];
+        String[][] fast=new String[ArregloEmpresa.length][4];
 
 
         for (int i=0;i<ArregloEmpresa.length;i++){

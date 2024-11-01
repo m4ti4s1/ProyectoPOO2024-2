@@ -17,6 +17,8 @@ public class Bus {
         this.patente = patente;
         this.nroAsientos = nroAsientos;
         this.empresa = emp;
+        // Asocia el bus con la empresa
+        empresa.addBus(this);
         this.viajes = new ArrayList<>();
     }
 
