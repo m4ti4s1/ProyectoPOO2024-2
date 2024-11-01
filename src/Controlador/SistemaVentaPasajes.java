@@ -95,7 +95,7 @@ public class SistemaVentaPasajes {
 
 
         Terminal salida  = ctrlEmpresas.findTerminalPorComuna(comunas[0]).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe terminal de salida en la comuna indicada"));
-        Terminal llegada = ctrlEmpresas.findTerminalPorComuna(comunas[1]).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe termial de llegada en la comuna indicada"));
+        Terminal llegada = ctrlEmpresas.findTerminalPorComuna(comunas[1]).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe terminal de llegada en la comuna indicada"));
 
         Viaje viaje = new Viaje(fecha, hora, precio, duracion, busOptional, auxiliar, conductores, salida, llegada);
         viajes.add(viaje);
@@ -291,8 +291,8 @@ public class SistemaVentaPasajes {
             pasajes[i][3]=""+viajes.get(i).getPrecio();
             pasajes[i][4]=""+viajes.get(i).getNroAsientosDisponibles();
             pasajes[i][5]=viajes.get(i).getBus().getPatente();
-            pasajes[i][6]=""+viajes.get(i).getTerminalSalida();
-            pasajes[i][7]=""+viajes.get(i).getTerminalLlegada();
+            pasajes[i][6]=viajes.get(i).getTerminalSalida().getDireccion().getComuna();
+            pasajes[i][7]=viajes.get(i).getTerminalLlegada().getDireccion().getComuna();
 
 
         }

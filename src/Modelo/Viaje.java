@@ -1,9 +1,7 @@
 package Modelo;
 
-import java.sql.Time;
 import java.time.*;
 import java.util.*;
-import java.util.List;
 
 public class Viaje {
     private LocalDate fecha;
@@ -33,10 +31,12 @@ public class Viaje {
         this.auxiliar=aux;
         aux.addViaje(this);
 
-        this.conductores=new ArrayList<>(Arrays.asList(cond));
+        this.conductores=new ArrayList<>();
 
-        for (Conductor c : conductores) {
-            c.addViaje(this); // Agrega el viaje a cada conductor
+        for (Conductor c : cond) {
+            if (c!=null) {
+                this.addConductor(c);
+            }
         }
 
         this.salida = sale;
@@ -120,11 +120,11 @@ public class Viaje {
     public String[][] getListaPasajeros(){
         String [][] MatrizPasajero= new String[Listapasajeros.size()][5];
         for(int i=0;i<Listapasajeros.size();i++){
-            MatrizPasajero[i][0]=" "+Listapasajes.get(i).getAsiento();
-            MatrizPasajero[i][1]=" "+Listapasajeros.get(i).getIdPersona();
-            MatrizPasajero[i][2]=" "+Listapasajeros.get(i).getNombreCompleto();
-            MatrizPasajero[i][3]=" "+Listapasajeros.get(i).getNomContacto();
-            MatrizPasajero[i][4]=" "+Listapasajeros.get(i).getFonoContancto();
+            MatrizPasajero[i][0]=""+Listapasajes.get(i).getAsiento();
+            MatrizPasajero[i][1]=""+Listapasajeros.get(i).getIdPersona();
+            MatrizPasajero[i][2]=""+Listapasajeros.get(i).getNombreCompleto();
+            MatrizPasajero[i][3]=""+Listapasajeros.get(i).getNomContacto();
+            MatrizPasajero[i][4]=Listapasajeros.get(i).getFonoContancto();
 
         }
         return MatrizPasajero;
@@ -160,6 +160,7 @@ public class Viaje {
     public void addConductor(Conductor conductor){
         if(conductores.size() < 2) {
             conductores.add(conductor);
+            conductor.addViaje(this);
         }
     }
 
