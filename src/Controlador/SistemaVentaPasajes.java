@@ -5,6 +5,7 @@ import Utilidades.IdPersona;
 import Utilidades.Nombre;
 import Excepciones.SistemaVentaPasajesExcepcion;
 import Utilidades.Rut;
+import Utilidades.TipoDocumento;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -111,7 +112,7 @@ public class SistemaVentaPasajes {
         ArrayList<Viaje> viajesDisponibles = new ArrayList<>();
 
         for (Viaje v : viajes) {
-            if(!(v.getFecha().equals(fechaViaje) &&
+            if((v.getFecha().equals(fechaViaje) &&
                     v.getTerminalSalida().getDireccion().getComuna().equals(comSalida) &&
                     v.getTerminalLlegada().getDireccion().getComuna().equals(comLlegada))){
                 viajesDisponibles.add(v);
@@ -209,7 +210,7 @@ public class SistemaVentaPasajes {
     }
 
     /*
-    public boolean vendePasaje(String idDoc,Modelo.TipoDocumento tipo , LocalDate fecha , LocalTime hora, String patBus, int asiento, Utilidades.IdPersona idCli, Utilidades.IdPersona idPas, Utilidades.Nombre nomPas, Utilidades.Nombre nomCto) {
+    public boolean vendePasaje(String idDoc,Utilidades.TipoDocumento tipo , LocalDate fecha , LocalTime hora, String patBus, int asiento, Utilidades.IdPersona idCli, Utilidades.IdPersona idPas, Utilidades.Nombre nomPas, Utilidades.Nombre nomCto) {
          if(null==findViaje(""+fecha,""+hora,""+patBus)){return false;}
          if(null==findBus(patBus)){return false;}
          if(null==findCliente(idCli)){return false;}

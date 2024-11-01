@@ -1,5 +1,7 @@
 package Modelo;
 
+import Utilidades.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;

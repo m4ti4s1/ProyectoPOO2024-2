@@ -9,7 +9,7 @@ public class Main {
 }
 /*
 import Excepciones.SistemaVentaPasajesExcepcion;
-import Modelo.TipoDocumento;
+import Utilidades.TipoDocumento;
 import Utilidades.*;
 
 import java.time.*;

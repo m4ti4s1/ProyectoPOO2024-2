@@ -1,6 +1,6 @@
 package Vista;
 
-import Modelo.*;
+//import Modelo.*;
 import Utilidades.*;
 import Controlador.*;
 
@@ -107,7 +107,7 @@ public class UISVP {
         // Condutor 1
         Rut rutEmpresaConductor1= Rut.of("11.111.111-1");
         IdPersona idConductor1 = Rut.of("33.333.333-3");
-        Nombre nombreConductor1 = new Nombre();
+        Utilidades.Nombre nombreConductor1 = new Utilidades.Nombre();
         nombreConductor1.setTratamiento(Tratamiento.valueOf("SR"));
         nombreConductor1.setNombres("Miguel Angel");
         nombreConductor1.setApellidoPaterno("Fernandez");
@@ -123,7 +123,7 @@ public class UISVP {
 
         // Terminal 2
         String nombreT2 = "Terminal 2";
-        Direccion  direccionT2 = new Direccion("Calle terminal2", 222, "Talca");
+        Direccion  direccionT2 = new Direccion("Calle terminal2", 333, "Talca");
         CE.createTerminal(nombreT2, direccionT2);
 
         // Bus
@@ -532,7 +532,7 @@ public class UISVP {
                     return;
                 } else {
 
-                    System.out.println("\nUtilidades.Nombre Modelo.Cliente : " + SVP.getNombreCliente(Pasaporte.of(num, nacionalidad)));
+                    System.out.println("\nNombre Cliente : " + SVP.getNombreCliente(Pasaporte.of(num, nacionalidad)));
 
                     idCliente = Pasaporte.of(num, nacionalidad);
                     break;
@@ -544,203 +544,209 @@ public class UISVP {
         System.out.println("\n\n::::Pasajes a Vender");
         int cant = leeInt("Cantidad de pasajes");
 
-        SVP.iniciaVenta(IdDocumento, tipoDocumento,fechaVenta,origen ,destino, idCliente, cant);
+
+        // todo Verficar que se pueda iniciar venta, que exista disponibilidad y almenos 1 viaje
+        try {
+            SVP.iniciaVenta(IdDocumento, tipoDocumento,fechaVenta,origen ,destino, idCliente, cant);
 
 
-        System.out.println("\n\n::::Listado de Horarios Disponibles");
+            String[][] matrizViajes = SVP.getHorariosDisponibles(fechaV,origen, destino, cant);
 
-        String[][] matrizViajes = SVP.getHorariosDisponibles(fechaV,origen, destino, cant);
+            System.out.println("\n\n::::Listado de Horarios Disponibles");
 
-        System.out.printf("       +------------+----------------+------------+------------+%n");
-        System.out.printf("       |   BUS      |     Salida     |   Valor    |  Asientos  |%n");
-        System.out.printf("       +------------+----------------+------------+------------+%n");
-        for (int i = 0; i < matrizViajes.length; i++) {
-            System.out.printf(" %-5d | %-10s | %-14s | %-10s | %-10s |%n",
-                    i + 1, matrizViajes[i][0], matrizViajes[i][1], matrizViajes[i][2], matrizViajes[i][3]);
+
             System.out.printf("       +------------+----------------+------------+------------+%n");
-        } //POSICION DE VIAJE ELEGIDO
+            System.out.printf("       |   BUS      |     Salida     |   Valor    |  Asientos  |%n");
+            System.out.printf("       +------------+----------------+------------+------------+%n");
+            for (int i = 0; i < matrizViajes.length; i++) {
+                System.out.printf(" %-5d | %-10s | %-14s | %-10s | %-10s |%n",
+                        i + 1, matrizViajes[i][0], matrizViajes[i][1], matrizViajes[i][2], matrizViajes[i][3]);
+                System.out.printf("       +------------+----------------+------------+------------+%n");
+            } //POSICION DE VIAJE ELEGIDO
 
-        System.out.print("\n Selecione viaje en [1.." + matrizViajes.length + "] : ");
-        int Viaje = sc.nextInt() - 1;
+            System.out.print("\n Selecione viaje en [1.." + matrizViajes.length + "] : ");
+            int Viaje = sc.nextInt() - 1;
 
 
-        LocalTime horaV = LocalTime.parse(matrizViajes[Viaje][1], DateTimeFormatter.ofPattern("HH:mm"));
-        String patBus = matrizViajes[Viaje][0];
+            LocalTime horaV = LocalTime.parse(matrizViajes[Viaje][1], DateTimeFormatter.ofPattern("HH:mm"));
+            String patBus = matrizViajes[Viaje][0];
 
-        String[] matrizAsientos = SVP.listAsientosDeViaje(fechaV, LocalTime.parse(matrizViajes[Viaje][1]), matrizViajes[Viaje][0]);
+            String[] matrizAsientos = SVP.listAsientosDeViaje(fechaV, LocalTime.parse(matrizViajes[Viaje][1]), matrizViajes[Viaje][0]);
 
-        System.out.printf("       *---*---*---*---*---*%n");
-        for (int i = 0; i < matrizAsientos.length; i++) {
+            System.out.printf("       *---*---*---*---*---*%n");
+            for (int i = 0; i < matrizAsientos.length; i++) {
 
-            System.out.printf("       |%-2s |", matrizAsientos[i]);
-            i++;
-            System.out.printf(" %-2s|   |", matrizAsientos[i]);
-            i += 2;
-            System.out.printf(" %-2s|", matrizAsientos[i]);
-            i--;
-            System.out.printf(" %-2s|%n", matrizAsientos[i]);
-            System.out.printf("       |---+---+---+---+---|%n");
-            i++;
-        }
-        String asientos;
-        int[] numAsientos;
-        boolean asientosDisponibles;
+                System.out.printf("       |%-2s |", matrizAsientos[i]);
+                i++;
+                System.out.printf(" %-2s|   |", matrizAsientos[i]);
+                i += 2;
+                System.out.printf(" %-2s|", matrizAsientos[i]);
+                i--;
+                System.out.printf(" %-2s|%n", matrizAsientos[i]);
+                System.out.printf("       |---+---+---+---+---|%n");
+                i++;
+            }
+            String asientos;
+            int[] numAsientos;
+            boolean asientosDisponibles;
 
-        do {
-            asientos = leeString("Seleccione sus asientos [separe por ,]");
-            numAsientos = separador(asientos, cant);
+            do {
+                asientos = leeString("Seleccione sus asientos [separe por ,]");
+                numAsientos = separador(asientos, cant);
 
-            System.out.println();
-            // Todo Verificar que los asientos esten disponibles
-            asientosDisponibles = true;
-            for (int i = 0; i < numAsientos.length; i++) {
-                int asientoIndex = numAsientos[i] - 1;
-                if (asientoIndex >= 0 && asientoIndex < matrizAsientos.length) {
-                    if (matrizAsientos[asientoIndex].equals("*")) {
-                        System.out.println("Asiento " + (asientoIndex + 1) + " está ocupado");
-                        asientosDisponibles = false;
+                System.out.println();
+                // Todo Verificar que los asientos esten disponibles
+                asientosDisponibles = true;
+                for (int i = 0; i < numAsientos.length; i++) {
+                    int asientoIndex = numAsientos[i] - 1;
+                    if (asientoIndex >= 0 && asientoIndex < matrizAsientos.length) {
+                        if (matrizAsientos[asientoIndex].equals("*")) {
+                            System.out.println("Asiento " + (asientoIndex + 1) + " Está ocupado");
+                            asientosDisponibles = false;
+                        }
                     }
                 }
+            } while (!asientosDisponibles);
+
+            // ciclo para cada pasaje
+            for (int i = 0; i < cant; i++) {
+
+                System.out.println("\n::::Datos pasajeros " + (i + 1));
+
+                int opcId = leeOpc("Rut[1] o Pasaporte[2]", 2);
+
+                switch (opcId) {
+                    case 1:
+                        // caso rut
+
+                        String idRut = leeString("R.U.T");
+
+                        if (SVP.getNombrePasajero(Rut.of(idRut)).isEmpty()) {
+
+                            System.out.println("\n\n:::: Pasajero no Encontrado\n");
+
+                            Nombre newPasajero = new Nombre();
+                            System.out.println("..: Cree al pasajero :..");
+                            System.out.println("\n...::: Datos Modelo.Pasajero :::...");
+
+                            int opcTratamiento = leeOpc("Sr.[1] o Sra.[2]", 2);
+
+                            switch (opcTratamiento) {
+                                case 1 -> newPasajero.setTratamiento(Tratamiento.valueOf("SRA"));
+                                case 2 -> newPasajero.setTratamiento(Tratamiento.valueOf("SR"));
+                            }
+
+                            String nombres = leeString("Nombres");
+                            String apellidoPaterno = leeString("Apellido Paterno");
+                            String apellidoMaterno = leeString("Apellido Materno");
+                            String fono = leeString("Ingresa fono");
+
+                            newPasajero.setNombres(nombres);
+                            newPasajero.setApellidoPaterno(apellidoPaterno);
+                            newPasajero.setApellidoMaterno(apellidoMaterno);
+
+                            Nombre contacto = new Nombre();
+
+                            // No necesario porque ya lo ingreso antes
+                            System.out.println("\n...::: Datos Contacto Pasajero :::...");
+
+                            opcTratamiento = leeOpc("Ingrese Sr.[1] o Sra.[2]", 2);
+                            switch ((opcTratamiento)) {
+                                case 1 -> contacto.setTratamiento(Tratamiento.valueOf("SR"));
+                                case 2 -> contacto.setTratamiento(Tratamiento.valueOf("SRA"));
+                            }
+
+                            nombres = leeString("Nombres contacto");
+                            apellidoPaterno = leeString("Apellido Paterno");
+                            apellidoMaterno = leeString("Apellido Materno");
+                            String fonoContacto = leeString("Fono contacto");
+
+                            contacto.setNombres(nombres);
+                            contacto.setApellidoPaterno(apellidoPaterno);
+                            contacto.setApellidoMaterno(apellidoMaterno);
+
+
+                            SVP.createPasajero(Rut.of(idRut), newPasajero, fono, contacto, fonoContacto);
+                            System.out.println("\n:::: Pasaje agregado exitosamente");
+
+                        }
+
+                        SVP.vendePasaje(IdDocumento, tipoDocumento, fechaV, horaV, patBus, numAsientos[i], Rut.of(idRut));
+                        break;
+
+
+                    case 2:
+                        // caso pasaporte
+                        String numeroPasaporte = leeString("Numero Pasaporte");
+                        String nacionalidad = leeString("Nacionalidad");
+
+                        if (SVP.getNombrePasajero(Pasaporte.of(numeroPasaporte, nacionalidad)).isEmpty()) {
+
+                            System.out.println("\n\n:::: Pasajero no Encontrado\n");
+
+                            Nombre newPasajero = new Nombre();
+                            System.out.println("..: Cree al pasajero :..");
+                            System.out.println("\n...::: Datos Modelo.Pasajero :::...");
+
+                            int opcTratamiento = leeOpc("Sr.[1] o Sra.[2]", 2);
+
+                            switch (opcTratamiento) {
+                                case 1 -> newPasajero.setTratamiento(Tratamiento.valueOf("SRA"));
+                                case 2 -> newPasajero.setTratamiento(Tratamiento.valueOf("SR"));
+                            }
+
+                            String nombres = leeString("Nombres");
+                            String apellidoPaterno = leeString("Apellido Paterno");
+                            String apellidoMaterno = leeString("Apellido Materno");
+                            String fono = leeString("Ingresa fono");
+
+                            newPasajero.setNombres(nombres);
+                            newPasajero.setApellidoPaterno(apellidoPaterno);
+                            newPasajero.setApellidoMaterno(apellidoMaterno);
+
+                            Nombre contacto = new Nombre();
+
+                            // No necesario porque ya lo ingreso antes
+                            System.out.println("\n...::: Datos Contacto Pasajero :::...");
+
+                            opcTratamiento = leeOpc("Ingrese Sr.[1] o Sra.[2]", 2);
+                            switch ((opcTratamiento)) {
+                                case 1 -> contacto.setTratamiento(Tratamiento.valueOf("SR"));
+                                case 2 -> contacto.setTratamiento(Tratamiento.valueOf("SRA"));
+                            }
+
+                            nombres = leeString("Nombres contacto");
+                            apellidoPaterno = leeString("Apellido Paterno");
+                            apellidoMaterno = leeString("Apellido Materno");
+                            String fonoContacto = leeString("Fono contacto");
+
+                            contacto.setNombres(nombres);
+                            contacto.setApellidoPaterno(apellidoPaterno);
+                            contacto.setApellidoMaterno(apellidoMaterno);
+
+
+                            SVP.createPasajero(Pasaporte.of(numeroPasaporte, nacionalidad), newPasajero, fono, contacto, fonoContacto);
+                            System.out.println("\n:::: Pasaje agregado exitosamente");
+
+                        }
+
+                        SVP.vendePasaje(IdDocumento, tipoDocumento, fechaV, horaV, patBus, numAsientos[i], Pasaporte.of(numeroPasaporte, nacionalidad));
+                        break;
+                } //cierre del switch
+            }// cierre del for
+
+            Optional<Integer> montoVenta = SVP.getMontoVenta(IdDocumento, tipoDocumento);
+            System.out.println(":::: Monto Total de la venta: " + montoVenta.get());
+
+            System.out.println("Pago de la venta");
+            pagaVentaPasajes(IdDocumento, tipoDocumento);
+
+            String[] boleta = SVP.pasajesAImprimir(IdDocumento, tipoDocumento);
+            for (String s : boleta) {
+                System.out.println(s);
             }
-        } while (!asientosDisponibles);
-
-        // ciclo para cada pasaje
-        for (int i = 0; i < cant; i++) {
-
-            System.out.println("\n::::Datos pasajeros " + (i + 1));
-
-            int opcId = leeOpc("Utilidades.Rut[1] o Utilidades.Pasaporte[2]", 2);
-
-            switch (opcId) {
-                case 1:
-                    // caso rut
-
-                    String idRut = leeString("R.U.T");
-
-                    if (null == SVP.getNombrePasajero(Rut.of(idRut))) {
-
-                        System.out.println("\n\n:::: Modelo.Pasajero no Encontrado\n");
-
-                        Nombre newPasajero = new Nombre();
-                        System.out.println("..: Cree al pasajero :..");
-                        System.out.println("\n...::: Datos Modelo.Pasajero :::...");
-
-                        int opcTratamiento = leeOpc("Sr.[1] o Sra.[2]", 2);
-
-                        switch (opcTratamiento) {
-                            case 1 -> newPasajero.setTratamiento(Tratamiento.valueOf("SRA"));
-                            case 2 -> newPasajero.setTratamiento(Tratamiento.valueOf("SR"));
-                        }
-
-                        // Todo Arreglar copiando el formato al crear Modelo.Cliente
-                        String nombres = leeString("Nombres");
-                        String apellidoPaterno = leeString("Apellido Paterno");
-                        String apellidoMaterno = leeString("Apellido Materno");
-                        String fono = leeString("Ingresa fono");
-
-                        newPasajero.setNombres(nombres);
-                        newPasajero.setApellidoPaterno(apellidoPaterno);
-                        newPasajero.setApellidoMaterno(apellidoMaterno);
-
-                        Nombre contacto = new Nombre();
-
-                        // No necesario porque ya lo ingreso antes
-                        System.out.println("\n...::: Datos Contacto Modelo.Pasajero :::...");
-
-                        opcTratamiento = leeOpc("Ingrese Sr.[1] o Sra.[2]", 2);
-                        switch ((opcTratamiento)) {
-                            case 1 -> contacto.setTratamiento(Tratamiento.valueOf("SR"));
-                            case 2 -> contacto.setTratamiento(Tratamiento.valueOf("SRA"));
-                        }
-
-                        nombres = leeString("Nombres contacto");
-                        apellidoPaterno = leeString("Apellido Paterno");
-                        apellidoMaterno = leeString("Apellido Materno");
-                        String fonoContacto = leeString("Fono contacto");
-
-                        contacto.setNombres(nombres);
-                        contacto.setApellidoPaterno(apellidoPaterno);
-                        contacto.setApellidoMaterno(apellidoMaterno);
-
-
-                        SVP.createPasajero(Rut.of(idRut), newPasajero, fono, contacto, fonoContacto);
-                        System.out.println("\n:::: Pasaje agregado exitosamente");
-
-                    }
-
-                    SVP.vendePasaje(IdDocumento, tipoDocumento, fechaV, horaV, patBus, numAsientos[i], Rut.of(idRut));
-                    break;
-
-
-                case 2:
-                    // caso pasaporte
-                    String numeroPasaporte = leeString("Numero Utilidades.Pasaporte");
-                    String nacionalidad = leeString("Nacionalidad");
-
-                    if (SVP.getNombrePasajero(Pasaporte.of(numeroPasaporte, nacionalidad)).isEmpty()) {
-
-                        System.out.println("\n\n:::: Modelo.Pasajero no Encontrado\n");
-
-                        Nombre newPasajero = new Nombre();
-                        System.out.println("..: Cree al pasajero :..");
-                        System.out.println("\n...::: Datos Modelo.Pasajero :::...");
-
-                        int opcTratamiento = leeOpc("Sr.[1] o Sra.[2]", 2);
-
-                        switch (opcTratamiento) {
-                            case 1 -> newPasajero.setTratamiento(Tratamiento.valueOf("SRA"));
-                            case 2 -> newPasajero.setTratamiento(Tratamiento.valueOf("SR"));
-                        }
-
-                        String nombres = leeString("Nombres");
-                        String apellidoPaterno = leeString("Apellido Paterno");
-                        String apellidoMaterno = leeString("Apellido Materno");
-                        String fono = leeString("Ingresa fono");
-
-                        newPasajero.setNombres(nombres);
-                        newPasajero.setApellidoPaterno(apellidoPaterno);
-                        newPasajero.setApellidoMaterno(apellidoMaterno);
-
-                        Nombre contacto = new Nombre();
-
-                        // No necesario porque ya lo ingreso antes
-                        System.out.println("\n...::: Datos Contacto Pasajero :::...");
-
-                        opcTratamiento = leeOpc("Ingrese Sr.[1] o Sra.[2]", 2);
-                        switch ((opcTratamiento)) {
-                            case 1 -> contacto.setTratamiento(Tratamiento.valueOf("SR"));
-                            case 2 -> contacto.setTratamiento(Tratamiento.valueOf("SRA"));
-                        }
-
-                        nombres = leeString("Nombres contacto");
-                        apellidoPaterno = leeString("Apellido Paterno");
-                        apellidoMaterno = leeString("Apellido Materno");
-                        String fonoContacto = leeString("Fono contacto");
-
-                        contacto.setNombres(nombres);
-                        contacto.setApellidoPaterno(apellidoPaterno);
-                        contacto.setApellidoMaterno(apellidoMaterno);
-
-
-                        SVP.createPasajero(Pasaporte.of(numeroPasaporte, nacionalidad), newPasajero, fono, contacto, fonoContacto);
-                        System.out.println("\n:::: Pasaje agregado exitosamente");
-
-                    }
-
-                    SVP.vendePasaje(IdDocumento, tipoDocumento, fechaV, horaV, patBus, numAsientos[i], Pasaporte.of(numeroPasaporte, nacionalidad));
-                    break;
-            } //cierre del switch
-        }// cierre del for
-
-        Optional<Integer> montoVenta = SVP.getMontoVenta(IdDocumento, tipoDocumento);
-        System.out.println(":::: Monto Total de la venta: " + montoVenta.get());
-
-        System.out.println("Pago de la venta");
-        pagaVentaPasajes(IdDocumento, tipoDocumento);
-
-        String[] boleta = SVP.pasajesAImprimir(IdDocumento, tipoDocumento);
-        for (String s : boleta) {
-            System.out.println(s);
+        } catch (SistemaVentaPasajesExcepcion e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
