@@ -145,37 +145,34 @@ public class ControladorEmpresas {
 
 
         //Eliminar las fechas que no nos sirven
-        for (int i=0;i<salida.size();i++){
-            if(salida.get(i).getFecha().isBefore(fecha)){
-                salida.remove(i);
-            }
-        }
-
-
-        for (int i=0;i<salida.size();i++){
-            if(salida.get(i).getFecha().isBefore(fecha)){
-                salida.remove(i);
-            }
-        }
+        salida.removeIf(viaje -> viaje.getFecha().isBefore(fecha));
+        llegada.removeIf(viaje -> viaje.getFecha().isBefore(fecha));
 
 
         //creamos el arreglo de retorno
         String[][] ArrayViajes=new String[salida.size()+llegada.size()][5];
+        int index = 0;
 
-        for(int n=0;n<ArrayViajes.length;n++){
-            ArrayViajes[n][0]="Salida";
-            ArrayViajes[n][1]=""+salida.get(n).getHora();
-            ArrayViajes[n][2]=(salida.get(n).getBus()).getPatente();
-            ArrayViajes[n][3]=(salida.get(n).getBus().getEmpresa()).getNombre();
-            ArrayViajes[n][4]=""+(salida.get(n).getListaPasajeros().length);
-            if(n==ArrayViajes.length){break;}
-            n++;
-            ArrayViajes[n][0]="Llegada";
-            ArrayViajes[n][1]=""+llegada.get(n).getHora();
-            ArrayViajes[n][2]=(llegada.get(n).getBus()).getPatente();
-            ArrayViajes[n][3]=(llegada.get(n).getBus().getEmpresa()).getNombre();
-            ArrayViajes[n][4]=""+(llegada.get(n).getListaPasajeros().length);
+        // Agregar salidas al arreglo
+        for (Viaje viaje : salida) {
+            ArrayViajes[index][0] = "Salida";
+            ArrayViajes[index][1] = "" + viaje.getHora();
+            ArrayViajes[index][2] = viaje.getBus().getPatente();
+            ArrayViajes[index][3] = viaje.getBus().getEmpresa().getNombre();
+            ArrayViajes[index][4] = "" + viaje.getListaPasajeros().length;
+            index++;
         }
+
+        // Agregar llegadas al arreglo
+        for (Viaje viaje : llegada) {
+            ArrayViajes[index][0] = "Llegada";
+            ArrayViajes[index][1] = "" + viaje.getHora();
+            ArrayViajes[index][2] = viaje.getBus().getPatente();
+            ArrayViajes[index][3] = viaje.getBus().getEmpresa().getNombre();
+            ArrayViajes[index][4] = "" + viaje.getListaPasajeros().length;
+            index++;
+        }
+
         return ArrayViajes;
 
     }
