@@ -396,6 +396,8 @@ public class UISVP {
         }
     }
 
+
+
     private void createViaje() {
 
         System.out.println("...::: Creacion de un nuevo Viaje :::....");
@@ -476,6 +478,10 @@ public class UISVP {
         }
 
     }
+
+
+
+
     private void vendePasaje() {
         System.out.println(".....::: Venta de Pasajes:::....\n\n");
         System.out.println(":::Datos de venta");
@@ -755,41 +761,49 @@ public class UISVP {
         DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         String[][] listaVentas = SVP.listVentas();
-
-        System.out.printf("\n%44s\n", "...:::: Listado de Ventas ::::....\n");
-        System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
-        System.out.printf(" | ID DOCUMENT| TIPO DOCU|      FECHA |   RUT/PASAPORTE | CLIENTE                          | CANT BOLETOS |  TOTAL VENTA |%n");
-        System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
-
-        for (int i = 0; i < listaVentas.length; i++) {
-            String fechaOriginal = listaVentas[i][2];
-            LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
-            String fechaFormateada = fecha.format(nuevoFormato);
-
-            System.out.printf(" |      %-5s | %-7s  | %-10s |    %-5s | %-32s |            %-2s|       %-6s |%n",
-                    listaVentas[i][0], listaVentas[i][1], fechaFormateada, listaVentas[i][3], listaVentas[i][4], listaVentas[i][5], "$"+listaVentas[i][6]);
+        if (listaVentas.length != 0) {
+            System.out.printf("\n%44s\n", "...:::: Listado de Ventas ::::....\n");
             System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
+            System.out.printf(" | ID DOCUMENT| TIPO DOCU|      FECHA |   RUT/PASAPORTE | CLIENTE                          | CANT BOLETOS |  TOTAL VENTA |%n");
+            System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
+
+            for (int i = 0; i < listaVentas.length; i++) {
+                String fechaOriginal = listaVentas[i][2];
+                LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
+                String fechaFormateada = fecha.format(nuevoFormato);
+
+                System.out.printf(" |      %-5s | %-7s  | %-10s |    %-5s | %-32s |            %-2s|       %-6s |%n",
+                        listaVentas[i][0], listaVentas[i][1], fechaFormateada, listaVentas[i][3], listaVentas[i][4], listaVentas[i][5], "$"+listaVentas[i][6]);
+                System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
+            }
+        } else {
+            System.out.println("...::: No existen ventas registradas");
         }
+
 
     }
     private void listViajes() {
         DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        System.out.printf("\n%44s\n", "...:::: Listado de Viajes ::::....\n");
         String[][] lista= SVP.listViajes();
 
-        System.out.printf(" *--------------*--------------*---------------*--------*----------------*---------------*----------------*-----------------*%n");
-        System.out.printf(" | FECHA        |    HORA SALE |    HORA LLEGA | PRECIO | ASIENTOS DISP. | PATENTE       | ORIGEN         | DESTINO         |%n");
-        System.out.printf(" *--------------*--------------*---------------*--------*----------------*---------------*----------------*-----------------*%n");
-
-        for (String[] strings : lista) {
-            String fechaOriginal = strings[0];
-            LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
-            String fechaFormateada = fecha.format(nuevoFormato);
-            System.out.printf(" | %-10s   |       %-6s |        %-6s | %-6s |             %-2s | %-8s      | %-12s   | %-12s    |%n",
-                    fechaFormateada, strings[1], strings[2], strings[3], strings[4], strings[5], strings[6], strings[7]);
+        if (lista.length != 0) {
+            System.out.printf("\n%44s\n", "...:::: Listado de Viajes ::::....\n");
             System.out.printf(" *--------------*--------------*---------------*--------*----------------*---------------*----------------*-----------------*%n");
+            System.out.printf(" | FECHA        |    HORA SALE |    HORA LLEGA | PRECIO | ASIENTOS DISP. | PATENTE       | ORIGEN         | DESTINO         |%n");
+            System.out.printf(" *--------------*--------------*---------------*--------*----------------*---------------*----------------*-----------------*%n");
+
+            for (String[] strings : lista) {
+                String fechaOriginal = strings[0];
+                LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
+                String fechaFormateada = fecha.format(nuevoFormato);
+                System.out.printf(" | %-10s   |       %-6s |        %-6s | %-6s |             %-2s | %-8s      | %-12s   | %-12s    |%n",
+                        fechaFormateada, strings[1], strings[2], strings[3], strings[4], strings[5], strings[6], strings[7]);
+                System.out.printf(" *--------------*--------------*---------------*--------*----------------*---------------*----------------*-----------------*%n");
+            }
+        } else {
+            System.out.println("...::: No existen viajes registrados");
         }
     }
 
@@ -805,17 +819,22 @@ public class UISVP {
             LocalTime hora = LocalTime.parse(horaDelViaje, timeFormatter);
 
             String patenteBus = leeString("Patente bus");
-
-            System.out.printf("\n%44s\n", "...:::: Listado de pasajeros de un viaje ::::....\n");
-            System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
-            System.out.printf(" | ASIENTO |        RUT/PASS | PASAJERO                          | CONTACTO                          | TELEFONO CONTACTO |%n");
-            System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
-
             String[][] listaPasajeros = SVP.listPasajerosViaje(fecha, hora, patenteBus);
-            for (int i = 0; i < listaPasajeros.length; i++) {
-                System.out.printf(" |     %-3s |   %-13s | %-33s | %-33s | %-17s |%n",
-                        listaPasajeros[i][0], listaPasajeros[i][1], listaPasajeros[i][2], listaPasajeros[i][3], listaPasajeros[i][4]);
+
+            if (listaPasajeros.length != 0) {
+
+                System.out.printf("\n%44s\n", "...:::: Listado de pasajeros de un viaje ::::....\n");
                 System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
+                System.out.printf(" | ASIENTO |        RUT/PASS | PASAJERO                          | CONTACTO                          | TELEFONO CONTACTO |%n");
+                System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
+
+                for (int i = 0; i < listaPasajeros.length; i++) {
+                    System.out.printf(" |     %-3s |   %-13s | %-33s | %-33s | %-17s |%n",
+                            listaPasajeros[i][0], listaPasajeros[i][1], listaPasajeros[i][2], listaPasajeros[i][3], listaPasajeros[i][4]);
+                    System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
+                }
+            } else {
+                System.out.println("...::: No existen pasajeros en el viaje indicado");
             }
         } catch (SistemaVentaPasajesExcepcion e) {
             System.err.println(e.getMessage());
@@ -823,17 +842,21 @@ public class UISVP {
     }
 
     private void listEmpresas() {
-        System.out.printf("\n%44s\n", "...:::: Listado de empresas ::::....\n");
         String[][] lista = CE.listEmpresas();
+        if (lista.length != 0) {
+            System.out.printf("\n%44s\n", "...:::: Listado de empresas ::::....\n");
 
-        System.out.printf(" *--------------*-------------------------------*-------------------------------*------------------*--------------------------*%n");
-        System.out.printf(" | RUT EMPRESA  | NOMBRE                        | URL                           | NRO. TRIPULANTES | NRO. BUSES | NRO. VENTAS |%n");
-        System.out.printf(" *--------------*-------------------------------*-------------------------------*------------------*------------*-------------*%n");
-
-        for (int i = 0; i < lista.length; i++) {
-            System.out.printf(" | %-10s | %-26s    | %-26s    | %-16s | %-10s | %-11s |%n",
-                    lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4], lista[i][5]);
+            System.out.printf(" *--------------*-------------------------------*-------------------------------*------------------*--------------------------*%n");
+            System.out.printf(" | RUT EMPRESA  | NOMBRE                        | URL                           | NRO. TRIPULANTES | NRO. BUSES | NRO. VENTAS |%n");
             System.out.printf(" *--------------*-------------------------------*-------------------------------*------------------*------------*-------------*%n");
+
+            for (int i = 0; i < lista.length; i++) {
+                System.out.printf(" | %-10s | %-26s    | %-26s    | %-16s | %-10s | %-11s |%n",
+                        lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4], lista[i][5]);
+                System.out.printf(" *--------------*-------------------------------*-------------------------------*------------------*------------*-------------*%n");
+            }
+        } else {
+            System.out.println("...::: No existen empresas registradas");
         }
     }
 
@@ -849,15 +872,21 @@ public class UISVP {
             LocalDate fechaFinal = LocalDate.parse(fecha, formatter);
             String[][] lista = CE.listLlegadaSalidasTerminal(nombreTerminal, fechaFinal);
 
-            System.out.printf(" *----------------*-------*-------------*---------------------------------*----------------*%n");
-            System.out.printf(" | LLEGADA/SALIDA | HORA  | PATENTE BUS | NOMBRE EMPRESA                  | NRO. PASAJEROS |%n");
-            System.out.printf(" *----------------*-------*-------------*---------------------------------*----------------*%n");
-
-            for (int i = 0; i < lista.length; i++) {
-                System.out.printf(" | %-10s     | %-4s | %-8s    | %-20s            | %-2s             |%n",
-                        lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4]);
+            if (lista.length != 0) {
                 System.out.printf(" *----------------*-------*-------------*---------------------------------*----------------*%n");
+                System.out.printf(" | LLEGADA/SALIDA | HORA  | PATENTE BUS | NOMBRE EMPRESA                  | NRO. PASAJEROS |%n");
+                System.out.printf(" *----------------*-------*-------------*---------------------------------*----------------*%n");
+
+                for (int i = 0; i < lista.length; i++) {
+                    System.out.printf(" | %-10s     | %-4s | %-8s    | %-20s            | %-2s             |%n",
+                            lista[i][0], lista[i][1], lista[i][2], lista[i][3], lista[i][4]);
+                    System.out.printf(" *----------------*-------*-------------*---------------------------------*----------------*%n");
+                }
+
+            } else {
+                System.out.println("...::: No existen llegadas/salidas del terminal indicado");
             }
+
         } catch (SistemaVentaPasajesExcepcion e) {
             System.err.println(e.getMessage());
         }
@@ -869,17 +898,24 @@ public class UISVP {
 
             String rut = leeString("R.U.T");
             String[][] lista = CE.listVentasEmpresa(Rut.of(rut));
-            System.out.printf(" *-----------*---------*---------------*--------------*%n");
-            System.out.printf(" | FECHA        | TIPO    | MONTO PAGADO  |    TIPO PAGO |%n");
-            System.out.printf(" *-----------*---------*---------------*--------------*%n");
 
-            for (int i = 0; i < lista.length; i++) {
-                System.out.printf(" | %-10s   | %-6s    | %-6s  | %-14s |%n",
-                        lista[i][0], lista[i][1], lista[i][2], lista[i][3]);
+
+            if (lista.length != 0) {
+
+                System.out.printf(" %n*-----------*---------*---------------*--------------*%n");
+                System.out.printf(" | FECHA        | TIPO    | MONTO PAGADO  |    TIPO PAGO |%n");
                 System.out.printf(" *-----------*---------*---------------*--------------*%n");
+
+                for (int i = 0; i < lista.length; i++) {
+                    System.out.printf(" | %-10s   | %-6s    | %-6s  | %-14s |%n",
+                            lista[i][0], lista[i][1], lista[i][2], lista[i][3]);
+                    System.out.printf(" *-----------*---------*---------------*--------------*%n");
+                }
+            } else {
+                System.out.println("...::: No existen ventas registradas en la empresa");
             }
         } catch (SistemaVentaPasajesExcepcion e) {
-            System.err.println(e.getMessage());
+            System.out.println("...::: Error : " + e.getMessage());
         }
     }
 
