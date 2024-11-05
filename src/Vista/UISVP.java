@@ -485,8 +485,8 @@ public class UISVP {
 
 
     private void vendePasaje() {
-        System.out.println(".....::: Venta de Pasajes:::....\n\n");
-        System.out.println(":::Datos de venta");
+        System.out.println("...:::: Venta de Pasajes ::::....\n\n");
+        System.out.println(":::: Datos de la venta");
 
         String IdDocumento = leeString("ID Documento");
 
@@ -495,7 +495,7 @@ public class UISVP {
 
         LocalDate fechaVenta = LocalDate.now();
 
-        String fechaViaje = leeString("Fecha de [dd/mm/yyyy]");
+        String fechaViaje = leeString("Fecha de viaje[dd/mm/yyyy]");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fechaV = LocalDate.parse(fechaViaje, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         // Salida
@@ -514,7 +514,7 @@ public class UISVP {
                 break;
         }
 
-        System.out.println("\n\n:::: Datos del Cliente");
+        System.out.println("\n\n:::: Datos del Cliente\n\n");
         int op = leeOpc("Rut[1] o Pasaporte[2]", 2);
 
         IdPersona idCliente = null;
@@ -549,7 +549,7 @@ public class UISVP {
 
         }
 
-        System.out.println("\n\n::::Pasajes a Vender");
+        System.out.println("\n\n:::: Pasajes a Vender");
         int cant = leeInt("Cantidad de pasajes");
 
         try {
@@ -558,7 +558,7 @@ public class UISVP {
 
             String[][] matrizViajes = SVP.getHorariosDisponibles(fechaV,origen, destino, cant);
 
-            System.out.println("\n\n::::Listado de Horarios Disponibles");
+            System.out.println("\n\n:::: Listado de Horarios Disponibles");
 
 
             System.out.printf("       +------------+----------------+------------+------------+%n");
@@ -566,7 +566,7 @@ public class UISVP {
             System.out.printf("       +------------+----------------+------------+------------+%n");
             for (int i = 0; i < matrizViajes.length; i++) {
                 System.out.printf(" %-5d | %-10s | %-14s | %-10s | %-10s |%n",
-                        i + 1, matrizViajes[i][0], matrizViajes[i][1], matrizViajes[i][2], matrizViajes[i][3]);
+                        i + 1, matrizViajes[i][0], matrizViajes[i][1], "$"+matrizViajes[i][2], matrizViajes[i][3]);
                 System.out.printf("       +------------+----------------+------------+------------+%n");
             } //POSICION DE VIAJE ELEGIDO
 
@@ -617,7 +617,7 @@ public class UISVP {
             // ciclo para cada pasaje
             for (int i = 0; i < cant; i++) {
 
-                System.out.println("\n::::Datos pasajeros " + (i + 1));
+                System.out.println("\n:::: Datos pasajeros " + (i + 1));
 
                 int opcId = leeOpc("Rut[1] o Pasaporte[2]", 2);
 
@@ -692,7 +692,7 @@ public class UISVP {
 
                             Nombre newPasajero = new Nombre();
                             System.out.println("..: Cree al pasajero :..");
-                            System.out.println("\n...::: Datos Modelo.Pasajero :::...");
+                            System.out.println("\n...::: Datos Pasajero :::...");
 
                             int opcTratamiento = leeOpc("Sr.[1] o Sra.[2]", 2);
 
@@ -742,9 +742,10 @@ public class UISVP {
             }// cierre del for
 
             Optional<Integer> montoVenta = SVP.getMontoVenta(IdDocumento, tipoDocumento);
-            System.out.println(":::: Monto Total de la venta: " + montoVenta.get());
+            System.out.println();
+            System.out.println("\n:::: Monto Total de la venta: " + montoVenta.get());
+            System.out.println();
 
-            System.out.println("Pago de la venta");
             pagaVentaPasajes(IdDocumento, tipoDocumento);
 
             String[] boleta = SVP.pasajesAImprimir(IdDocumento, tipoDocumento);
@@ -925,12 +926,13 @@ public class UISVP {
 
         if(opcPago==1) {
             SVP.pagaVenta(idDocumento, tipo);
+
         } else {
             long nroTarjeta= Long.parseLong(leeString("Ingrese numero de Tarjeta"));
             SVP.pagaVenta(idDocumento, tipo, nroTarjeta);
         }
         System.out.println();
-        System.out.println("Venta realizada exitosamente");
+        System.out.println("\n...:::: Venta realizada exitosamente ::::....\n\n");
     }
 
     private int elegirOpc(int cantOpciones) {
