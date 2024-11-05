@@ -416,7 +416,8 @@ public class UISVP {
         int duracion = leeInt("Duracion (minutos)");
 
         String patente = leeString("Patente Bus");
-
+//!!!!!!!
+        System.out.print("Nro. de Conductores");
         int cantConductores = elegirOpc(2);
 
         System.out.printf("%30s", ":: Id Auxiliar ::");
