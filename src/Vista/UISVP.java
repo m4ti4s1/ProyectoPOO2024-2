@@ -21,7 +21,7 @@ public class UISVP {
 
     private UISVP() {
         sc = new Scanner(System.in);
-        sc.useDelimiter("\r\n|[\n\r\u2028\u2029\u0085]|\t|,");
+        sc.useDelimiter("\r\n|[\n\r\u2028\u2029\u0085]|\t");
     }
 
     public static UISVP getInstance() {
@@ -762,6 +762,9 @@ public class UISVP {
         DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         String[][] listaVentas = SVP.listVentas();
+
+
+
         if (listaVentas.length != 0) {
             System.out.printf("\n%44s\n", "...:::: Listado de Ventas ::::....\n");
             System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
@@ -971,7 +974,6 @@ public class UISVP {
         return num;
     }
 
-    //separe numero de comas "Arreglado"
     private int [] separador(String asientos,int cant){
 
         String[] numerosString = asientos.split(",");
@@ -983,6 +985,8 @@ public class UISVP {
 
         return numAsientos;
     }
+
+
     private int leeOpc(String msg, int cantOpc) {
         int opc = 0;
         boolean valido = false;
