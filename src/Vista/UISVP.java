@@ -417,9 +417,10 @@ public class UISVP {
 
         String patente = leeString("Patente Bus");
 
+        System.out.printf("%30s : ", "Nro. de Conductores [1 o 2]");
         int cantConductores = elegirOpc(2);
 
-        System.out.printf("%30s", ":: Id Auxiliar ::");
+        System.out.printf("%30s%n", ":: Id Auxiliar ::");
 
         int opcIdAuxiliar = leeOpc("Rut[1] o Pasaporte[2]", 2);
 
@@ -444,6 +445,7 @@ public class UISVP {
         }
         idTripulantes.add(idPersona);
 
+        System.out.printf("%30s%n", ":: Id Conductor ::");
         for (int i = 0; i < cantConductores; i++) {
             int opcIdConductor = leeOpc("Rut[1] o Pasaporte[2]", 2);
 
