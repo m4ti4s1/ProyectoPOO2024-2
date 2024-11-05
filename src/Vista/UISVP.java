@@ -906,14 +906,19 @@ public class UISVP {
 
             if (lista.length != 0) {
 
-                System.out.printf(" %n*-----------*---------*---------------*--------------*%n");
-                System.out.printf(" | FECHA        | TIPO    | MONTO PAGADO  |    TIPO PAGO |%n");
-                System.out.printf(" *-----------*---------*---------------*--------------*%n");
+                System.out.printf(" *-------------*-----------*---------------*----------------*%n");
+                System.out.printf(" | FECHA       | TIPO      | MONTO PAGADO  |      TIPO PAGO |%n");
+                System.out.printf(" *-------------*-----------*---------------*----------------*%n");
 
+                DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 for (int i = 0; i < lista.length; i++) {
-                    System.out.printf(" | %-10s   | %-6s    | %-6s  | %-14s |%n",
-                            lista[i][0], lista[i][1], lista[i][2], lista[i][3]);
-                    System.out.printf(" *-----------*---------*---------------*--------------*%n");
+                    String fechaOriginal = lista[i][0];
+                    LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
+                    String fechaFormateada = fecha.format(nuevoFormato);
+                    System.out.printf(" | %-10s  | %-8s  | %-8s      | %-14s |%n",
+                            fechaFormateada, lista[i][1], "$"+lista[i][2], "Pago " + lista[i][3]);
+                    System.out.printf(" *-------------*-----------*---------------*----------------*%n");
                 }
             } else {
                 System.out.println("...::: No existen ventas registradas en la empresa");
