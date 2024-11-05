@@ -1,3 +1,5 @@
+package Utilidades;
+
 import java.util.Objects;
 
 public class Nombre {

@@ -1,3 +1,5 @@
+package Modelo;
+
 import java.util.ArrayList;
 
 public class Bus {
@@ -7,17 +9,25 @@ public class Bus {
     private String marca;
     private String modelo;
     private int nroAsientos;
+    private Empresa empresa;
     private ArrayList<Viaje> viajes;
 
     //constructor
-    public Bus(String patente, int nroAsientos) {
+    public Bus(String patente, int nroAsientos, Empresa emp) {
         this.patente = patente;
         this.nroAsientos = nroAsientos;
+        this.empresa = emp;
+        // Asocia el bus con la empresa
+        empresa.addBus(this);
         this.viajes = new ArrayList<>();
     }
 
     public String getPatente() {
         return patente;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
     }
 
     public String getMarca() {
@@ -43,7 +53,8 @@ public class Bus {
     public void addViaje(Viaje viaje) {
         this.viajes.add(viaje);
     }
-    public ArrayList<Viaje> getViajes() {
-        return viajes;
+
+    public Viaje[] getViajes() {
+        return viajes.toArray(new Viaje[0]);
     }
 }
