@@ -128,7 +128,7 @@ public class SistemaVentaPasajes {
             throw new SistemaVentaPasajesExcepcion("Ya existe una venta con el id y tipo de documento indicados");
         }
 
-        Venta venta = new Venta(idDoc, tipo, fechaViaje, cliente);
+        Venta venta = new Venta(idDoc, tipo, LocalDate.now(), cliente);
 
         for (Viaje viaje : viajesDisponibles) {
             if(viaje.existeDisponibilidad(nroPasajes)){

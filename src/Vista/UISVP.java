@@ -552,8 +552,6 @@ public class UISVP {
         System.out.println("\n\n::::Pasajes a Vender");
         int cant = leeInt("Cantidad de pasajes");
 
-
-        // todo Verficar que se pueda iniciar venta, que exista disponibilidad y almenos 1 viaje
         try {
             SVP.iniciaVenta(IdDocumento, tipoDocumento,fechaV,origen ,destino, idCliente, cant);
 
