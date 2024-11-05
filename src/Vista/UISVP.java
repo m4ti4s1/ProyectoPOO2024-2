@@ -555,7 +555,7 @@ public class UISVP {
 
         // todo Verficar que se pueda iniciar venta, que exista disponibilidad y almenos 1 viaje
         try {
-            SVP.iniciaVenta(IdDocumento, tipoDocumento,fechaVenta,origen ,destino, idCliente, cant);
+            SVP.iniciaVenta(IdDocumento, tipoDocumento,fechaV,origen ,destino, idCliente, cant);
 
 
             String[][] matrizViajes = SVP.getHorariosDisponibles(fechaV,origen, destino, cant);
