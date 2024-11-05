@@ -248,7 +248,7 @@ public class SistemaVentaPasajes {
         return null;
     }
 
-    public void pagaVenta(String idDocumento, TipoDocumento tipo){
+    public void pagaVenta(String idDocumento, TipoDocumento tipo) throws SistemaVentaPasajesExcepcion {
         Venta venta= findVenta(idDocumento, tipo).orElseThrow(() ->
             new SistemaVentaPasajesExcepcion("No existe venta con el id y tipo de documento indicados"));
 
