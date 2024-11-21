@@ -340,41 +340,35 @@ public class SistemaVentaPasajes {
 
 
     private Optional<Cliente> findCliente(IdPersona id) {
-        for (Cliente cliente : clientes) {
-            if (Objects.equals(cliente.getIdPersona(), id)) {
-                return Optional.of(cliente);
-            }
-        }
-        return Optional.empty();
+
+        return clientes.stream()
+                .filter(cliente -> Objects.equals(cliente.getIdPersona(), id))
+                .findFirst();
     }
 
     private Optional<Venta> findVenta(String idDocumento, TipoDocumento tipoDocumento) {
-        for (Venta venta : ventas) {
-            if (venta.getIdDocumento().equals(idDocumento) && venta.getTipo() == tipoDocumento) {
-                return Optional.of(venta);
-            }
-        }
-        return Optional.empty();
+
+        return ventas.stream()
+                .filter(venta -> venta.getIdDocumento().equals(idDocumento))
+                .filter(venta -> venta.getTipo() == tipoDocumento)
+                .findFirst();
     }
 
 
     private Optional<Viaje> findViaje(String fecha, String hora, String patenteBus) {
 
-        for (Viaje viaje : viajes) {
-            if (viaje.getFecha().toString().equals(fecha) && viaje.getHora().toString().equals(hora)  && viaje.getBus().getPatente().equals(patenteBus)) {
-                return Optional.of(viaje);
-            }
-        }
-        return Optional.empty();
+        return viajes.stream()
+                .filter(viaje -> viaje.getFecha().toString().equals(fecha))
+                .filter(viaje -> viaje.getHora().toString().equals(hora))
+                .filter(viaje -> viaje.getBus().getPatente().equals(patenteBus))
+                .findFirst();
     }
 
     private Optional<Pasajero> findPasajero(IdPersona idPersona) {
-        for (Pasajero pasajero : pasajeros) {
-            if (Objects.equals(pasajero.getIdPersona(), idPersona)) {
-                return Optional.of(pasajero);
-            }
-        }
-        return Optional.empty();
+
+        return pasajeros.stream()
+                .filter(pasajero -> Objects.equals(pasajero.getIdPersona(), idPersona))
+                .findFirst();
 
     }
 

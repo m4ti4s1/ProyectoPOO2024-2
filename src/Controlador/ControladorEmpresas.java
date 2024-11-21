@@ -210,93 +210,66 @@ public class ControladorEmpresas {
 
 
 
-    // todo
+
+    // --------------- Finds con Streaming
+
     protected Optional<Empresa> findEmpresa(Rut rut) {
 
-        for(Empresa n:empresas){
-            if(n.getRut().equals(rut)){
-                return Optional.of(n);
-            }
-        }
+        return empresas.stream()
+                .filter(empresa -> empresa.getRut().equals(rut))
+                .findFirst();
 
-        return Optional.empty();
 
     }
 
 
 
 
+    // todo Verificar si se debe validar el case del nombre
     protected Optional<Terminal> findTerminal(String nombre){
 
-        for (Terminal n:terminales){
-            if(n.getNombre().equalsIgnoreCase(nombre)){
-                return Optional.of(n);
-            }
-
-        }
-
-        return Optional.empty();
+        return terminales.stream()
+                .filter(terminal -> terminal.getNombre().equals(nombre))
+                .findFirst();
     }
 
     protected Optional<Terminal> findTerminalPorComuna(String comuna) {
 
-        for(Terminal n: terminales){
-            if((n.getDireccion().getComuna()).equalsIgnoreCase(comuna)){
-                return Optional.of(n);
-            }
-        }
-
-        return Optional.empty();
+        return terminales.stream()
+                .filter(terminal -> terminal.getDireccion().getComuna().equals(comuna))
+                .findFirst();
 
     }
 
 
     protected Optional<Bus> findBus(String patente) {
-        for (Bus n:buses){
-            if(n.getPatente().equalsIgnoreCase(patente)){
-                return Optional.of(n);
-            }
-        }
-        return Optional.empty();
+
+        return buses.stream()
+                .filter(bus -> bus.getPatente().equals(patente))
+                .findFirst();
     }
 
     protected Optional<Conductor> findConductor(IdPersona id, Rut rutEmpresa) {
 
-        Optional<Empresa> empre =findEmpresa(rutEmpresa);
 
-        if(empre.isEmpty()){
-            return Optional.empty();
-        }
-
-        Tripulante[] arregloTripulantes=empre.get().getTripulantes();
-
-        for (Tripulante n:arregloTripulantes){
-            if(n.getIdPersona().equals(id)){
-                return Optional.of((Conductor) n);
-            }
-        }
-
-        return Optional.empty();
+        return findEmpresa(rutEmpresa)
+                .flatMap(empresa -> Arrays.stream(empresa.getTripulantes())
+                        .filter(tripulante -> tripulante.getIdPersona().equals(id))
+                        .findFirst()
+                        .map(tripulante -> (Conductor) tripulante));
 
     }
 
     protected Optional<Auxiliar> findAuxliar(IdPersona id, Rut rutEmpresa) {
 
-        Optional<Empresa> empre =findEmpresa(rutEmpresa);
 
-        if(empre.isEmpty()){
-            return Optional.empty();
-        }
+        return findEmpresa(rutEmpresa)
+                .flatMap(empresa -> Arrays.stream(empresa.getTripulantes())
+                        .filter(tripulante -> tripulante.getIdPersona().equals(id))
+                        .findFirst()
+                        .map(tripulante -> (Auxiliar) tripulante)
+                );
 
-        Tripulante[] arregloTripulantes=empre.get().getTripulantes();
-
-        for (Tripulante n:arregloTripulantes){
-            if(n.getIdPersona().equals(id)){
-                return Optional.of((Auxiliar) n);
-            }
-        }
-
-        return Optional.empty();
 
     }
 }
