@@ -4,7 +4,7 @@ package Vista;
 import Utilidades.*;
 import Controlador.*;
 
-import Excepciones.SistemaVentaPasajesExcepcion;
+import Excepciones.SVPException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -155,7 +155,7 @@ public class UISVP {
                     System.out.println("\n...:::: Conductor contratado exitosamente ::::....");
                     break;
             }
-        } catch (SistemaVentaPasajesExcepcion e) {
+        } catch (SVPException e) {
             System.out.println("\t\t...::: Error : " + e.getMessage());
         }
     }
@@ -174,7 +174,7 @@ public class UISVP {
             CE.createTerminal(nombre, dir);
 
             System.out.println("...:::: Terminal guardado exitosamente ::::....");
-        } catch (SistemaVentaPasajesExcepcion e) {
+        } catch (SVPException e) {
             System.out.println("\t\t...::: Error : " + e.getMessage());
         }
     }
@@ -238,7 +238,7 @@ public class UISVP {
             SVP.createCliente(idPersona, nombreCliente, telefono, email);
             System.out.println("\n....:::: Cliente guardado exitosamente ::::....\n");
 
-        } catch (SistemaVentaPasajesExcepcion e ) {
+        } catch (SVPException e ) {
             System.out.println("..:: Error : " + e.getMessage());
         }
 
@@ -268,7 +268,7 @@ public class UISVP {
         try {
             CE.createBus(patente, marca, modelo, nroAsientos, rutEmpresa);
             System.out.println("...:::: Bus guardado exitosamente ::::....");
-        } catch (SistemaVentaPasajesExcepcion e) {
+        } catch (SVPException e) {
             System.err.println("..:: Error : " + e.getMessage());
         }
     }
@@ -352,7 +352,7 @@ public class UISVP {
             SVP.createViaje(fecha, hora, precio,duracion, patente, idTripulantesArray ,comunas);
             System.out.println("\n...:::: Viaje guardado exitosamente ::::....");
 
-        } catch (SistemaVentaPasajesExcepcion e) {
+        } catch (SVPException e) {
             System.out.println("..:: Error : " + e.getMessage());
         }
 
@@ -626,7 +626,7 @@ public class UISVP {
             for (String s : boleta) {
                 System.out.println(s);
             }
-        } catch (SistemaVentaPasajesExcepcion e) {
+        } catch (SVPException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
@@ -714,7 +714,7 @@ public class UISVP {
             } else {
                 System.out.println("...::: No existen pasajeros en el viaje indicado");
             }
-        } catch (SistemaVentaPasajesExcepcion e) {
+        } catch (SVPException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -765,7 +765,7 @@ public class UISVP {
                 System.out.println("...::: No existen llegadas/salidas del terminal indicado");
             }
 
-        } catch (SistemaVentaPasajesExcepcion e) {
+        } catch (SVPException e) {
             System.err.println(e.getMessage());
         }
     }
@@ -797,7 +797,7 @@ public class UISVP {
             } else {
                 System.out.println("...::: No existen ventas registradas en la empresa");
             }
-        } catch (SistemaVentaPasajesExcepcion e) {
+        } catch (SVPException e) {
             System.out.println("...::: Error : " + e.getMessage());
         }
     }

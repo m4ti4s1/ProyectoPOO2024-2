@@ -2,7 +2,7 @@ package Controlador;
 
 import Modelo.*;
 import Utilidades.*;
-import Excepciones.SistemaVentaPasajesExcepcion;
+import Excepciones.SVPException;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -24,20 +24,20 @@ public class ControladorEmpresas {
         return instance;
     }
 
-    public void createEmpresa(Rut rut,String nombre,String url)throws SistemaVentaPasajesExcepcion{
+    public void createEmpresa(Rut rut,String nombre,String url)throws SVPException {
         Empresa up=new Empresa(rut, nombre);
         up.setUrl(url);
         findEmpresa(rut).ifPresentOrElse(
-                t -> {throw new SistemaVentaPasajesExcepcion("Ya existe empresa con el rut indicado");},
+                t -> {throw new SVPException("Ya existe empresa con el rut indicado");},
                 ()->empresas.add(up));
     }
 
 
 
     // todo Arreglar clase Bus, tiene que tener empresa
-    public void createBus(String patente, String marca, String modelo, int nroAsientos, Rut rutEmp) throws SistemaVentaPasajesExcepcion {
+    public void createBus(String patente, String marca, String modelo, int nroAsientos, Rut rutEmp) throws SVPException {
 
-        Empresa empresa = findEmpresa(rutEmp).orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe empresa con el rut indicado"));
+        Empresa empresa = findEmpresa(rutEmp).orElseThrow(() -> new SVPException("No existe empresa con el rut indicado"));
 
         Bus bus = new Bus(patente, nroAsientos, empresa);
         bus.setMarca(marca);
@@ -47,7 +47,7 @@ public class ControladorEmpresas {
             //logica para bus que ya existe
             buses.add(bus);
         } else {
-            throw new SistemaVentaPasajesExcepcion("Ya existe bus con la patente indicada");
+            throw new SVPException("Ya existe bus con la patente indicada");
         }
     }
 
@@ -55,14 +55,14 @@ public class ControladorEmpresas {
 
 
 
-    public void createTerminal(String nombre,Direccion direccion)throws SistemaVentaPasajesExcepcion{
+    public void createTerminal(String nombre,Direccion direccion)throws SVPException {
 
         if(findTerminal(nombre).isPresent()) {
-            throw new SistemaVentaPasajesExcepcion("Ya existe Terminal con el nombre indicado");
+            throw new SVPException("Ya existe Terminal con el nombre indicado");
         }
 
         if(findTerminalPorComuna(direccion.getComuna()).isPresent()) {
-            throw new SistemaVentaPasajesExcepcion("Ya existe terminal en la comuna indicada");
+            throw new SVPException("Ya existe terminal en la comuna indicada");
         }
 
         // Si pasa ambas verificaciones, crea y añade el terminal
@@ -77,13 +77,13 @@ public class ControladorEmpresas {
 
 
 
-    public void hireConductorForEmpresa(Rut rutEmp,IdPersona id,Nombre nom,Direccion dir ) throws SistemaVentaPasajesExcepcion{
+    public void hireConductorForEmpresa(Rut rutEmp,IdPersona id,Nombre nom,Direccion dir ) throws SVPException {
         Optional<Empresa> empresa=findEmpresa(rutEmp);
         if(empresa.isEmpty()){
-            throw new SistemaVentaPasajesExcepcion("No existe empresa con el rut indicado ");
+            throw new SVPException("No existe empresa con el rut indicado ");
         }
         if(findConductor(id, rutEmp).isPresent()){
-            throw new SistemaVentaPasajesExcepcion("Ya está contratado conductor/auxiliar con el id dado en la empresa señalada ");
+            throw new SVPException("Ya está contratado conductor/auxiliar con el id dado en la empresa señalada ");
         }
         empresa.get().addConductor(id,nom,dir);
     }
@@ -91,17 +91,17 @@ public class ControladorEmpresas {
 
 
 
-    public void hireAuxiliarForEmpresa(Rut rutEmp,IdPersona id,Nombre nom,Direccion dir) throws SistemaVentaPasajesExcepcion{
+    public void hireAuxiliarForEmpresa(Rut rutEmp,IdPersona id,Nombre nom,Direccion dir) throws SVPException {
         Optional<Empresa> empresa = findEmpresa(rutEmp);
 
 
         if(empresa.isEmpty()){
-            throw new SistemaVentaPasajesExcepcion("No existe empresa con el rut indicado ");
+            throw new SVPException("No existe empresa con el rut indicado ");
         }
 
 
         if(findAuxliar(id, rutEmp).isPresent()) {
-            throw new SistemaVentaPasajesExcepcion("Ya está contratado conductor/auxiliar con el id dado en la empresa señalada ");
+            throw new SVPException("Ya está contratado conductor/auxiliar con el id dado en la empresa señalada ");
         }
 
         empresa.get().addAuxiliar(id,nom,dir);
@@ -130,11 +130,11 @@ public class ControladorEmpresas {
 
     }
 
-    public String[][] listLlegadaSalidasTerminal(String nombre, LocalDate fecha) throws SistemaVentaPasajesExcepcion {
+    public String[][] listLlegadaSalidasTerminal(String nombre, LocalDate fecha) throws SVPException {
         Optional<Terminal> terminal = findTerminal(nombre);
 
         if(terminal.isEmpty()) {
-            throw new SistemaVentaPasajesExcepcion("No existe terminal con el nombre indicado");
+            throw new SVPException("No existe terminal con el nombre indicado");
         }
 
         Viaje[]llegadas= terminal.get().getLlegadas();
@@ -181,11 +181,11 @@ public class ControladorEmpresas {
 
 
     // todo cambiar a streaming
-    public String[][] listVentasEmpresa(Rut rut) throws SistemaVentaPasajesExcepcion {
+    public String[][] listVentasEmpresa(Rut rut) throws SVPException {
         Optional<Empresa> up=findEmpresa(rut);
 
         if (up.isEmpty()) {
-            throw new SistemaVentaPasajesExcepcion("No existe empresa con el rut indicado ");
+            throw new SVPException("No existe empresa con el rut indicado ");
         }
 
 
