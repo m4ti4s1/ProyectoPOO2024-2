@@ -78,19 +78,7 @@ public class UISVP {
 
 
     private void createEmpresa() {
-        try {
-            System.out.println("...:::: Creando una nueva Empresa ::::....");
-            String rut = leeString("R.U.T");
-            String nom = leeString("Nombre");
-            String url = leeString("url");
-
-            CE.createEmpresa(Rut.of(rut), nom, url);
-
-            System.out.println("...:::: Empresa guardada exitosamente ::::...");
-
-        } catch (SistemaVentaPasajesExcepcion e) {
-            System.out.println("...::::Error : " + e.getMessage());
-        }
+        GUICreaEmpresa.display();
     }
 
 

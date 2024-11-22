@@ -1,0 +1,80 @@
+package Vista;
+
+import Controlador.ControladorEmpresas;
+import Controlador.SistemaVentaPasajes;
+import Utilidades.Rut;
+
+import javax.swing.*;
+import java.awt.event.*;
+
+public class GUICreaEmpresa extends JDialog {
+    private JPanel contentPane;
+    private JButton buttonOK;
+    private JButton buttonCancel;
+    private JTextField ruttx;
+    private JTextField nombretx;
+    private JTextField urltx;
+
+    public GUICreaEmpresa() {
+        setContentPane(contentPane);
+        setModal(true);
+        getRootPane().setDefaultButton(buttonOK);
+
+        buttonOK.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onOK();
+            }
+        });
+
+        buttonCancel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onCancel();
+            }
+        });
+
+        // call onCancel() when cross is clicked
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                onCancel();
+            }
+        });
+
+        // call onCancel() on ESCAPE
+        contentPane.registerKeyboardAction(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onCancel();
+            }
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    }
+
+    private void onOK() {
+        try {
+            String rut = ruttx.getText();
+            String nom = nombretx.getText();
+            String Url = urltx.getText();
+            ControladorEmpresas.getInstance().createEmpresa(Rut.of(rut),nom,Url);
+            JOptionPane.showMessageDialog(this,"Empresa guardada Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
+        }catch (Excepciones.SistemaVentaPasajesExcepcion e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
+        dispose();
+    }
+
+    private void onCancel() {
+        // add your code here if necessary
+        dispose();
+    }
+
+    public static void display() {
+        GUICreaEmpresa dialog = new GUICreaEmpresa();
+        dialog.setLocationRelativeTo(null);
+        dialog.pack();
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+
+
+    }
+}
