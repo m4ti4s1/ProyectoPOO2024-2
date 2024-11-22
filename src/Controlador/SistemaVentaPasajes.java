@@ -191,6 +191,7 @@ public class SistemaVentaPasajes {
 
     }
 
+    // todo cambiar a streaming
     public Optional<Integer> getMontoVenta(String idDocumento, TipoDocumento tipo) {
         for (Venta venta : ventas) {
             if (venta.getIdDocumento().equals(idDocumento) && venta.getTipo().equals(tipo)) {
@@ -200,6 +201,7 @@ public class SistemaVentaPasajes {
         return Optional.empty();
     }
 
+    // todo cambiar a streaming
     public Optional<String> getNombrePasajero(IdPersona idPasajero) {
         for (Pasajero pasajero: pasajeros) {
             if (pasajero.getIdPersona().equals(idPasajero)) {
@@ -209,19 +211,6 @@ public class SistemaVentaPasajes {
         return Optional.empty();
     }
 
-    /*
-    public boolean vendePasaje(String idDoc,Utilidades.TipoDocumento tipo , LocalDate fecha , LocalTime hora, String patBus, int asiento, Utilidades.IdPersona idCli, Utilidades.IdPersona idPas, Utilidades.Nombre nomPas, Utilidades.Nombre nomCto) {
-         if(null==findViaje(""+fecha,""+hora,""+patBus)){return false;}
-         if(null==findBus(patBus)){return false;}
-         if(null==findCliente(idCli)){return false;}
-         Modelo.Venta ventapasaje =new Modelo.Venta(idDoc,tipo,fecha,findCliente(idCli));
-         ventas.add(ventapasaje);
-         Modelo.Pasaje createPasaje=new Modelo.Pasaje(asiento,findViaje(""+fecha,""+hora,""+patBus),findPasajero(idCli), ventapasaje);
-        findViaje(""+fecha,""+hora,""+patBus).addPasaje(createPasaje);
-
-        return false;
-    }
-     */
     public void vendePasaje(String idDoc, TipoDocumento tipo , LocalDate fechaViaje, LocalTime hora, String patBus, int asiento, IdPersona idPasajero) throws SistemaVentaPasajesExcepcion {
         Venta venta = findVenta(idDoc, tipo).orElseThrow(() ->
             new SistemaVentaPasajesExcepcion("No existe una venta con el id y tipo de documento indicados"));
@@ -267,6 +256,7 @@ public class SistemaVentaPasajes {
     }
 
 
+    // todo cambiar a streaming
     public String[][] listVentas() {
         String[][] listventas = new String[ventas.size()][7];
         for (int i=0;i<listventas.length;i++){
@@ -282,6 +272,7 @@ public class SistemaVentaPasajes {
         return listventas;
     }
 
+    // todo cambiar a streaming
     public String[][] listViajes() {
         String[][] pasajes = new String[viajes.size()][8] ;
         for(int i=0;i<pasajes.length;i++){
@@ -301,6 +292,7 @@ public class SistemaVentaPasajes {
 
     }
 
+    // todo cambiar a streaming
     public String[][] listPasajerosViaje(LocalDate fecha, LocalTime hora, String patBus) throws SistemaVentaPasajesExcepcion {
         Viaje viaje = findViaje(fecha.toString(), hora.toString(), patBus)
                 .orElseThrow(() -> new SistemaVentaPasajesExcepcion("No existe viaje con la fecha, hora y patente de bus indicados"));
@@ -339,6 +331,7 @@ public class SistemaVentaPasajes {
     }
 
 
+    // --------- finds utilizando streaming
     private Optional<Cliente> findCliente(IdPersona id) {
 
         return clientes.stream()

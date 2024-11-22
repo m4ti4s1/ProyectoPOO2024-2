@@ -109,8 +109,9 @@ public class ControladorEmpresas {
 
 
 
+    // todo cambiar a streaming
     public String[][] listEmpresas(){
-        if(empresas.size()==0){return new String[0][0];}
+        if(empresas.isEmpty()){return new String[0][0];}
 
         String[][] listEmpresas=new String[empresas.size()][6];
 
@@ -179,6 +180,7 @@ public class ControladorEmpresas {
 
 
 
+    // todo cambiar a streaming
     public String[][] listVentasEmpresa(Rut rut) throws SistemaVentaPasajesExcepcion {
         Optional<Empresa> up=findEmpresa(rut);
 
