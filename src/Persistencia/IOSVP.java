@@ -320,8 +320,8 @@ public class IOSVP {
                     viajes.add(viaje);
                 }
             }
-        }catch (IOException e) {
-            throw new SVPException("No es posible abrir y/o leer el archivo");
+        }catch (FileNotFoundException e) {
+            throw new SVPException("No existe o no se puede abrir el archivo SVPDatosIniciales.txt");
         }
 
         Object[] resultado = new Object[]{
@@ -341,8 +341,10 @@ public class IOSVP {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("SVPObjetos.obj"));
             oos.writeObject(controladores);
 
+        }catch (FileNotFoundException e){
+            throw new SVPException("No se puede abrir o crear el archivo SVPObjetos.obj");
         }catch (IOException e){
-            throw new SVPException("No se pudo abrir/crear o escribir en el archivo SVPObjetos.obj");
+            throw new SVPException("No se puede grabar en el archivo SVPObjetos.obj");
         }
     }
 
@@ -354,8 +356,10 @@ public class IOSVP {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("SVPObjetos.obj"));
             controladores = (Object[]) ois.readObject();
 
-        }catch (ClassNotFoundException | IOException e){
-            throw new SVPException("No es posible abrir el archivo o leer los objetos");
+        }catch (FileNotFoundException e){
+            throw new SVPException("No existe o no se puede abrir el archivo SVPObjetos.obj");
+        }catch (IOException | ClassNotFoundException e) {
+            throw new SVPException("No se puede leer el archivo SVPObjetos.obj");
         }
         return controladores;
     }
@@ -393,7 +397,7 @@ public class IOSVP {
             }
 
         }catch (IOException e) {
-            throw new SVPException("No es posible abrir/crear el archivo o grabar en el");
+            throw new SVPException("No se puede abrir o crear el archivo " + nombreArchivo);
         }
     }
 
