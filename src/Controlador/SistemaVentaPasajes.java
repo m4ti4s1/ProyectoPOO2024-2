@@ -1,3 +1,14 @@
+
+/*
+--------------- TODO --------------
+    1. Cambiar ciclos for, por streaming
+    2. Arreglar metodo generatePasajesVenta
+    3. Crear metodos para persistencia
+
+
+ */
+
+
 package Controlador;
 
 import Modelo.*;
@@ -141,6 +152,7 @@ public class SistemaVentaPasajes {
 
     }
 
+    // Todo cambiar a Streaming
     public String[][] getHorariosDisponibles(LocalDate fechaViaje, String comunaSalida, String comunaLlegada, int nroPasajes) {
         // Crea una lista temporal para almacenar los datos de los viajes que coinciden con la fecha
         ArrayList<String[]> horarios = new ArrayList<>();
@@ -244,6 +256,7 @@ public class SistemaVentaPasajes {
 
     }
 
+    // metodo no existe en UML
     public String getNombreCliente(IdPersona idCliente){
         for (Cliente cliente : clientes) {
             if (cliente.getIdPersona().equals(idCliente)) {
@@ -357,6 +370,9 @@ public class SistemaVentaPasajes {
 
     }
 
+    // metodo no esta en el UML
+    // cambiar nombre a genearte PasajesVenta y cambiar retorno por void
+    // Genera un archivo de texto con los pasajes
     public String[] pasajesAImprimir(String idDocumento, TipoDocumento tipoDocumento) {
         Optional<Venta> venta = findVenta(idDocumento, tipoDocumento);
 

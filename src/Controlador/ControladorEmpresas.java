@@ -1,3 +1,12 @@
+
+/*
+--------------- TODO --------------
+    1. Cambiar ciclos for, por streaming
+    2. Crear metodos para persistencia
+
+
+ */
+
 package Controlador;
 
 import Modelo.*;
