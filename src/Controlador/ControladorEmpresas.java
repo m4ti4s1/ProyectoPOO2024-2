@@ -210,7 +210,21 @@ public class ControladorEmpresas {
 
     }
 
+    protected void setInstanciaPersistente(ControladorEmpresas instanciaPersistente){
+        instance = instanciaPersistente;
+    }
 
+    protected void setDatosIniciales(Object[] objetos){
+        for (Object o : objetos) {
+            if(o instanceof Empresa){
+                empresas.add((Empresa)o);
+            } else if(o instanceof Bus){
+                buses.add((Bus)o);
+            } else if(o instanceof Terminal){
+                terminales.add((Terminal)o);
+            }
+        }
+    }
 
 
     // --------------- Finds con Streaming

@@ -1,17 +1,13 @@
 package Controlador;
 
 import Modelo.*;
-import Utilidades.IdPersona;
-import Utilidades.Nombre;
+import Persistencia.IOSVP;
+import Utilidades.*;
 import Excepciones.SVPException;
-import Utilidades.Rut;
-import Utilidades.TipoDocumento;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 
 public class SistemaVentaPasajes {
@@ -330,6 +326,59 @@ public class SistemaVentaPasajes {
         return resultado.toArray(new String[0]);
     }
 
+    public void generatePasajesVenta(String idDocumento, TipoDocumento tipo) throws SVPException {
+
+        Optional<Venta> venta = findVenta(idDocumento, tipo);
+
+        if(venta.isPresent()) {
+            Pasaje[] pasajes = venta.get().getPasajes();
+            String nombreArchivo = idDocumento + tipo.toString().toLowerCase() + ".txt";
+
+            try {
+                IOSVP.getInstance().savePasajesDeVenta(pasajes, nombreArchivo);
+
+            }catch (SVPException e) {
+                throw new SVPException(e.getMessage());
+            }
+        }
+    }
+
+    public void readDatosIniciales() throws SVPException {
+        Object[] datosIniciales = IOSVP.getInstance().readDatosIniciales();
+
+        pasajeros.clear();
+        clientes.clear();
+        viajes.clear();
+
+        for (Object obj : datosIniciales) {
+
+            if (obj instanceof Pasajero) {
+                pasajeros.add((Pasajero) obj);
+            } else if (obj instanceof Cliente) {
+                clientes.add((Cliente) obj);
+            }else if (obj instanceof Viaje) {
+                viajes.add((Viaje) obj);
+            }
+        }
+        ctrlEmpresas.setDatosIniciales(datosIniciales);
+    }
+
+    public void saveDatosSistema() throws SVPException {
+        Object[] controladores = {this, ctrlEmpresas};
+        IOSVP.getInstance().saveControladores(controladores);
+    }
+
+    public void readDatosSistema() throws SVPException {
+        Object[] controladores = IOSVP.getInstance().readControladores();
+
+        for (Object c : controladores) {
+            if (c instanceof SistemaVentaPasajes) {
+                instance = (SistemaVentaPasajes) c;
+            } else if (c instanceof ControladorEmpresas) {
+                ctrlEmpresas.setInstanciaPersistente((ControladorEmpresas) c);
+            }
+        }
+    }
 
     // --------- finds utilizando streaming
     private Optional<Cliente> findCliente(IdPersona id) {

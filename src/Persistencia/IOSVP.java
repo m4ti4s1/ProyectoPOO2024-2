@@ -39,11 +39,7 @@ public class IOSVP {
             // Lee Seccion clientes y/o pasajeros
 
             while (leeArchivo.hasNext()) {
-                // Formato
-                // tipo;rut;tratamiento;nombres;ap.Paterno;ap.Materno;teléfono;<datosFinales>
-
                 String linea = leeArchivo.next();
-
                 if (linea.equals("+")) {
                     break;
                 }
@@ -51,96 +47,46 @@ public class IOSVP {
                 String[] datos = linea.split(";");
                 String tipo = datos[0];
                 IdPersona rut = Rut.of(datos[1]);
-                Tratamiento tratamiento = Tratamiento.valueOf(datos[2]);
+                String tratamiento = datos[2];
                 String nombres = datos[3];
                 String apPaterno = datos[4];
                 String apMaterno = datos[5];
                 String telefono = datos[6];
 
-                // Si es cliente
-                if (tipo.equals("C")) { //<datosFinales> es email
-                    Nombre nombreCliente = new Nombre();
-                    String email = datos[7];
-                    Cliente cliente = new Cliente(rut, nombreCliente, email);
-                    nombreCliente.setNombres(nombres);
-                    nombreCliente.setTratamiento(tratamiento);
-                    nombreCliente.setApellidoPaterno(apPaterno);
-                    nombreCliente.setApellidoMaterno(apMaterno);
-                    cliente.setTelefono(telefono);
+                // Crear Nombre
+                Nombre nombre = crearNombre(tratamiento, nombres, apPaterno, apMaterno);
 
+                if (tipo.equals("C")) { // Cliente
+                    String email = datos[7];
+                    Cliente cliente = crearCliente(rut, nombre, email, telefono);
                     clientes.add(cliente);
 
-                    // Si es Pasajero
-                } else if (tipo.equals("P")) { //<datosContacto> es tratamiento;nombres;ap.Paterno;ap.Materno;teléfono
-                    Tratamiento tratamientoContacto = Tratamiento.valueOf(datos[7]);
+                } else if (tipo.equals("P")) { // Pasajero
+                    String tratamientoContacto = datos[7];
                     String nombresContacto = datos[8];
                     String apPaternoContacto = datos[9];
                     String apMaternoContacto = datos[10];
                     String telefonoContacto = datos[11];
 
-                    Nombre nombrePasajero = new Nombre();
-                    nombrePasajero.setTratamiento(tratamiento);
-                    nombrePasajero.setNombres(nombres);
-                    nombrePasajero.setApellidoPaterno(apPaterno);
-                    nombrePasajero.setApellidoMaterno(apMaterno);
-
-                    Nombre contacto = new Nombre();
-
-                    // Datos Pasajero
-                    Pasajero pasajero = new Pasajero(rut, nombrePasajero);
-                    pasajero.setTelefono(telefono);
-                    pasajero.setNomContacto(contacto);
-                    pasajero.setFonoContancto(telefonoContacto);
-
-                    // Datos contacto
-                    contacto.setNombres(nombresContacto);
-                    contacto.setTratamiento(tratamientoContacto);
-                    contacto.setApellidoPaterno(apPaternoContacto);
-                    contacto.setApellidoMaterno(apMaternoContacto);
-
+                    Nombre contacto = crearNombre(tratamientoContacto, nombresContacto, apPaternoContacto, apMaternoContacto);
+                    Pasajero pasajero = crearPasajero(rut, nombre, telefono, contacto, telefonoContacto);
                     pasajeros.add(pasajero);
 
-                    // Si es Cliente y Pasajero
-                } else if (tipo.equals("CP")) { // email;<datosContacto>
+                } else if (tipo.equals("CP")) { // Cliente y Pasajero
                     String email = datos[7];
-                    Tratamiento tratamientoContacto = Tratamiento.valueOf(datos[8]);
+                    String tratamientoContacto = datos[8];
                     String nombresContacto = datos[9];
                     String apPaternoContacto = datos[10];
                     String apMaternoContacto = datos[11];
                     String telefonoContacto = datos[12];
 
-                    // Cliente
-                    Nombre nombreCliente = new Nombre();
-                    Cliente cliente = new Cliente(rut, nombreCliente, email);
-                    nombreCliente.setNombres(nombres);
-                    nombreCliente.setTratamiento(tratamiento);
-                    nombreCliente.setApellidoPaterno(apPaterno);
-                    nombreCliente.setApellidoMaterno(apMaterno);
-                    cliente.setTelefono(telefono);
-
+                    // Crear Cliente
+                    Cliente cliente = crearCliente(rut, nombre, email, telefono);
                     clientes.add(cliente);
 
-                    // Pasajero
-                    Nombre nombrePasajero = new Nombre();
-                    nombrePasajero.setTratamiento(tratamiento);
-                    nombrePasajero.setNombres(nombres);
-                    nombrePasajero.setApellidoPaterno(apPaterno);
-                    nombrePasajero.setApellidoMaterno(apMaterno);
-
-                    Nombre contacto = new Nombre();
-
-                    // Datos Pasajero
-                    Pasajero pasajero = new Pasajero(rut, nombrePasajero);
-                    pasajero.setTelefono(telefono);
-                    pasajero.setNomContacto(contacto);
-                    pasajero.setFonoContancto(telefonoContacto);
-
-                    // Datos contacto
-                    contacto.setNombres(nombresContacto);
-                    contacto.setTratamiento(tratamientoContacto);
-                    contacto.setApellidoPaterno(apPaternoContacto);
-                    contacto.setApellidoMaterno(apMaternoContacto);
-
+                    // Crear Pasajero
+                    Nombre contacto = crearNombre(tratamientoContacto, nombresContacto, apPaternoContacto, apMaternoContacto);
+                    Pasajero pasajero = crearPasajero(rut, nombre, telefono, contacto, telefonoContacto);
                     pasajeros.add(pasajero);
                 }
             }
@@ -178,7 +124,7 @@ public class IOSVP {
                 String[] datos = linea.split(";");
                 String tipo = datos[0];
                 IdPersona rut = Rut.of(datos[1]);
-                Tratamiento tratamiento = Tratamiento.valueOf(datos[2]);
+                String tratamiento = datos[2];
                 String nombres = datos[3];
                 String apPaterno = datos[4];
                 String apMaterno = datos[5];
@@ -187,36 +133,27 @@ public class IOSVP {
                 String nombreComuna = datos[8];
                 Rut rutEmpresa = Rut.of(datos[9]);
 
-                if (tipo.equals("A")) {
-                    Optional<Empresa> empresa = findEmpresa(empresas, rutEmpresa);
+                Optional<Empresa> empresaOpt = findEmpresa(empresas, rutEmpresa);
+                if (empresaOpt.isPresent()) {
+                    Empresa empresaEncontrada = empresaOpt.get();
 
-                    if (empresa.isPresent()) {
-                        Nombre nombreAuxiliar = new Nombre();
-                        nombreAuxiliar.setTratamiento(tratamiento);
-                        nombreAuxiliar.setNombres(nombres);
-                        nombreAuxiliar.setApellidoPaterno(apPaterno);
-                        nombreAuxiliar.setApellidoMaterno(apMaterno);
-                        Direccion direccion = new Direccion(calle, numero, nombreComuna);
-                        Auxiliar auxiliar = new Auxiliar(rut, nombreAuxiliar, direccion);
+                    Nombre nombreTripulante = crearNombre(tratamiento, nombres, apPaterno, apMaterno);
 
-                        tripulantes.add(auxiliar);
-                        empresa.get().addAuxiliar(rut, nombreAuxiliar, direccion);
+                    Direccion direccion = new Direccion(calle, numero, nombreComuna);
 
-                    }
-                } else if (tipo.equals("C")) {
-                    Optional<Empresa> empresa = findEmpresa(empresas, rutEmpresa);
-                    if (empresa.isPresent()) {
-                        Nombre nombreConductor = new Nombre();
-                        nombreConductor.setTratamiento(tratamiento);
-                        nombreConductor.setNombres(nombres);
-                        nombreConductor.setApellidoPaterno(apPaterno);
-                        nombreConductor.setApellidoMaterno(apMaterno);
-                        Direccion direccion = new Direccion(calle, numero, nombreComuna);
+                    Optional<Tripulante> tripulanteExistente = findTripulante(empresaEncontrada, rut);
 
-                        Conductor conductor = new Conductor(rut, nombreConductor, direccion);
+                    if (tripulanteExistente.isEmpty()) {
 
-                        tripulantes.add(conductor);
-                        empresa.get().addConductor(rut, nombreConductor, direccion);
+                        if (tipo.equals("A")) {  // Auxiliar
+                            Auxiliar auxiliar = new Auxiliar(rut, nombreTripulante, direccion);
+                            empresaEncontrada.addAuxiliar(rut, nombreTripulante, direccion);
+                            tripulantes.add(auxiliar);
+                        } else if (tipo.equals("C")) {  // Conductor
+                            Conductor conductor = new Conductor(rut, nombreTripulante, direccion);
+                            empresaEncontrada.addConductor(rut, nombreTripulante, direccion);
+                            tripulantes.add(conductor);
+                        }
                     }
                 }
             }
@@ -370,28 +307,7 @@ public class IOSVP {
             PrintStream out = new PrintStream(nombreArchivo);
             for (Pasaje pasaje : pasajes) {
                 if (pasaje != null) {
-                    out.println("-------------------------------- PASAJE ELECTRÓNICO --------------------------------");
-
-                    out.printf("Nombre Empresa           Número de pasaje%n");
-                    out.printf("%-25s %d%n", pasaje.getViaje().getBus().getEmpresa().getNombre(), pasaje.getNumero());
-
-                    out.printf("Nombre Pasajero          RUT/Pasaporte%n");
-                    out.printf("%-25s %s%n", pasaje.getPasajero().getNombreCompleto(), pasaje.getPasajero().getIdPersona());
-
-                    out.printf("Patente bus              Asiento      Valor Pagado%n");
-                    out.printf("%-25s %-12d %d%n",
-                            pasaje.getViaje().getBus().getPatente(),
-                            pasaje.getAsiento(),
-                            pasaje.getViaje().getPrecio());
-
-                    out.printf("Terminal origen          Terminal destino   Fecha        Hora%n");
-                    out.printf("%-25s %-18s %-12s %s%n",
-                            pasaje.getViaje().getTerminalSalida().getNombre(),
-                            pasaje.getViaje().getTerminalLlegada().getNombre(),
-                            pasaje.getViaje().getFecha().toString(),
-                            pasaje.getViaje().getHora().format(DateTimeFormatter.ofPattern("HH:mm")));
-
-                    out.println("-----------------------------------------------------------------------------------");
+                    out.println(pasaje.toString());
                     out.println();
                 }
             }
@@ -426,5 +342,28 @@ public class IOSVP {
         return terminales.stream()
                 .filter(terminal -> terminal.getNombre().equals(nombre))
                 .findFirst();
+    }
+
+    private Nombre crearNombre(String tratamiento, String nombres, String apPaterno, String apMaterno) {
+        Nombre nombre = new Nombre();
+        nombre.setTratamiento(Tratamiento.valueOf(tratamiento));
+        nombre.setNombres(nombres);
+        nombre.setApellidoPaterno(apPaterno);
+        nombre.setApellidoMaterno(apMaterno);
+        return nombre;
+    }
+
+    private Cliente crearCliente(IdPersona rut, Nombre nombreCliente, String email, String telefono) {
+        Cliente cliente = new Cliente(rut, nombreCliente, email);
+        cliente.setTelefono(telefono);
+        return cliente;
+    }
+
+    private Pasajero crearPasajero(IdPersona rut, Nombre nombrePasajero, String telefono, Nombre contacto, String telefonoContacto) {
+        Pasajero pasajero = new Pasajero(rut, nombrePasajero);
+        pasajero.setTelefono(telefono);
+        pasajero.setNomContacto(contacto);
+        pasajero.setFonoContancto(telefonoContacto);
+        return pasajero;
     }
 }
