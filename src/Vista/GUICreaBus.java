@@ -17,6 +17,7 @@ public class GUICreaBus extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        jcombox();
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -48,13 +49,8 @@ public class GUICreaBus extends JDialog {
 
     private void onOK() {
 
-        comboBoxRut.addItem("prueba");
-        comboBoxNombre.addItem("prueba");
-        comboBoxRut.revalidate();
-        comboBoxRut.repaint();
 
-        comboBoxNombre.revalidate();
-        comboBoxNombre.repaint();
+        dispose();
 
     }
 
@@ -65,8 +61,18 @@ public class GUICreaBus extends JDialog {
 
     public static void displayCreaBus() {
         GUICreaBus dialog = new GUICreaBus();
+        dialog.setLocationRelativeTo(null);
         dialog.pack();
+        dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
+
+    }
+    private void jcombox(){
+        String[][] empresas=ControladorEmpresas.getInstance().listEmpresas();
+        for (int i=0;i<empresas.length;i++){
+            comboBoxNombre.addItem(empresas[i][1]);
+            comboBoxRut.addItem(empresas[i][0]);
+        }
 
     }
 }

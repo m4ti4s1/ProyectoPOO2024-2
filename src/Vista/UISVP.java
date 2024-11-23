@@ -247,7 +247,11 @@ public class UISVP {
 
 
     private void createBus() {
+        //Datos de prueba
         CE.createEmpresa(Rut.of("21.977.360-9"),"busesltda","www.buses.cl");
+        CE.createEmpresa(Rut.of("21.966.360-9"),"busesbui","www.buses.cl");
+        CE.createEmpresa(Rut.of("21.955.360-9"),"trubus","www.buses.cl");
+
         GUICreaBus.displayCreaBus();
 //
 //            System.out.println("...:::: Creando un nuevo Bus ::::....");
