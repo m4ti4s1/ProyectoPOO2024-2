@@ -7,6 +7,9 @@ public class GUICreaBus extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
+    private JTextField textField1;
+    private JComboBox comboBox1;
+    private JComboBox comboBox2;
 
     public GUICreaBus() {
         setContentPane(contentPane);
