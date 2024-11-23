@@ -1,7 +1,7 @@
 package Vista;
 
 import Controlador.ControladorEmpresas;
-import Controlador.SistemaVentaPasajes;
+import Excepciones.SVPException;
 import Utilidades.Rut;
 
 import javax.swing.*;
@@ -56,7 +56,7 @@ public class GUICreaEmpresa extends JDialog {
             ControladorEmpresas.getInstance().createEmpresa(Rut.of(rut),nom,Url);
             JOptionPane.showMessageDialog(this,"Empresa guardada Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
-        }catch (Excepciones.SistemaVentaPasajesExcepcion e){
+        }catch (SVPException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
         }
