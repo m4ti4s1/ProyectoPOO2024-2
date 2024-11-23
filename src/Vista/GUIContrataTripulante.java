@@ -7,6 +7,16 @@ public class GUIContrataTripulante extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
+    private JComboBox comboBox1;
+    private JComboBox comboBox2;
+    private JRadioButton conductorRadioButton;
+    private JRadioButton auxiliarRadioButton;
+    private JRadioButton rUTRadioButton;
+    private JTextField textField1;
+    private JRadioButton pasaporteRadioButton;
+    private JComboBox comboBox3;
+    private JTextField textField2;
+    private JComboBox comboBox4;
 
     public GUIContrataTripulante() {
         setContentPane(contentPane);
