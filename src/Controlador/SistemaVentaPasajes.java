@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
+import java.lang.*;
 
 
 public class SistemaVentaPasajes {
@@ -191,24 +192,39 @@ public class SistemaVentaPasajes {
 
     }
 
-    // todo cambiar a streaming
     public Optional<Integer> getMontoVenta(String idDocumento, TipoDocumento tipo) {
+
+        return ventas.stream()
+                .filter(venta -> venta.getIdDocumento().equals(idDocumento) && venta.getTipo().equals(tipo))
+                .map(Venta::getMonto)
+                .findFirst();
+
+        /*
         for (Venta venta : ventas) {
             if (venta.getIdDocumento().equals(idDocumento) && venta.getTipo().equals(tipo)) {
                 return Optional.of(venta.getMonto());
             }
         }
         return Optional.empty();
+         */
     }
 
-    // todo cambiar a streaming
     public Optional<String> getNombrePasajero(IdPersona idPasajero) {
+        return pasajeros.stream()
+                .filter(pasajero -> pasajero.getIdPersona().equals(idPasajero))
+                .map(Pasajero::getNombreCompleto)
+                .map(String::valueOf)
+                .findFirst();
+
+        /*
         for (Pasajero pasajero: pasajeros) {
             if (pasajero.getIdPersona().equals(idPasajero)) {
                 return Optional.of(pasajero.getNombreCompleto().toString());
             }
         }
         return Optional.empty();
+
+         */
     }
 
     public void vendePasaje(String idDoc, TipoDocumento tipo , LocalDate fechaViaje, LocalTime hora, String patBus, int asiento, IdPersona idPasajero) throws SVPException {
@@ -256,8 +272,21 @@ public class SistemaVentaPasajes {
     }
 
 
-    // todo cambiar a streaming
     public String[][] listVentas() {
+
+        return ventas.stream()
+                .map(venta -> new String[]{
+                        String.valueOf(venta.getIdDocumento()),
+                        String.valueOf(venta.getTipo()),
+                        String.valueOf(venta.getFecha()),
+                        String.valueOf(venta.getCliente().getIdPersona()),
+                        String.valueOf(venta.getCliente().getNombreCompleto()),
+                        String.valueOf(venta.getPasajes().length),
+                        String.valueOf(venta.getMonto())
+                })
+                .toArray(String[][]::new);
+
+        /*
         String[][] listventas = new String[ventas.size()][7];
         for (int i=0;i<listventas.length;i++){
             listventas[i][0]=""+ventas.get(i).getIdDocumento();
@@ -270,10 +299,27 @@ public class SistemaVentaPasajes {
 
         }
         return listventas;
+
+         */
     }
 
-    // todo cambiar a streaming
     public String[][] listViajes() {
+
+        return viajes.stream()
+                .map(viaje -> new String[]{
+                        String.valueOf(viaje.getHora()),
+                        String.valueOf(viaje.getFecha()),
+                        String.format("%02d:%02d", viaje.getFechaHoraTermino().getHour(), viaje.getFechaHoraTermino().getMinute()),
+                        String.valueOf(viaje.getPrecio()),
+                        String.valueOf(viaje.getNroAsientosDisponibles()),
+                        String.valueOf(viaje.getBus().getPatente()),
+                        String.valueOf(viaje.getTerminalSalida().getDireccion().getComuna()),
+                        String.valueOf(viaje.getTerminalLlegada().getDireccion().getComuna()),
+                        String.valueOf(viaje.getBus().getPatente()),
+                })
+                .toArray(String[][]::new);
+        /*
+
         String[][] pasajes = new String[viajes.size()][8] ;
         for(int i=0;i<pasajes.length;i++){
             pasajes[i][0]=""+viajes.get(i).getFecha();
@@ -290,14 +336,24 @@ public class SistemaVentaPasajes {
         }
         return pasajes;
 
+         */
+
     }
 
-    // todo cambiar a streaming
     public String[][] listPasajerosViaje(LocalDate fecha, LocalTime hora, String patBus) throws SVPException {
+
+        return findViaje(String.valueOf(fecha), String.valueOf(hora), String.valueOf(patBus))
+                .map(Viaje::getListaPasajeros)
+                .orElseThrow(() -> new SVPException("No existe viaje con la fecha, hora y patente de bus indicados"));
+
+        /*
         Viaje viaje = findViaje(fecha.toString(), hora.toString(), patBus)
                 .orElseThrow(() -> new SVPException("No existe viaje con la fecha, hora y patente de bus indicados"));
 
         return viaje.getListaPasajeros();
+
+         */
+
 
     }
 
