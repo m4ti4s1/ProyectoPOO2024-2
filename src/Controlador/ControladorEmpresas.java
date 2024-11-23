@@ -8,13 +8,14 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class ControladorEmpresas {
+    private static ControladorEmpresas instance = null;
 
     private ArrayList<Empresa> empresas=new ArrayList<>();
     private ArrayList<Bus> buses = new ArrayList<>();
     private ArrayList<Terminal> terminales=new ArrayList<>();
 
 
-    private static ControladorEmpresas instance = null;
+
 
 
     public static ControladorEmpresas getInstance() {

@@ -1,5 +1,7 @@
 package Vista;
 
+import Controlador.ControladorEmpresas;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -7,9 +9,9 @@ public class GUICreaBus extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JTextField textField1;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
+    private JTextField patentetx;
+    private JComboBox comboBoxRut;
+    private JComboBox comboBoxNombre;
 
     public GUICreaBus() {
         setContentPane(contentPane);
@@ -45,8 +47,15 @@ public class GUICreaBus extends JDialog {
     }
 
     private void onOK() {
-        // add your code here
-        dispose();
+
+        comboBoxRut.addItem("prueba");
+        comboBoxNombre.addItem("prueba");
+        comboBoxRut.revalidate();
+        comboBoxRut.repaint();
+
+        comboBoxNombre.revalidate();
+        comboBoxNombre.repaint();
+
     }
 
     private void onCancel() {
@@ -54,10 +63,10 @@ public class GUICreaBus extends JDialog {
         dispose();
     }
 
-    public static void main(String[] args) {
+    public static void displayCreaBus() {
         GUICreaBus dialog = new GUICreaBus();
         dialog.pack();
         dialog.setVisible(true);
-        System.exit(0);
+
     }
 }

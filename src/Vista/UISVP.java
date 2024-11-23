@@ -247,30 +247,33 @@ public class UISVP {
 
 
     private void createBus() {
-            System.out.println("...:::: Creando un nuevo Bus ::::....");
-
-            String patente = leeString("Patente");
-
-            do {
-                if (!esPatenteAlfanumerica(patente)) {
-                    System.out.println("La Patente debe ser alfanumerica");
-                    patente = leeString("Patente");
-                }
-            } while (!esPatenteAlfanumerica(patente));
-
-            String marca = leeString("Marca");
-            String modelo = leeString("Modelo");
-            int nroAsientos = leeInt("Numero de asientos");
-
-            System.out.println(":::: Dato de la empresa");
-            Rut rutEmpresa = Rut.of(leeString("R.U.T"));
-
-        try {
-            CE.createBus(patente, marca, modelo, nroAsientos, rutEmpresa);
-            System.out.println("...:::: Bus guardado exitosamente ::::....");
-        } catch (SVPException e) {
-            System.err.println("..:: Error : " + e.getMessage());
-        }
+        CE.createEmpresa(Rut.of("21.977.360-9"),"busesltda","www.buses.cl");
+        GUICreaBus.displayCreaBus();
+//
+//            System.out.println("...:::: Creando un nuevo Bus ::::....");
+//
+//            String patente = leeString("Patente");
+//
+//            do {
+//                if (!esPatenteAlfanumerica(patente)) {
+//                    System.out.println("La Patente debe ser alfanumerica");
+//                    patente = leeString("Patente");
+//                }
+//            } while (!esPatenteAlfanumerica(patente));
+//
+//            String marca = leeString("Marca");
+//            String modelo = leeString("Modelo");
+//            int nroAsientos = leeInt("Numero de asientos");
+//
+//            System.out.println(":::: Dato de la empresa");
+//            Rut rutEmpresa = Rut.of(leeString("R.U.T"));
+//
+//        try {
+//            CE.createBus(patente, marca, modelo, nroAsientos, rutEmpresa);
+//            System.out.println("...:::: Bus guardado exitosamente ::::....");
+//        } catch (SVPException e) {
+//            System.err.println("..:: Error : " + e.getMessage());
+//        }
     }
 
 
