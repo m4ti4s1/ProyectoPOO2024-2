@@ -1,5 +1,7 @@
 package Vista;
 
+import Controlador.ControladorEmpresas;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -7,11 +9,15 @@ public class GUICreaBus extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
+    private JTextField patentetx;
+    private JComboBox comboBoxRut;
+    private JComboBox comboBoxNombre;
 
     public GUICreaBus() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        jcombox();
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -42,8 +48,10 @@ public class GUICreaBus extends JDialog {
     }
 
     private void onOK() {
-        // add your code here
+
+
         dispose();
+
     }
 
     private void onCancel() {
@@ -51,10 +59,20 @@ public class GUICreaBus extends JDialog {
         dispose();
     }
 
-    public static void main(String[] args) {
+    public static void displayCreaBus() {
         GUICreaBus dialog = new GUICreaBus();
+        dialog.setLocationRelativeTo(null);
         dialog.pack();
+        dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
-        System.exit(0);
+
+    }
+    private void jcombox(){
+        String[][] empresas=ControladorEmpresas.getInstance().listEmpresas();
+        for (int i=0;i<empresas.length;i++){
+            comboBoxNombre.addItem(empresas[i][1]);
+            comboBoxRut.addItem(empresas[i][0]);
+        }
+
     }
 }

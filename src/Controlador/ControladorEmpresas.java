@@ -1,3 +1,12 @@
+
+/*
+--------------- TODO --------------
+    1. Cambiar ciclos for, por streaming
+    2. Crear metodos para persistencia
+
+
+ */
+
 package Controlador;
 
 import Modelo.*;
@@ -8,13 +17,14 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class ControladorEmpresas {
+    private static ControladorEmpresas instance = null;
 
     private ArrayList<Empresa> empresas=new ArrayList<>();
     private ArrayList<Bus> buses = new ArrayList<>();
     private ArrayList<Terminal> terminales=new ArrayList<>();
 
 
-    private static ControladorEmpresas instance = null;
+
 
 
     public static ControladorEmpresas getInstance() {
@@ -109,12 +119,22 @@ public class ControladorEmpresas {
 
 
 
-    // todo cambiar a streaming
     public String[][] listEmpresas(){
         if(empresas.isEmpty()){return new String[0][0];}
 
-        String[][] listEmpresas=new String[empresas.size()][6];
+        return empresas.stream()
+                .map(empresa -> new String[] {
+                        String.valueOf(empresa.getRut()),
+                        empresa.getNombre(),
+                        empresa.getUrl(),
+                        String.valueOf(empresa.getTripulantes().length),
+                        String.valueOf(empresa.getBuses().length),
+                        String.valueOf(empresa.getVentas().length)
+                })
+                .toArray(String[][]::new);
+        /*
 
+        String[][] listEmpresas=new String[empresas.size()][6];
 
         for (int i=0; i<empresas.size(); i++) {
             listEmpresas[i][0]=(empresas.get(i).getRut())+"";
@@ -127,6 +147,8 @@ public class ControladorEmpresas {
         }
 
         return listEmpresas;
+
+         */
 
     }
 
@@ -180,16 +202,21 @@ public class ControladorEmpresas {
 
 
 
-    // todo cambiar a streaming
     public String[][] listVentasEmpresa(Rut rut) throws SVPException {
-        Optional<Empresa> up=findEmpresa(rut);
+        Empresa empresa = findEmpresa(rut).orElseThrow(() -> new SVPException("No existe empresa con el rut indicado"));
 
-        if (up.isEmpty()) {
-            throw new SVPException("No existe empresa con el rut indicado ");
-        }
+        return Arrays.stream(empresa.getVentas())
+                .map(venta -> new String[]{
+                        String.valueOf(venta.getFecha()),
+                        String.valueOf(venta.getTipo()),
+                        String.valueOf(venta.getMontoPagado()),
+                        String.valueOf(venta.getTipoPago())
+                })
+                .toArray(String[][]::new);
 
 
-        Venta[] ArregloEmpresa=up.get().getVentas();
+        /*
+        Venta[] ArregloEmpresa= empresa.getVentas();
 
         if(ArregloEmpresa.length==0){
             return new String[0][0];
@@ -207,6 +234,8 @@ public class ControladorEmpresas {
 
 
         return fast;
+
+         */
 
     }
 
