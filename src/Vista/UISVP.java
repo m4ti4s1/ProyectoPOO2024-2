@@ -49,7 +49,11 @@ public class UISVP {
             System.out.println(" 11) Listar empresas");
             System.out.println(" 12) Listar llegadas/salidas del terminal");
             System.out.println(" 13) Listar ventas de empresa");
-            System.out.println(" 14) Salir");
+            System.out.println(" 14) Generar pasajes venta");
+            System.out.println(" 15) Leer datos iniciales");
+            System.out.println(" 16) Guardar datos del sistema");
+            System.out.println(" 17) Leer datos del sistema");
+            System.out.println(" 18) Salir");
             System.out.println("____________________________");
             System.out.print("..:: Ingrese número de opción: ");
             opcion = elegirOpc(14);
@@ -70,10 +74,15 @@ public class UISVP {
                 case 11 -> listEmpresas();
                 case 12 -> listLlegadasSalidasTerminal();
                 case 13 -> listVentasEmpresas();
-                case 14 -> System.out.println("Saliendo del programa");
+                case 14 -> generatePasajesVenta();
+                case 15 -> readDatosIniciales();
+                case 16 -> saveDatosSistema();
+                case 17 -> readDatosSistema();
+                case 18 -> System.out.println("Saliendo del programa");
             }
         } while (opcion != 14);
     }
+
 
 
 
@@ -808,6 +817,10 @@ public class UISVP {
             System.out.println("...::: Error : " + e.getMessage());
         }
     }
+    private void generatePasajesVenta(){}
+    private void readDatosIniciales(){}
+    private void saveDatosSistema(){}
+    private void readDatosSistema(){}
 
     private void pagaVentaPasajes(String idDocumento,TipoDocumento tipo) {
         System.out.println(":::: Pago de la venta");
