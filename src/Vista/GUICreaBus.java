@@ -4,6 +4,7 @@ import Controlador.ControladorEmpresas;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.zip.ZipEntry;
 
 public class GUICreaBus extends JDialog {
     private JPanel contentPane;
@@ -17,8 +18,14 @@ public class GUICreaBus extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        jcombox();
-
+        String[][]empresa=ControladorEmpresas.getInstance().listEmpresas();
+        for (int i=0;i< empresa.length;i++){
+            System.out.println(empresa[i][1]);
+            comboBoxNombre.addItem(empresa[i][1]);
+            comboBoxRut.addItem(empresa[i][0]);
+        }
+        ordenarRut(empresa, comboBoxRut, comboBoxNombre);
+        ordenarRut(empresa, comboBoxNombre, comboBoxRut);
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
@@ -67,12 +74,43 @@ public class GUICreaBus extends JDialog {
         dialog.setVisible(true);
 
     }
-    private void jcombox(){
-        String[][] empresas=ControladorEmpresas.getInstance().listEmpresas();
-        for (int i=0;i<empresas.length;i++){
-            comboBoxNombre.addItem(empresas[i][1]);
-            comboBoxRut.addItem(empresas[i][0]);
-        }
 
+    public static void ordenarRut(String[][] empresas, JComboBox<String> comboBox1, JComboBox<String> comboBox2) {
+        // Escuchar cambios de selección en comboBox1 (Nombre)
+        comboBox1.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String seleccion = (String) comboBox1.getSelectedItem();
+
+                    // Buscar el RUT correspondiente al nombre seleccionado
+                    for (int i = 0; i < empresas.length; i++) {
+                        if (empresas[i][1].equalsIgnoreCase(seleccion)) {
+                            comboBox2.setSelectedItem(empresas[i][0]); // Asignar el RUT en comboBox2
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+
+        // Escuchar cambios de selección en comboBox2 (RUT)
+        comboBox2.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String seleccion = (String) comboBox2.getSelectedItem();
+
+                    // Buscar el nombre correspondiente al RUT seleccionado
+                    for (int i = 0; i < empresas.length; i++) {
+                        if (empresas[i][0].equalsIgnoreCase(seleccion)) {
+                            comboBox1.setSelectedItem(empresas[i][1]); // Asignar el nombre de la empresa en comboBox1
+                            break;
+                        }
+                    }
+                }
+            }
+        });
     }
+
 }
