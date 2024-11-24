@@ -244,14 +244,21 @@ public class ControladorEmpresas {
     }
 
     protected void setDatosIniciales(Object[] objetos){
-        for (Object o : objetos) {
-            if(o instanceof Empresa){
-                empresas.add((Empresa)o);
-            } else if(o instanceof Bus){
-                buses.add((Bus)o);
-            } else if(o instanceof Terminal){
-                terminales.add((Terminal)o);
-            }
+        Object[] datos = objetos;
+
+        empresas.clear();
+        buses.clear();
+        terminales.clear();
+
+        if (datos[3] instanceof List) {
+            empresas.addAll((List<Empresa>) datos[3]);
+        }
+
+        if (datos[4] instanceof List) {
+            buses.addAll((List<Bus>) datos[4]);
+        }
+        if (datos[5] instanceof List) {
+            terminales.addAll((List<Terminal>) datos[5]);
         }
     }
 

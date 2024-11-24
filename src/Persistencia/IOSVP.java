@@ -217,8 +217,9 @@ public class IOSVP {
                 }
                 String[] datos = linea.split(";");
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
                 LocalDate fecha = LocalDate.parse(datos[0], formatter);
-                LocalTime hora = LocalTime.parse(datos[1]);
+                LocalTime hora = LocalTime.parse(datos[1], timeFormatter);
                 int precio = Integer.parseInt(datos[2]);
                 int duracion = Integer.parseInt(datos[3]);
                 String patente = datos[4];
@@ -260,14 +261,22 @@ public class IOSVP {
         }catch (FileNotFoundException e) {
             throw new SVPException("No existe o no se puede abrir el archivo SVPDatosIniciales.txt");
         }
+        System.out.println("Datos cargados:");
+        System.out.println("Clientes: " + clientes.size());
+        System.out.println("Pasajeros: " + pasajeros.size());
+        System.out.println("Empresas: " + empresas.size());
+        System.out.println("Tripulantes: " + tripulantes.size());
+        System.out.println("Terminales: " + terminales.size());
+        System.out.println("Buses: " + buses.size());
+        System.out.println("Viajes: " + viajes.size());
 
         Object[] resultado = new Object[]{
                 clientes,
                 pasajeros,
-                empresas,
-                terminales,
-                buses,
                 viajes,
+                empresas,
+                buses,
+                terminales,
                 tripulantes
         };
         return resultado;

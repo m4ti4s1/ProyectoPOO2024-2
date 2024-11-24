@@ -316,8 +316,8 @@ public class SistemaVentaPasajes {
 
         return viajes.stream()
                 .map(viaje -> new String[]{
-                        String.valueOf(viaje.getHora()),
                         String.valueOf(viaje.getFecha()),
+                        String.valueOf(viaje.getHora()),
                         String.format("%02d:%02d", viaje.getFechaHoraTermino().getHour(), viaje.getFechaHoraTermino().getMinute()),
                         String.valueOf(viaje.getPrecio()),
                         String.valueOf(viaje.getNroAsientosDisponibles()),
@@ -422,17 +422,21 @@ public class SistemaVentaPasajes {
         clientes.clear();
         viajes.clear();
 
-        for (Object obj : datosIniciales) {
-
-            if (obj instanceof Pasajero) {
-                pasajeros.add((Pasajero) obj);
-            } else if (obj instanceof Cliente) {
-                clientes.add((Cliente) obj);
-            }else if (obj instanceof Viaje) {
-                viajes.add((Viaje) obj);
-            }
+        if (datosIniciales[0] instanceof List) { // Clientes
+            clientes.addAll((List<Cliente>) datosIniciales[0]);
         }
+        if (datosIniciales[1] instanceof List) { // Pasajeros
+            pasajeros.addAll((List<Pasajero>) datosIniciales[1]);
+        }
+        if (datosIniciales[2] instanceof List) { // Viajes
+            viajes.addAll((List<Viaje>) datosIniciales[2]);
+        }
+
+        // Transfiere datos iniciales al controlador de empresas
         ctrlEmpresas.setDatosIniciales(datosIniciales);
+        System.out.println("Pasajeros cargados: " + pasajeros.size());
+        System.out.println("Clientes cargados: " + clientes.size());
+        System.out.println("Viajes cargados: " + viajes.size());
     }
 
     public void saveDatosSistema() throws SVPException {

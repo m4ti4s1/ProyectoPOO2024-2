@@ -56,7 +56,7 @@ public class UISVP {
             System.out.println(" 18) Salir");
             System.out.println("____________________________");
             System.out.print("..:: Ingrese número de opción: ");
-            opcion = elegirOpc(14);
+            opcion = elegirOpc(18);
             System.out.println();
 
 
@@ -80,7 +80,7 @@ public class UISVP {
                 case 17 -> readDatosSistema();
                 case 18 -> System.out.println("Saliendo del programa");
             }
-        } while (opcion != 14);
+        } while (opcion != 18);
     }
 
 
@@ -387,7 +387,7 @@ public class UISVP {
 
         String fechaViaje = leeString("Fecha de viaje[dd/mm/yyyy]");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaV = LocalDate.parse(fechaViaje, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        LocalDate fechaV = LocalDate.parse(fechaViaje, formatter);
         // Salida
         String origen = leeString("Origen (comuna)");
 
@@ -817,10 +817,6 @@ public class UISVP {
             System.out.println("...::: Error : " + e.getMessage());
         }
     }
-    private void generatePasajesVenta(){}
-    private void readDatosIniciales(){}
-    private void saveDatosSistema(){}
-    private void readDatosSistema(){}
 
     private void pagaVentaPasajes(String idDocumento,TipoDocumento tipo) {
         System.out.println(":::: Pago de la venta");
@@ -835,6 +831,46 @@ public class UISVP {
         }
         System.out.println();
         System.out.println("\n...:::: Venta realizada exitosamente ::::....\n\n");
+    }
+
+    private void generatePasajesVenta(){
+        try {
+
+            System.out.println("Ingrese id de la venta: ");
+            String id = sc.next();
+
+            System.out.println("Ingrese tipo documento de la venta: ");
+            TipoDocumento tipo = TipoDocumento.valueOf(sc.next().toUpperCase());
+
+            SVP.generatePasajesVenta(id, tipo);
+        }catch (SVPException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void readDatosIniciales(){
+        try {
+
+            SVP.readDatosIniciales();
+        }catch (SVPException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void saveDatosSistema(){
+        try {
+            SVP.saveDatosSistema();
+        }catch (SVPException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void readDatosSistema(){
+        try {
+            SVP.readDatosSistema();
+        }catch (SVPException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private int elegirOpc(int cantOpciones) {
