@@ -434,6 +434,7 @@ public class SistemaVentaPasajes {
 
         // Transfiere datos iniciales al controlador de empresas
         ctrlEmpresas.setDatosIniciales(datosIniciales);
+        //todo mensajes de prueba borrar despues
         System.out.println("Pasajeros cargados: " + pasajeros.size());
         System.out.println("Clientes cargados: " + clientes.size());
         System.out.println("Viajes cargados: " + viajes.size());

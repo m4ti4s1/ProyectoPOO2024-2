@@ -261,6 +261,7 @@ public class IOSVP {
         }catch (FileNotFoundException e) {
             throw new SVPException("No existe o no se puede abrir el archivo SVPDatosIniciales.txt");
         }
+        //todo mesanjes de prueba borrar despues
         System.out.println("Datos cargados:");
         System.out.println("Clientes: " + clientes.size());
         System.out.println("Pasajeros: " + pasajeros.size());
