@@ -10,16 +10,23 @@ public class GUIListaVentasEmpresas extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
+    private JComboBox comboBoxRut;
+    private JComboBox comboBoxnom;
     private JTable listaVentas;
 
     public GUIListaVentasEmpresas() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+
         String[][] Empresas= ControladorEmpresas.getInstance().listEmpresas();
-        ordenarRut(Empresas,comboBox1,comboBox2);
+
+        for (int i=0;i< Empresas.length;i++){
+
+            comboBoxnom.addItem(Empresas[i][1]);
+            comboBoxRut.addItem(Empresas[i][0]);
+        }
+        ordenarRut(Empresas, comboBoxRut, comboBoxnom);
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -51,9 +58,9 @@ public class GUIListaVentasEmpresas extends JDialog {
 
     private void onOK() {
 
-        String[][] ventasEmpresaX=ControladorEmpresas.getInstance().listVentasEmpresa(Rut.of(comboBox1.getSelectedItem()+""));
+        String[][] ventasEmpresaX=ControladorEmpresas.getInstance().listVentasEmpresa(Rut.of(comboBoxRut.getSelectedItem()+""));
         String[]columnaName={"Fecha","Tipo","Monto Pagado","Tipo Pago"};
-        listaVentas=new JTable(ventasEmpresaX,columnaName);
+
     }
 
     private void onCancel() {
