@@ -1,6 +1,8 @@
 package Vista;
 
 import Controlador.ControladorEmpresas;
+import Excepciones.SVPException;
+import Utilidades.Rut;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -29,11 +31,13 @@ public class GUICreaBus extends JDialog {
         }
         ordenarRut(empresa, comboBoxRut, comboBoxNombre);
         ordenarRut(empresa, comboBoxNombre, comboBoxRut);
+
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }
         });
+
 
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -58,8 +62,16 @@ public class GUICreaBus extends JDialog {
     }
 
     private void onOK() {
-
-
+        try {
+            String patente = patentetx.getText();
+            String marca = marcatx.getText();
+            String modelo = modelotx.getText();
+            int numAsientos = Integer.parseInt(numAsientostx.getText());
+            Rut rut = Rut.of(comboBoxRut.getSelectedItem() + "");
+            ControladorEmpresas.getInstance().createBus(patente, marca, modelo, numAsientos, rut);
+        }catch (SVPException e){
+            JOptionPane.showMessageDialog(null,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+        }
         dispose();
 
     }
