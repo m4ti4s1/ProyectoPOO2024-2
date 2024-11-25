@@ -1,6 +1,7 @@
 package Vista;
 
 import Controlador.ControladorEmpresas;
+import Utilidades.Rut;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -9,16 +10,16 @@ public class GUIListaVentasEmpresas extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JTable table1;
     private JComboBox comboBox1;
     private JComboBox comboBox2;
+    private JTable listaVentas;
 
     public GUIListaVentasEmpresas() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        String[][] Empresas= ControladorEmpresas.getInstance().listEmpresas();
-        ordenarRut(Empresas,comboBox1,comboBox2);
+
+
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
@@ -48,8 +49,11 @@ public class GUIListaVentasEmpresas extends JDialog {
     }
 
     private void onOK() {
-        // add your code here
-        dispose();
+        String[][] Empresas= ControladorEmpresas.getInstance().listEmpresas();
+        ordenarRut(Empresas,comboBox1,comboBox2);
+        String[][] ventasEmpresaX=ControladorEmpresas.getInstance().listVentasEmpresa(Rut.of(comboBox1.getSelectedItem()+""));
+        String[]columnaName={"Fecha","Tipo","Monto Pagado","Tipo Pago"};
+        listaVentas=new JTable(ventasEmpresaX,columnaName);
     }
 
     private void onCancel() {
