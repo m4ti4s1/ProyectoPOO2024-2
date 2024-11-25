@@ -4,6 +4,8 @@ import Controlador.ControladorEmpresas;
 import Utilidades.Rut;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.*;
 
 public class GUIListaVentasEmpresas extends JDialog {
@@ -13,6 +15,7 @@ public class GUIListaVentasEmpresas extends JDialog {
     private JComboBox comboBoxRut;
     private JComboBox comboBoxnom;
     private JTable listaVentas;
+    private JScrollPane scrollpane;
 
     public GUIListaVentasEmpresas() {
         setContentPane(contentPane);
@@ -27,6 +30,7 @@ public class GUIListaVentasEmpresas extends JDialog {
             comboBoxRut.addItem(Empresas[i][0]);
         }
         ordenarRut(Empresas, comboBoxRut, comboBoxnom);
+        listaVentas.setModel(new DefaultTableModel());
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -57,9 +61,10 @@ public class GUIListaVentasEmpresas extends JDialog {
     }
 
     private void onOK() {
-
         String[][] ventasEmpresaX=ControladorEmpresas.getInstance().listVentasEmpresa(Rut.of(comboBoxRut.getSelectedItem()+""));
         String[]columnaName={"Fecha","Tipo","Monto Pagado","Tipo Pago"};
+        listaVentas.setModel(new DefaultTableModel(ventasEmpresaX, columnaName));
+
 
     }
 
