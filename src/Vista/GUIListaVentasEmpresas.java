@@ -18,7 +18,8 @@ public class GUIListaVentasEmpresas extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-
+        String[][] Empresas= ControladorEmpresas.getInstance().listEmpresas();
+        ordenarRut(Empresas,comboBox1,comboBox2);
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -49,8 +50,7 @@ public class GUIListaVentasEmpresas extends JDialog {
     }
 
     private void onOK() {
-        String[][] Empresas= ControladorEmpresas.getInstance().listEmpresas();
-        ordenarRut(Empresas,comboBox1,comboBox2);
+
         String[][] ventasEmpresaX=ControladorEmpresas.getInstance().listVentasEmpresa(Rut.of(comboBox1.getSelectedItem()+""));
         String[]columnaName={"Fecha","Tipo","Monto Pagado","Tipo Pago"};
         listaVentas=new JTable(ventasEmpresaX,columnaName);
