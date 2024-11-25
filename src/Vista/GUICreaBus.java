@@ -13,6 +13,9 @@ public class GUICreaBus extends JDialog {
     private JTextField patentetx;
     private JComboBox comboBoxRut;
     private JComboBox comboBoxNombre;
+    private JTextField marcatx;
+    private JTextField modelotx;
+    private JTextField numAsientostx;
 
     public GUICreaBus() {
         setContentPane(contentPane);
@@ -76,17 +79,15 @@ public class GUICreaBus extends JDialog {
     }
 
     public static void ordenarRut(String[][] empresas, JComboBox<String> comboBox1, JComboBox<String> comboBox2) {
-        // Escuchar cambios de selección en comboBox1 (Nombre)
+
         comboBox1.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String seleccion = (String) comboBox1.getSelectedItem();
-
-                    // Buscar el RUT correspondiente al nombre seleccionado
                     for (int i = 0; i < empresas.length; i++) {
                         if (empresas[i][1].equalsIgnoreCase(seleccion)) {
-                            comboBox2.setSelectedItem(empresas[i][0]); // Asignar el RUT en comboBox2
+                            comboBox2.setSelectedItem(empresas[i][0]);
                             break;
                         }
                     }
@@ -94,17 +95,16 @@ public class GUICreaBus extends JDialog {
             }
         });
 
-        // Escuchar cambios de selección en comboBox2 (RUT)
+
         comboBox2.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String seleccion = (String) comboBox2.getSelectedItem();
 
-                    // Buscar el nombre correspondiente al RUT seleccionado
                     for (int i = 0; i < empresas.length; i++) {
                         if (empresas[i][0].equalsIgnoreCase(seleccion)) {
-                            comboBox1.setSelectedItem(empresas[i][1]); // Asignar el nombre de la empresa en comboBox1
+                            comboBox1.setSelectedItem(empresas[i][1]);
                             break;
                         }
                     }

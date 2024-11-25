@@ -106,7 +106,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="4af2b" class="javax.swing.JTextField" default-binding="true">
+              <component id="4af2b" class="javax.swing.JTextField" binding="marcatx">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="170" height="25"/>
@@ -132,7 +132,7 @@
                   <text value="Modelo:"/>
                 </properties>
               </component>
-              <component id="af424" class="javax.swing.JTextField" default-binding="true">
+              <component id="af424" class="javax.swing.JTextField" binding="modelotx">
                 <constraints>
                   <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="170" height="25"/>
@@ -149,7 +149,7 @@
                   <text value="Número de Aisentos:"/>
                 </properties>
               </component>
-              <component id="da200" class="javax.swing.JTextField" default-binding="true">
+              <component id="da200" class="javax.swing.JTextField" binding="numAsientostx">
                 <constraints>
                   <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="170" height="25"/>

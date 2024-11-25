@@ -87,7 +87,7 @@
             <properties/>
             <border type="none" title="Datos de la empresa"/>
             <children>
-              <component id="b9617" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+              <component id="b9617" class="javax.swing.JComboBox" binding="comboBoxrut">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -107,7 +107,7 @@
                   <text value="R.U.T:"/>
                 </properties>
               </component>
-              <component id="8e3f7" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+              <component id="8e3f7" class="javax.swing.JComboBox" binding="comboBoxnom">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -168,7 +168,7 @@
                   <text value="Tratamiento:"/>
                 </properties>
               </component>
-              <component id="6f755" class="javax.swing.JRadioButton" default-binding="true">
+              <component id="6f755" class="javax.swing.JRadioButton" binding="Sr">
                 <constraints>
                   <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -177,7 +177,7 @@
                   <text value="Sr."/>
                 </properties>
               </component>
-              <component id="6eb0f" class="javax.swing.JRadioButton" default-binding="true">
+              <component id="6eb0f" class="javax.swing.JRadioButton" binding="Sra">
                 <constraints>
                   <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -186,7 +186,7 @@
                   <text value="Sra."/>
                 </properties>
               </component>
-              <component id="abe79" class="javax.swing.JRadioButton" binding="rUTRadioButton" default-binding="true">
+              <component id="abe79" class="javax.swing.JRadioButton" binding="RUT">
                 <constraints>
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -194,7 +194,7 @@
                   <text value="R.U.T"/>
                 </properties>
               </component>
-              <component id="25070" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+              <component id="25070" class="javax.swing.JTextField" binding="numDoc">
                 <constraints>
                   <grid row="2" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -202,7 +202,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="36c98" class="javax.swing.JRadioButton" binding="pasaporteRadioButton" default-binding="true">
+              <component id="36c98" class="javax.swing.JRadioButton" binding="PASAPORTE">
                 <constraints>
                   <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -211,7 +211,7 @@
                   <text value="Pasaporte"/>
                 </properties>
               </component>
-              <component id="1a20d" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
+              <component id="1a20d" class="javax.swing.JComboBox" binding="Nacionalidad">
                 <constraints>
                   <grid row="3" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -423,7 +423,7 @@
                   <text value="Nacionalidad:"/>
                 </properties>
               </component>
-              <component id="a9dd0" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+              <component id="a9dd0" class="javax.swing.JTextField" binding="nomtx">
                 <constraints>
                   <grid row="4" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -440,7 +440,7 @@
                   <text value="Nombre:"/>
                 </properties>
               </component>
-              <component id="e8389" class="javax.swing.JTextField" default-binding="true">
+              <component id="e8389" class="javax.swing.JTextField" binding="paternotx">
                 <constraints>
                   <grid row="5" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -457,7 +457,7 @@
                   <text value="Apellido Paterno"/>
                 </properties>
               </component>
-              <component id="196bc" class="javax.swing.JTextField" default-binding="true">
+              <component id="196bc" class="javax.swing.JTextField" binding="maternotx">
                 <constraints>
                   <grid row="6" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -474,7 +474,7 @@
                   <text value="Apellido Materno"/>
                 </properties>
               </component>
-              <component id="cb9d4" class="javax.swing.JTextField" default-binding="true">
+              <component id="cb9d4" class="javax.swing.JTextField" binding="calle">
                 <constraints>
                   <grid row="7" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -482,7 +482,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="86e32" class="javax.swing.JTextField" default-binding="true">
+              <component id="86e32" class="javax.swing.JTextField" binding="numCalle">
                 <constraints>
                   <grid row="8" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -508,7 +508,7 @@
                   <text value="Número:"/>
                 </properties>
               </component>
-              <component id="445b0" class="javax.swing.JComboBox" binding="comboBox4" default-binding="true">
+              <component id="445b0" class="javax.swing.JComboBox" binding="Comuna">
                 <constraints>
                   <grid row="9" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
