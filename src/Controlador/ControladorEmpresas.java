@@ -15,6 +15,7 @@ import Excepciones.SVPException;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class ControladorEmpresas {
     private static ControladorEmpresas instance = null;
@@ -153,14 +154,40 @@ public class ControladorEmpresas {
     }
 
     public String[][] listLlegadaSalidasTerminal(String nombre, LocalDate fecha) throws SVPException {
-        Optional<Terminal> terminal = findTerminal(nombre);
 
-        if(terminal.isEmpty()) {
-            throw new SVPException("No existe terminal con el nombre indicado");
-        }
+        Terminal terminal = findTerminal(nombre).orElseThrow(() -> new SVPException("No existe terminal con el nombre indicado"));
 
-        Viaje[]llegadas= terminal.get().getLlegadas();
-        Viaje[]salidas= terminal.get().getSalidas();
+
+        List<String[]> viajes = Stream.concat(
+                Arrays.stream(terminal.getSalidas())
+                        .filter(viaje -> !viaje.getFecha().isBefore(fecha))
+                        .map(viaje -> new String[] {
+                                "Salida",
+                                viaje.getHora().toString(),
+                                viaje.getBus().getPatente(),
+                                viaje.getBus().getEmpresa().getNombre(),
+                                String.valueOf(viaje.getListaPasajeros().length)
+
+                        }),
+                Arrays.stream(terminal.getLlegadas())
+                        .filter(viaje -> !viaje.getFecha().isBefore(fecha))
+                        .map(viaje -> new String[] {
+                                "Llegada",
+                                viaje.getHora().toString(),
+                                viaje.getBus().getPatente(),
+                                viaje.getBus().getEmpresa().getNombre(),
+                                String.valueOf(viaje.getListaPasajeros().length)
+                        })
+        )
+        .toList();
+
+        return viajes.toArray(new String[0][0]);
+
+
+        /*
+
+        Viaje[] llegadas= terminal.getLlegadas();
+        Viaje[] salidas= terminal.getSalidas();
 
         //Pasar ambas a lista
         ArrayList<Viaje> salida= new ArrayList<>(Arrays.asList(salidas));
@@ -197,6 +224,8 @@ public class ControladorEmpresas {
         }
 
         return ArrayViajes;
+
+         */
 
     }
 

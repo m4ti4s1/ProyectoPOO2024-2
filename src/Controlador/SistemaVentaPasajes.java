@@ -150,6 +150,25 @@ public class SistemaVentaPasajes {
 
     // Todo cambiar a Streaming
     public String[][] getHorariosDisponibles(LocalDate fechaViaje, String comunaSalida, String comunaLlegada, int nroPasajes) {
+
+
+        List<String[]> horarios = viajes.stream()
+                .filter(viaje -> viaje.getFecha().equals(fechaViaje) &&
+                                        viaje.getTerminalSalida().getDireccion().getComuna().equals(comunaSalida) &&
+                                        viaje.getTerminalLlegada().getDireccion().getComuna().equals(comunaLlegada) &&
+                                        viaje.existeDisponibilidad(nroPasajes))
+                .map(viaje -> new String[] {
+                        viaje.getBus().getPatente(),
+                        viaje.getHora().toString(),
+                        String.valueOf(viaje.getPrecio()),
+                        String.valueOf(viaje.getNroAsientosDisponibles())
+                })
+                .toList();
+
+        return horarios.toArray(new String[0][0]);
+
+
+        /*
         // Crea una lista temporal para almacenar los datos de los viajes que coinciden con la fecha
         ArrayList<String[]> horarios = new ArrayList<>();
 
@@ -180,11 +199,26 @@ public class SistemaVentaPasajes {
 
         // Retorna el arreglo con los horarios disponibles, o un arreglo vacío si no hay viajes
         return resultado;
+
+         */
     }
 
     public String[] listAsientosDeViaje(LocalDate fecha, LocalTime hora, String patBus) {
+
+        return findViaje(fecha.toString(), hora.toString(), patBus)
+                .map (viaje ->
+                        Arrays.stream(viaje.getAsientos())
+                                .map(asiento -> asiento[1].equalsIgnoreCase("vacío") ? asiento[0] : "*")
+                                .toArray(String[]::new)
+                )
+                .orElse(new String[]{"0"});
+
+
+
+        /*
+
         Optional<Viaje> viajeOpt = findViaje("" + fecha, "" + hora, patBus);
-        if(findViaje("" + fecha, "" + hora, patBus).isEmpty()){
+        if(viajeOpt.isEmpty()){
             return new String[]{"0"};
         }
 
@@ -197,6 +231,8 @@ public class SistemaVentaPasajes {
             }else {listAsientos[i]="*";}
         }
         return listAsientos;
+
+         */
 
     }
 
@@ -254,12 +290,21 @@ public class SistemaVentaPasajes {
 
     // metodo no existe en UML
     public String getNombreCliente(IdPersona idCliente){
+        return clientes.stream()
+                .filter(cliente -> cliente.getIdPersona().equals(idCliente))
+                .map(cliente -> cliente.getNombreCompleto().toString())
+                .findFirst()
+                .orElse(null);
+
+        /*
         for (Cliente cliente : clientes) {
             if (cliente.getIdPersona().equals(idCliente)) {
                 return cliente.getNombreCompleto().toString();
             }
         }
         return null;
+
+         */
     }
 
     public void pagaVenta(String idDocumento, TipoDocumento tipo) throws SVPException {
@@ -456,6 +501,10 @@ public class SistemaVentaPasajes {
             }
         }
     }
+
+
+
+
 
     // --------- finds utilizando streaming
     private Optional<Cliente> findCliente(IdPersona id) {
