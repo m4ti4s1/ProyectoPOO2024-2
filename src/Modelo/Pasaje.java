@@ -75,7 +75,7 @@ public class Pasaje implements Serializable {
                 fechaFormateada,
                 this.getViaje().getHora().format(DateTimeFormatter.ofPattern("HH:mm"))));
 
-        sb.append("-----------------------------------------------------------------------------------\n");
+        sb.append("--------------------------------------------------------------\n");
 
         return sb.toString();
     }

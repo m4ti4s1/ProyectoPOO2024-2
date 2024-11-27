@@ -260,6 +260,7 @@ public class IOSVP {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("SVPObjetos.obj"));
             oos.writeObject(controladores);
+            oos.close();
 
         }catch (FileNotFoundException e){
             throw new SVPException("No se puede abrir o crear el archivo SVPObjetos.obj");
@@ -275,6 +276,7 @@ public class IOSVP {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("SVPObjetos.obj"));
             controladores = (Object[]) ois.readObject();
+            ois.close();
 
         }catch (FileNotFoundException e){
             throw new SVPException("No existe o no se puede abrir el archivo SVPObjetos.obj");
