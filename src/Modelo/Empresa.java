@@ -5,10 +5,11 @@ import Utilidades.IdPersona;
 import Utilidades.Nombre;
 import Utilidades.Rut;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Empresa {
+public class Empresa implements Serializable {
     private Rut rut;
     private String nombre;
     private String url;

@@ -4,9 +4,10 @@ import Utilidades.Direccion;
 import Utilidades.IdPersona;
 import Utilidades.Nombre;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Conductor extends Tripulante {
+public class Conductor extends Tripulante implements Serializable {
     private ArrayList<Viaje> conductorViajes; //asociacion con viaje
 
     public Conductor(IdPersona id, Nombre nom, Direccion dir) {

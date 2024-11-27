@@ -2,7 +2,9 @@ package Modelo;
 
 import Utilidades.*;
 
-public class Pasajero extends Persona {
+import java.io.Serializable;
+
+public class Pasajero extends Persona implements Serializable {
     private Nombre nomContacto;
     private String fonoContacto;
 

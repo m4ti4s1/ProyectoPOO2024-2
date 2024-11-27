@@ -1,9 +1,10 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-public class Pasaje {
+public class Pasaje implements Serializable {
     private long numero;
     private int asiento;
 

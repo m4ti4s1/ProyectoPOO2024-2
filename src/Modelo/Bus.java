@@ -1,8 +1,9 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Bus {
+public class Bus implements Serializable {
 
     //atributos
     private String patente;

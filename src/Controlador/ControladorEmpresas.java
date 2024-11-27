@@ -13,11 +13,12 @@ import Modelo.*;
 import Utilidades.*;
 import Excepciones.SVPException;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class ControladorEmpresas {
+public class ControladorEmpresas implements Serializable {
     private static ControladorEmpresas instance = null;
 
     private ArrayList<Empresa> empresas=new ArrayList<>();

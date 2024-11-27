@@ -28,9 +28,6 @@ public class UISVP {
         return INSTANCE;
     }
 
-    private final static ControladorEmpresas CE = ControladorEmpresas.getInstance();
-    private final static SistemaVentaPasajes SVP = SistemaVentaPasajes.getInstance();
-
     public void menu() {
         int opcion;
         do {
@@ -158,11 +155,11 @@ public class UISVP {
 
             switch (opcTripulante) {
                 case 1:
-                    CE.hireAuxiliarForEmpresa(rutEmpresa, idPersona, nombreTripulante, dir);
+                    ControladorEmpresas.getInstance().hireAuxiliarForEmpresa(rutEmpresa, idPersona, nombreTripulante, dir);
                     System.out.println("\n...:::: Auxiliar contratado exitosamente ::::....");
                     break;
                 case 2:
-                    CE.hireConductorForEmpresa(rutEmpresa, idPersona, nombreTripulante, dir);
+                    ControladorEmpresas.getInstance().hireConductorForEmpresa(rutEmpresa, idPersona, nombreTripulante, dir);
                     System.out.println("\n...:::: Conductor contratado exitosamente ::::....");
                     break;
             }
@@ -182,7 +179,7 @@ public class UISVP {
             String Comuna = leeString("Comuna");
 
             Direccion dir = new Direccion(calle, numCalle, Comuna);
-            CE.createTerminal(nombre, dir);
+            ControladorEmpresas.getInstance().createTerminal(nombre, dir);
 
             System.out.println("...:::: Terminal guardado exitosamente ::::....");
         } catch (SVPException e) {
@@ -246,7 +243,7 @@ public class UISVP {
         String email = leeString("Email");
 
         try {
-            SVP.createCliente(idPersona, nombreCliente, telefono, email);
+            SistemaVentaPasajes.getInstance().createCliente(idPersona, nombreCliente, telefono, email);
             System.out.println("\n....:::: Cliente guardado exitosamente ::::....\n");
 
         } catch (SVPException e) {
@@ -279,7 +276,7 @@ public class UISVP {
         Rut rutEmpresa = Rut.of(leeString("R.U.T"));
 
         try {
-            CE.createBus(patente, marca, modelo, nroAsientos, rutEmpresa);
+            ControladorEmpresas.getInstance().createBus(patente, marca, modelo, nroAsientos, rutEmpresa);
             System.out.println("...:::: Bus guardado exitosamente ::::....");
         } catch (SVPException e) {
             System.err.println("..:: Error : " + e.getMessage());
@@ -361,7 +358,7 @@ public class UISVP {
         comunas[1] = leeString("Nombre comuna llegada");
 
         try {
-            SVP.createViaje(fecha, hora, precio, duracion, patente, idTripulantesArray, comunas);
+            SistemaVentaPasajes.getInstance().createViaje(fecha, hora, precio, duracion, patente, idTripulantesArray, comunas);
             System.out.println("\n...:::: Viaje guardado exitosamente ::::....");
 
         } catch (SVPException e) {
@@ -408,11 +405,11 @@ public class UISVP {
             case 1:
                 String idRUT = leeString("R.U.T");
 
-                if (null == SVP.getNombreCliente(Rut.of(idRUT))) {
+                if (null == SistemaVentaPasajes.getInstance().getNombreCliente(Rut.of(idRUT))) {
                     System.out.println(":::: Cliente no Encontrado");
                     return;
                 } else {
-                    System.out.printf("%30s : %s", "Nombre Cliente", SVP.getNombreCliente(Rut.of(idRUT)));
+                    System.out.printf("%30s : %s", "Nombre Cliente", SistemaVentaPasajes.getInstance().getNombreCliente(Rut.of(idRUT)));
                     idCliente = Rut.of(idRUT);
                     break;
                 }
@@ -421,12 +418,12 @@ public class UISVP {
                 String num = leeString("Numero Pasaporte");
                 String nacionalidad = leeString("Nacionalidad");
 
-                if (null == SVP.getNombreCliente(Pasaporte.of(num, nacionalidad))) {
+                if (null == SistemaVentaPasajes.getInstance().getNombreCliente(Pasaporte.of(num, nacionalidad))) {
                     System.out.println("\nNo se ah Encontrado al Usuario");
                     return;
                 } else {
 
-                    System.out.println("\nNombre Cliente : " + SVP.getNombreCliente(Pasaporte.of(num, nacionalidad)));
+                    System.out.println("\nNombre Cliente : " + SistemaVentaPasajes.getInstance().getNombreCliente(Pasaporte.of(num, nacionalidad)));
 
                     idCliente = Pasaporte.of(num, nacionalidad);
                     break;
@@ -439,10 +436,10 @@ public class UISVP {
         int cant = leeInt("Cantidad de pasajes");
 
         try {
-            SVP.iniciaVenta(IdDocumento, tipoDocumento, fechaV, origen, destino, idCliente, cant);
+            SistemaVentaPasajes.getInstance().iniciaVenta(IdDocumento, tipoDocumento, fechaV, origen, destino, idCliente, cant);
 
 
-            String[][] matrizViajes = SVP.getHorariosDisponibles(fechaV, origen, destino, cant);
+            String[][] matrizViajes = SistemaVentaPasajes.getInstance().getHorariosDisponibles(fechaV, origen, destino, cant);
 
             System.out.println("\n\n:::: Listado de Horarios Disponibles");
 
@@ -463,7 +460,7 @@ public class UISVP {
             LocalTime horaV = LocalTime.parse(matrizViajes[Viaje][1], DateTimeFormatter.ofPattern("HH:mm"));
             String patBus = matrizViajes[Viaje][0];
 
-            String[] matrizAsientos = SVP.listAsientosDeViaje(fechaV, LocalTime.parse(matrizViajes[Viaje][1]), matrizViajes[Viaje][0]);
+            String[] matrizAsientos = SistemaVentaPasajes.getInstance().listAsientosDeViaje(fechaV, LocalTime.parse(matrizViajes[Viaje][1]), matrizViajes[Viaje][0]);
 
             System.out.printf("       *---*---*---*---*---*%n");
             for (int i = 0; i < matrizAsientos.length; i++) {
@@ -513,7 +510,7 @@ public class UISVP {
 
                         String idRut = leeString("R.U.T");
 
-                        if (SVP.getNombrePasajero(Rut.of(idRut)).isEmpty()) {
+                        if (SistemaVentaPasajes.getInstance().getNombrePasajero(Rut.of(idRut)).isEmpty()) {
 
                             System.out.println("\n\n:::: Pasajero no Encontrado\n");
 
@@ -558,12 +555,12 @@ public class UISVP {
                             contacto.setApellidoMaterno(apellidoMaterno);
 
 
-                            SVP.createPasajero(Rut.of(idRut), newPasajero, fono, contacto, fonoContacto);
+                            SistemaVentaPasajes.getInstance().createPasajero(Rut.of(idRut), newPasajero, fono, contacto, fonoContacto);
                             System.out.println("\n:::: Pasaje agregado exitosamente");
 
                         }
 
-                        SVP.vendePasaje(IdDocumento, tipoDocumento, fechaV, horaV, patBus, numAsientos[i], Rut.of(idRut));
+                        SistemaVentaPasajes.getInstance().vendePasaje(IdDocumento, tipoDocumento, fechaV, horaV, patBus, numAsientos[i], Rut.of(idRut));
                         break;
 
 
@@ -572,7 +569,7 @@ public class UISVP {
                         String numeroPasaporte = leeString("Numero Pasaporte");
                         String nacionalidad = leeString("Nacionalidad");
 
-                        if (SVP.getNombrePasajero(Pasaporte.of(numeroPasaporte, nacionalidad)).isEmpty()) {
+                        if (SistemaVentaPasajes.getInstance().getNombrePasajero(Pasaporte.of(numeroPasaporte, nacionalidad)).isEmpty()) {
 
                             System.out.println("\n\n:::: Pasajero no Encontrado\n");
 
@@ -617,24 +614,24 @@ public class UISVP {
                             contacto.setApellidoMaterno(apellidoMaterno);
 
 
-                            SVP.createPasajero(Pasaporte.of(numeroPasaporte, nacionalidad), newPasajero, fono, contacto, fonoContacto);
+                            SistemaVentaPasajes.getInstance().createPasajero(Pasaporte.of(numeroPasaporte, nacionalidad), newPasajero, fono, contacto, fonoContacto);
                             System.out.println("\n:::: Pasaje agregado exitosamente");
 
                         }
 
-                        SVP.vendePasaje(IdDocumento, tipoDocumento, fechaV, horaV, patBus, numAsientos[i], Pasaporte.of(numeroPasaporte, nacionalidad));
+                        SistemaVentaPasajes.getInstance().vendePasaje(IdDocumento, tipoDocumento, fechaV, horaV, patBus, numAsientos[i], Pasaporte.of(numeroPasaporte, nacionalidad));
                         break;
                 } //cierre del switch
             }// cierre del for
 
-            Optional<Integer> montoVenta = SVP.getMontoVenta(IdDocumento, tipoDocumento);
+            Optional<Integer> montoVenta = SistemaVentaPasajes.getInstance().getMontoVenta(IdDocumento, tipoDocumento);
             System.out.println();
             System.out.println("\n:::: Monto Total de la venta: " + montoVenta.get());
             System.out.println();
 
             pagaVentaPasajes(IdDocumento, tipoDocumento);
 
-            String[] boleta = SVP.pasajesAImprimir(IdDocumento, tipoDocumento);
+            String[] boleta = SistemaVentaPasajes.getInstance().pasajesAImprimir(IdDocumento, tipoDocumento);
             for (String s : boleta) {
                 System.out.println(s);
             }
@@ -647,7 +644,7 @@ public class UISVP {
         DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        String[][] listaVentas = SVP.listVentas();
+        String[][] listaVentas = SistemaVentaPasajes.getInstance().listVentas();
 
 
         if (listaVentas.length != 0) {
@@ -676,7 +673,7 @@ public class UISVP {
         DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        String[][] lista = SVP.listViajes();
+        String[][] lista = SistemaVentaPasajes.getInstance().listViajes();
 
         if (lista.length != 0) {
             System.out.printf("\n%44s\n", "...:::: Listado de Viajes ::::....\n");
@@ -709,7 +706,7 @@ public class UISVP {
             LocalTime hora = LocalTime.parse(horaDelViaje, timeFormatter);
 
             String patenteBus = leeString("Patente bus");
-            String[][] listaPasajeros = SVP.listPasajerosViaje(fecha, hora, patenteBus);
+            String[][] listaPasajeros = SistemaVentaPasajes.getInstance().listPasajerosViaje(fecha, hora, patenteBus);
 
             if (listaPasajeros.length != 0) {
 
@@ -732,7 +729,7 @@ public class UISVP {
     }
 
     private void listEmpresas() {
-        String[][] lista = CE.listEmpresas();
+        String[][] lista = ControladorEmpresas.getInstance().listEmpresas();
         if (lista.length != 0) {
             System.out.printf("\n%44s\n", "...:::: Listado de empresas ::::....\n");
 
@@ -760,7 +757,7 @@ public class UISVP {
             String fecha = leeString("Fecha[dd/mm/yyyy]");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate fechaFinal = LocalDate.parse(fecha, formatter);
-            String[][] lista = CE.listLlegadaSalidasTerminal(nombreTerminal, fechaFinal);
+            String[][] lista = ControladorEmpresas.getInstance().listLlegadaSalidasTerminal(nombreTerminal, fechaFinal);
 
             if (lista.length != 0) {
                 System.out.printf(" *----------------*-------*-------------*---------------------------------*----------------*%n");
@@ -787,7 +784,7 @@ public class UISVP {
             System.out.println("...:::: Listado de ventas de una empresa ::::....\n");
 
             String rut = leeString("R.U.T");
-            String[][] lista = CE.listVentasEmpresa(Rut.of(rut));
+            String[][] lista = ControladorEmpresas.getInstance().listVentasEmpresa(Rut.of(rut));
 
 
             if (lista.length != 0) {
@@ -819,11 +816,11 @@ public class UISVP {
         int opcPago = leeOpc("Efectivo[1] o Tarjeta[2]", 2);
 
         if (opcPago == 1) {
-            SVP.pagaVenta(idDocumento, tipo);
+            SistemaVentaPasajes.getInstance().pagaVenta(idDocumento, tipo);
 
         } else {
             long nroTarjeta = Long.parseLong(leeString("Ingrese numero de Tarjeta"));
-            SVP.pagaVenta(idDocumento, tipo, nroTarjeta);
+            SistemaVentaPasajes.getInstance().pagaVenta(idDocumento, tipo, nroTarjeta);
         }
         System.out.println();
         System.out.println("\n...:::: Venta realizada exitosamente ::::....\n\n");
@@ -838,7 +835,7 @@ public class UISVP {
             System.out.println("Ingrese tipo documento de la venta: ");
             TipoDocumento tipo = TipoDocumento.valueOf(sc.next().toUpperCase());
 
-            SVP.generatePasajesVenta(id, tipo);
+            SistemaVentaPasajes.getInstance().generatePasajesVenta(id, tipo);
         } catch (SVPException e) {
             System.out.println(e.getMessage());
         }
@@ -847,7 +844,7 @@ public class UISVP {
     private void readDatosIniciales() {
         try {
 
-            SVP.readDatosIniciales();
+            SistemaVentaPasajes.getInstance().readDatosIniciales();
         } catch (SVPException e) {
             System.out.println(e.getMessage());
         }
@@ -855,7 +852,7 @@ public class UISVP {
 
     private void saveDatosSistema() {
         try {
-            SVP.saveDatosSistema();
+            SistemaVentaPasajes.getInstance().saveDatosSistema();
         } catch (SVPException e) {
             System.out.println(e.getMessage());
         }
@@ -863,7 +860,7 @@ public class UISVP {
 
     private void readDatosSistema() {
         try {
-            SVP.readDatosSistema();
+            SistemaVentaPasajes.getInstance().readDatosSistema();
         } catch (SVPException e) {
             System.out.println(e.getMessage());
         }

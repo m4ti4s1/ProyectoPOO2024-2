@@ -16,13 +16,14 @@ import Persistencia.IOSVP;
 import Utilidades.*;
 import Excepciones.SVPException;
 
+import java.io.Serializable;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.lang.*;
 
 
-public class SistemaVentaPasajes {
+public class SistemaVentaPasajes implements Serializable {
 
     // instancia unica (Singleton)
     private static SistemaVentaPasajes instance = new SistemaVentaPasajes();
@@ -479,10 +480,6 @@ public class SistemaVentaPasajes {
 
         // Transfiere datos iniciales al controlador de empresas
         ctrlEmpresas.setDatosIniciales(datosIniciales);
-        //todo mensajes de prueba borrar despues
-        System.out.println("Pasajeros cargados: " + pasajeros.size());
-        System.out.println("Clientes cargados: " + clientes.size());
-        System.out.println("Viajes cargados: " + viajes.size());
     }
 
     public void saveDatosSistema() throws SVPException {

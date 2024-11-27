@@ -228,48 +228,22 @@ public class IOSVP {
                 String nombreTerminalSalida = datos[7];
                 String nombreTerminalLlegada = datos[8];
                 Optional<Bus> bus = findBus(buses, patente);
-                Auxiliar auxiliar = null;
-                List<Conductor> conductores = new ArrayList<>();
-
-
-                for (Tripulante tripulante : tripulantes) {
-                    if (tripulante.getIdPersona().equals(rutAuxiliar) && tripulante instanceof Auxiliar) {
-                        auxiliar = (Auxiliar) tripulante;
-                    }
-                }
-
-
-                for (Tripulante tripulante : tripulantes) {
-                    if (tripulante.getIdPersona().equals(rutConductor) && tripulante instanceof Conductor) {
-                        conductores.add((Conductor) tripulante);
-                        if (conductores.size() == 2) {
-                            break;
-                        }
-                    }
-                }
 
 
                 Optional<Terminal> terminalSalida = findTerminal(terminales, nombreTerminalSalida);
                 Optional<Terminal> terminalLlegada = findTerminal(terminales, nombreTerminalLlegada);
+                Auxiliar aux =  (Auxiliar) findTripulante(bus.get().getEmpresa(), rutAuxiliar).get();
+                Conductor cond = (Conductor) findTripulante(bus.get().getEmpresa(), rutConductor).get();
+                Conductor[] condArray = {cond};
 
-                if (bus.isPresent() && auxiliar != null && !conductores.isEmpty()
-                        && terminalSalida.isPresent() && terminalLlegada.isPresent()) {
-                    Viaje viaje = new Viaje(fecha, hora, precio, duracion, bus.get(), auxiliar, conductores.toArray(new Conductor[0]), terminalSalida.get(), terminalLlegada.get());
+                if (terminalSalida.isPresent() && terminalLlegada.isPresent()) {
+                    Viaje viaje = new Viaje(fecha, hora, precio, duracion, bus.get(), aux, condArray,terminalSalida.get(), terminalLlegada.get());
                     viajes.add(viaje);
                 }
             }
         }catch (FileNotFoundException e) {
             throw new SVPException("No existe o no se puede abrir el archivo SVPDatosIniciales.txt");
         }
-        //todo mesanjes de prueba borrar despues
-        System.out.println("Datos cargados:");
-        System.out.println("Clientes: " + clientes.size());
-        System.out.println("Pasajeros: " + pasajeros.size());
-        System.out.println("Empresas: " + empresas.size());
-        System.out.println("Tripulantes: " + tripulantes.size());
-        System.out.println("Terminales: " + terminales.size());
-        System.out.println("Buses: " + buses.size());
-        System.out.println("Viajes: " + viajes.size());
 
         Object[] resultado = new Object[]{
                 clientes,
@@ -277,8 +251,7 @@ public class IOSVP {
                 viajes,
                 empresas,
                 buses,
-                terminales,
-                tripulantes
+                terminales
         };
         return resultado;
     }
