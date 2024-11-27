@@ -29,64 +29,64 @@ public class GUIContrataTripulante extends JDialog {
     private JTextField numCalle;
     private String TipoTripulante;
     private Tratamiento tratamiento;
-    IdPersona idPersona=null;
+    IdPersona idPersona = null;
 
     public GUIContrataTripulante() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        String[][] empresas= ControladorEmpresas.getInstance().listEmpresas();
-        for(int i=0;i<empresas.length;i++){
+        String[][] empresas = ControladorEmpresas.getInstance().listEmpresas();
+        for (int i = 0; i < empresas.length; i++) {
             comboBoxrut.addItem(empresas[i][0]);
             comboBoxnom.addItem(empresas[i][1]);
         }
         ordenarRut(empresas, comboBoxrut, comboBoxnom);
-        ButtonGroup grupotripulante=new ButtonGroup();
+        ButtonGroup grupotripulante = new ButtonGroup();
         grupotripulante.add(conductorRadioButton);
         grupotripulante.add(auxiliarRadioButton);
         conductorRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TipoTripulante="Tripulante";
+                TipoTripulante = "Tripulante";
             }
         });
         auxiliarRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TipoTripulante="Auxiliar";
+                TipoTripulante = "Auxiliar";
             }
         });
         //selecion tratamiento
-        ButtonGroup grupoTratamiento=new ButtonGroup();
+        ButtonGroup grupoTratamiento = new ButtonGroup();
         grupoTratamiento.add(Sr);
         grupoTratamiento.add(Sra);
         Sr.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                tratamiento=Tratamiento.valueOf("SR");
+                tratamiento = Tratamiento.valueOf("SR");
             }
         });
         Sra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                tratamiento=Tratamiento.valueOf("SRA");
+                tratamiento = Tratamiento.valueOf("SRA");
             }
         });
         //crea rut o pasaporte
-        ButtonGroup tipodoc=new ButtonGroup();
+        ButtonGroup tipodoc = new ButtonGroup();
         tipodoc.add(RUT);
         tipodoc.add(PASAPORTE);
 
         RUT.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            idPersona=Rut.of(numDoc.getText());
+                idPersona = Rut.of(numDoc.getText());
             }
         });
         PASAPORTE.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                idPersona= Pasaporte.of(numDoc.getText(),Nacionalidad.getSelectedItem()+"");
+                idPersona = Pasaporte.of(numDoc.getText(), Nacionalidad.getSelectedItem() + "");
             }
         });
         //
@@ -121,27 +121,30 @@ public class GUIContrataTripulante extends JDialog {
 
     private void onOK() {
         // add your code here
-        Nombre nombre=new Nombre();
+        if (entradaCorrectas()) {
+            JOptionPane.showMessageDialog(null, "Faltan Campos por llenar");
+        }
+        Nombre nombre = new Nombre();
         nombre.setTratamiento(tratamiento);
         nombre.setNombres(nomtx.getText());
         nombre.setApellidoPaterno(paternotx.getText());
         nombre.setApellidoMaterno(maternotx.getText());
-        Direccion direccion = new Direccion(calle.getText(), Integer.parseInt(numCalle.getText()), Comuna.getSelectedItem()+"");
-        try{
-            Rut rutEmpresa=Rut.of(comboBoxrut.getSelectedItem()+"");
+        Direccion direccion = new Direccion(calle.getText(), Integer.parseInt(numCalle.getText()), Comuna.getSelectedItem() + "");
+        try {
+            Rut rutEmpresa = Rut.of(comboBoxrut.getSelectedItem() + "");
             switch (TipoTripulante.toUpperCase()) {
                 case "AUXILIAR":
-                    ControladorEmpresas.getInstance() .hireAuxiliarForEmpresa(rutEmpresa, idPersona, nombre, direccion);
-                   JOptionPane.showMessageDialog(this,"Auxiliar Creado Exitosamente ","Creacion Auxiliar",JOptionPane.INFORMATION_MESSAGE);
+                    ControladorEmpresas.getInstance().hireAuxiliarForEmpresa(rutEmpresa, idPersona, nombre, direccion);
+                    JOptionPane.showMessageDialog(this, "Auxiliar Creado Exitosamente ", "Creacion Auxiliar", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 case "TRIPULANTE":
                     ControladorEmpresas.getInstance().hireConductorForEmpresa(rutEmpresa, idPersona, nombre, direccion);
-                    JOptionPane.showMessageDialog(this,"Tripulante Creado Exitosamente ","Creacion Tripulante",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Tripulante Creado Exitosamente ", "Creacion Tripulante", JOptionPane.INFORMATION_MESSAGE);
 
                     break;
             }
-        }catch (SVPException e){
-            JOptionPane.showMessageDialog(this,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+        } catch (SVPException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
         }
         dispose();
@@ -158,6 +161,7 @@ public class GUIContrataTripulante extends JDialog {
         dialog.setVisible(true);
 
     }
+
     public static void ordenarRut(String[][] empresas, JComboBox<String> comboBox1, JComboBox<String> comboBox2) {
         comboBox1.addItemListener(new ItemListener() {
             @Override
@@ -187,6 +191,20 @@ public class GUIContrataTripulante extends JDialog {
                 }
             }
         });
+    }
+
+    private boolean entradaCorrectas() {
+        return numDoc == null ||
+                TipoTripulante == null ||
+                tratamiento == null ||
+                nomtx == null ||
+                paternotx == null ||
+                maternotx == null ||
+                calle == null ||
+                numCalle == null ||
+                Comuna == null;
+
+
     }
 
 }

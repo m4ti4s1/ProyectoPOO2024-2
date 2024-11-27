@@ -86,8 +86,6 @@ public class ControladorEmpresas {
 
 
 
-
-
     public void hireConductorForEmpresa(Rut rutEmp,IdPersona id,Nombre nom,Direccion dir ) throws SVPException {
         Optional<Empresa> empresa=findEmpresa(rutEmp);
         if(empresa.isEmpty()){
@@ -117,8 +115,6 @@ public class ControladorEmpresas {
 
         empresa.get().addAuxiliar(id,nom,dir);
     }
-
-
 
     public String[][] listEmpresas(){
         if(empresas.isEmpty()){return new String[0][0];}
@@ -228,7 +224,6 @@ public class ControladorEmpresas {
          */
 
     }
-
 
 
     public String[][] listVentasEmpresa(Rut rut) throws SVPException {

@@ -61,7 +61,6 @@ public class GUIListaVentasEmpresas extends JDialog {
     }
 
     private void onOK() {
-
         String[][] ventasEmpresaX=ControladorEmpresas.getInstance().listVentasEmpresa(Rut.of(comboBoxRut.getSelectedItem()+""));
         String[]columnaName={"Fecha","Tipo","Monto Pagado","Tipo Pago"};
         listaVentas.setModel(new DefaultTableModel(ventasEmpresaX, columnaName));
