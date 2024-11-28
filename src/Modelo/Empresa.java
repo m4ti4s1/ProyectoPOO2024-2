@@ -67,7 +67,7 @@ public class Empresa implements Serializable {
 
     public boolean addAuxiliar(IdPersona id, Nombre nom, Direccion dir){
         Auxiliar auxiliar = new Auxiliar (id,nom,dir);
-        if(conductores.contains(auxiliar)){
+        if(auxiliares.contains(auxiliar)){
             return false;
         }else{
             auxiliares.add(auxiliar);

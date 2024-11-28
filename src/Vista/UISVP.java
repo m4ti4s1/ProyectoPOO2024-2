@@ -55,7 +55,7 @@ public class UISVP {
                      17) Leer datos del sistema
                      18) Salir
                     ____________________________
-                    ..:: Ingrese número de opción :""");
+                    ..:: Ingrese número de opción:\s""");
 
             opcion = elegirOpc(18);
             System.out.println();
@@ -671,8 +671,6 @@ public class UISVP {
     }
 
     private void listViajes() {
-        DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         String[][] lista = SistemaVentaPasajes.getInstance().listViajes();
 
@@ -683,11 +681,8 @@ public class UISVP {
             System.out.printf(" *--------------*--------------*---------------*--------*----------------*---------------*----------------*-----------------*%n");
 
             for (String[] strings : lista) {
-                String fechaOriginal = strings[0];
-                LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
-                String fechaFormateada = fecha.format(nuevoFormato);
                 System.out.printf(" | %-10s   |       %-6s |        %-6s | %-6s |             %-2s | %-8s      | %-12s   | %-12s    |%n",
-                        fechaFormateada, strings[1], strings[2], strings[3], strings[4], strings[5], strings[6], strings[7]);
+                        strings[0], strings[1], strings[2], strings[3], strings[4], strings[5], strings[6], strings[7]);
                 System.out.printf(" *--------------*--------------*---------------*--------*----------------*---------------*----------------*-----------------*%n");
             }
         } else {
