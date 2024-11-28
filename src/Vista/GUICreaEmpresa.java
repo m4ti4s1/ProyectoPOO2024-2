@@ -28,7 +28,7 @@ public class GUICreaEmpresa extends JDialog {
                 VerificacionRut();
             }
         });
-        advertencianom.setVisible(false);
+
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
