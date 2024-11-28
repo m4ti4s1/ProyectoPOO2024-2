@@ -73,7 +73,7 @@ public class GUICreaEmpresa extends JDialog {
 
         } catch (SVPException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
+            return;
         }
         dispose();
     }

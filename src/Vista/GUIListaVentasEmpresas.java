@@ -1,6 +1,7 @@
 package Vista;
 
 import Controlador.ControladorEmpresas;
+import Excepciones.SVPException;
 import Utilidades.Rut;
 
 import javax.swing.*;
@@ -61,18 +62,21 @@ public class GUIListaVentasEmpresas extends JDialog {
     }
 
     private void onOK() {
-        if(comboBoxRut.getSelectedItem()==null){
-            JOptionPane.showMessageDialog(this, "Debe seleccionar una empresa");
-            return;
+        try {
+            if (comboBoxRut.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una empresa");
+                return;
+            }
+            String[][] ventasEmpresaX = ControladorEmpresas.getInstance().listVentasEmpresa(Rut.of(comboBoxRut.getSelectedItem() + ""));
+            if (ventasEmpresaX.length == 0) {
+                JOptionPane.showMessageDialog(this, "No hay Ventas Registradas");
+                return;
+            }
+            String[] columnaName = {"Fecha", "Tipo", "Monto Pagado", "Tipo Pago"};
+            listaVentas.setModel(new DefaultTableModel(ventasEmpresaX, columnaName));
+        }catch (SVPException e){
+            JOptionPane.showMessageDialog(this,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
-        String[][] ventasEmpresaX = ControladorEmpresas.getInstance().listVentasEmpresa(Rut.of(comboBoxRut.getSelectedItem() + ""));
-        if (ventasEmpresaX.length == 0) {
-            JOptionPane.showMessageDialog(this, "No hay Ventas Registradas");
-            return;
-        }
-        String[] columnaName = {"Fecha", "Tipo", "Monto Pagado", "Tipo Pago"};
-        listaVentas.setModel(new DefaultTableModel(ventasEmpresaX, columnaName));
-
 
     }
 

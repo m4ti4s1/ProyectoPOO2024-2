@@ -81,6 +81,7 @@ public class GUICreaBus extends JDialog {
             ControladorEmpresas.getInstance().createBus(patente, marca, modelo, numAsientos, rut);
         } catch (SVPException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+         return;
         }
         dispose();
 
