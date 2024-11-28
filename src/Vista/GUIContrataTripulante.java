@@ -86,7 +86,12 @@ public class GUIContrataTripulante extends JDialog {
                 VerificacionNombre();
             }
         });
-
+        numCalle.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                verificarNum();
+            }
+        });
         numDoc.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -98,10 +103,7 @@ public class GUIContrataTripulante extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Nacionalidad.setEnabled(false);
-                idPersona = Rut.of(numDoc.getText());
-
             }
-
         });
         PASAPORTE.addActionListener(new ActionListener() {
             @Override
@@ -143,6 +145,10 @@ public class GUIContrataTripulante extends JDialog {
             JOptionPane.showMessageDialog(null, "Faltan Campos por llenar");
             return;
         }
+        if (VerificacionIDboolean()) {
+            JOptionPane.showMessageDialog(null, "El Formato del rut o Pasaporte es Incorrecto");
+            return;
+        }
         try {
             Nombre nombre = new Nombre();
             nombre.setTratamiento(tratamiento);
@@ -150,6 +156,8 @@ public class GUIContrataTripulante extends JDialog {
             nombre.setApellidoPaterno(paternotx.getText());
             nombre.setApellidoMaterno(maternotx.getText());
             Direccion direccion = new Direccion(calle.getText(), Integer.parseInt(numCalle.getText()), Comuna.getSelectedItem() + "");
+            idPersona = Rut.of(numDoc.getText());
+            idPersona = Pasaporte.of(numDoc.getText(), Nacionalidad.getSelectedItem() + "");
 
             Rut rutEmpresa = Rut.of(comboBoxrut.getSelectedItem() + "");
             switch (TipoTripulante.toUpperCase()) {
@@ -217,8 +225,8 @@ public class GUIContrataTripulante extends JDialog {
 
     private boolean entradaCorrectas() {
         return numDoc.getText().trim().isEmpty() ||
-                TipoTripulante==null ||
-                tratamiento==null ||
+                TipoTripulante == null ||
+                tratamiento == null ||
                 nomtx.getText().trim().isEmpty() ||
                 paternotx.getText().trim().isEmpty() ||
                 maternotx.getText().trim().isEmpty() ||
@@ -235,6 +243,27 @@ public class GUIContrataTripulante extends JDialog {
         } else {
             advertencia.setVisible(!input.matches("^[a-zA-Z0-9]+$"));
         }
+    }
+
+    private boolean VerificacionIDboolean() {
+        String input = numDoc.getText();
+
+        if (RUT.isSelected()) {
+            if (input.matches("\\d{1,2}\\.\\d{3}\\.\\d{3}-[0-9Kk]")) {
+                return false;
+            }
+        } else {
+            if (input.matches("^[a-zA-Z0-9]+$")) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void verificarNum() {
+        String input = numCalle.getText();
+        boolean verificarnumeros = !input.matches("\\d+");
+        advertencia.setVisible(verificarnumeros);
     }
 
     private void VerificacionNombre() {
