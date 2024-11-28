@@ -109,7 +109,6 @@ public class GUIContrataTripulante extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Nacionalidad.setEnabled(true);
-                idPersona = Pasaporte.of(numDoc.getText(), Nacionalidad.getSelectedItem() + "");
             }
         });
         //
@@ -149,6 +148,11 @@ public class GUIContrataTripulante extends JDialog {
             JOptionPane.showMessageDialog(null, "El Formato del rut o Pasaporte es Incorrecto");
             return;
         }
+        if (RUT.isSelected()) {
+            idPersona = Rut.of(numDoc.getText());
+        } else {
+            idPersona = Pasaporte.of(numDoc.getText(), Nacionalidad.getSelectedItem() + "");
+        }
         try {
             Nombre nombre = new Nombre();
             nombre.setTratamiento(tratamiento);
@@ -156,8 +160,6 @@ public class GUIContrataTripulante extends JDialog {
             nombre.setApellidoPaterno(paternotx.getText());
             nombre.setApellidoMaterno(maternotx.getText());
             Direccion direccion = new Direccion(calle.getText(), Integer.parseInt(numCalle.getText()), Comuna.getSelectedItem() + "");
-            idPersona = Rut.of(numDoc.getText());
-            idPersona = Pasaporte.of(numDoc.getText(), Nacionalidad.getSelectedItem() + "");
 
             Rut rutEmpresa = Rut.of(comboBoxrut.getSelectedItem() + "");
             switch (TipoTripulante.toUpperCase()) {
