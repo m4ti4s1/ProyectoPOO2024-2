@@ -14,12 +14,27 @@ public class GUICreaEmpresa extends JDialog {
     private JTextField ruttx;
     private JTextField nombretx;
     private JTextField urltx;
+    private JLabel advertencia;
+    private JLabel advertencianom;
 
     public GUICreaEmpresa() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-
+        advertencia.setVisible(false);
+        ruttx.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                VerificacionRut();
+            }
+        });
+        advertencianom.setVisible(false);
+        nombretx.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                VerificacionNombre();
+            }
+        });
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
@@ -53,10 +68,10 @@ public class GUICreaEmpresa extends JDialog {
             String rut = ruttx.getText();
             String nom = nombretx.getText();
             String Url = urltx.getText();
-            ControladorEmpresas.getInstance().createEmpresa(Rut.of(rut),nom,Url);
-            JOptionPane.showMessageDialog(this,"Empresa guardada Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            ControladorEmpresas.getInstance().createEmpresa(Rut.of(rut), nom, Url);
+            JOptionPane.showMessageDialog(this, "Empresa guardada Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
-        }catch (SVPException e){
+        } catch (SVPException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
         }
@@ -76,5 +91,16 @@ public class GUICreaEmpresa extends JDialog {
         dialog.setVisible(true);
 
 
+    }
+
+    private void VerificacionRut() {
+        String input = ruttx.getText();
+        advertencia.setVisible(!input.matches("\\d{1,2}\\.\\d{3}\\.\\d{3}-[0-9Kk]"));
+
+    }
+    private void VerificacionNombre() {
+        String input = nombretx.getText();
+        boolean contieneSimbolos = !input.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+");
+        advertencianom.setVisible(contieneSimbolos);
     }
 }

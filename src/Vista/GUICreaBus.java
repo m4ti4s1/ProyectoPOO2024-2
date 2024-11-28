@@ -18,12 +18,13 @@ public class GUICreaBus extends JDialog {
     private JTextField marcatx;
     private JTextField modelotx;
     private JTextField numAsientostx;
+    private JLabel advertencia;
 
     public GUICreaBus() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        String[][]empresa=ControladorEmpresas.getInstance().listEmpresas();
+        String[][] empresa = ControladorEmpresas.getInstance().listEmpresas();
 
         ordenarRut(empresa, comboBoxRut, comboBoxNombre);
         ordenarRut(empresa, comboBoxNombre, comboBoxRut);
@@ -40,7 +41,13 @@ public class GUICreaBus extends JDialog {
                 onCancel();
             }
         });
-
+        advertencia.setVisible(false);
+        numAsientostx.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                verificarNum();
+            }
+        });
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -58,6 +65,13 @@ public class GUICreaBus extends JDialog {
     }
 
     private void onOK() {
+
+
+        if (entradasCorrectas()) {
+            JOptionPane.showMessageDialog(this, "Aún faltan campos por llenar");
+           return;
+        }
+
         try {
             String patente = patentetx.getText();
             String marca = marcatx.getText();
@@ -65,8 +79,8 @@ public class GUICreaBus extends JDialog {
             int numAsientos = Integer.parseInt(numAsientostx.getText());
             Rut rut = Rut.of(comboBoxRut.getSelectedItem() + "");
             ControladorEmpresas.getInstance().createBus(patente, marca, modelo, numAsientos, rut);
-        }catch (SVPException e){
-            JOptionPane.showMessageDialog(null,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+        } catch (SVPException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         dispose();
 
@@ -77,7 +91,7 @@ public class GUICreaBus extends JDialog {
         dispose();
     }
 
-    public static void displayCreaBus() {
+    public static void display() {
         GUICreaBus dialog = new GUICreaBus();
         dialog.setLocationRelativeTo(null);
         dialog.pack();
@@ -86,7 +100,7 @@ public class GUICreaBus extends JDialog {
 
     }
 
-    public static void ordenarRut(String[][] empresas, JComboBox<String> comboBox1, JComboBox<String> comboBox2) {
+    private static void ordenarRut(String[][] empresas, JComboBox<String> comboBox1, JComboBox<String> comboBox2) {
 
         comboBox1.addItemListener(new ItemListener() {
             @Override
@@ -121,4 +135,16 @@ public class GUICreaBus extends JDialog {
         });
     }
 
+    private void verificarNum() {
+        String input = numAsientostx.getText();
+        boolean verificarnumeros = !input.matches("\\d+");
+        advertencia.setVisible(verificarnumeros);
+    }
+
+    private boolean entradasCorrectas() {
+        return patentetx.getText().trim().isEmpty() ||
+                marcatx.getText().trim().isEmpty() ||
+                modelotx.getText().trim().isEmpty() ||
+                numAsientostx.getText().trim().isEmpty();
+    }
 }

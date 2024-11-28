@@ -32,7 +32,7 @@ public class UISVP {
         int opcion;
         do {
             System.out.println();
-            System.out.println("""
+            System.out.print("""
                     ============================
                     ...::: Menú Principal :::...
 
@@ -55,7 +55,7 @@ public class UISVP {
                      17) Leer datos del sistema
                      18) Salir
                     ____________________________
-                    ..:: Ingrese número de opción:""");
+                    ..:: Ingrese número de opción :""");
 
             opcion = elegirOpc(18);
             System.out.println();
@@ -255,7 +255,7 @@ public class UISVP {
 
     private void createBus() {
         //Interface Grafica
-        //GUICreaBus.displayCreaBus();
+        GUICreaBus.display();
 
         System.out.println("...:::: Creando un nuevo Bus ::::....");
 

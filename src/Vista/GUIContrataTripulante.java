@@ -27,6 +27,8 @@ public class GUIContrataTripulante extends JDialog {
     private JTextField maternotx;
     private JTextField calle;
     private JTextField numCalle;
+    private JLabel advertencia;
+    private JLabel advertencianom;
     private String TipoTripulante;
     private Tratamiento tratamiento;
     IdPersona idPersona = null;
@@ -76,33 +78,49 @@ public class GUIContrataTripulante extends JDialog {
         ButtonGroup tipodoc = new ButtonGroup();
         tipodoc.add(RUT);
         tipodoc.add(PASAPORTE);
+        advertencia.setVisible(false);
+        advertencianom.setVisible(false);
+        nomtx.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                VerificacionNombre();
+            }
+        });
 
+        numDoc.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                VerificacionID();
+            }
+        });
+        //
         RUT.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Nacionalidad.setEnabled(false);
                 idPersona = Rut.of(numDoc.getText());
+
             }
+
         });
         PASAPORTE.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Nacionalidad.setEnabled(true);
                 idPersona = Pasaporte.of(numDoc.getText(), Nacionalidad.getSelectedItem() + "");
             }
         });
         //
-
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }
         });
-
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
             }
         });
-
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -123,14 +141,16 @@ public class GUIContrataTripulante extends JDialog {
         // add your code here
         if (entradaCorrectas()) {
             JOptionPane.showMessageDialog(null, "Faltan Campos por llenar");
+            return;
         }
-        Nombre nombre = new Nombre();
-        nombre.setTratamiento(tratamiento);
-        nombre.setNombres(nomtx.getText());
-        nombre.setApellidoPaterno(paternotx.getText());
-        nombre.setApellidoMaterno(maternotx.getText());
-        Direccion direccion = new Direccion(calle.getText(), Integer.parseInt(numCalle.getText()), Comuna.getSelectedItem() + "");
         try {
+            Nombre nombre = new Nombre();
+            nombre.setTratamiento(tratamiento);
+            nombre.setNombres(nomtx.getText());
+            nombre.setApellidoPaterno(paternotx.getText());
+            nombre.setApellidoMaterno(maternotx.getText());
+            Direccion direccion = new Direccion(calle.getText(), Integer.parseInt(numCalle.getText()), Comuna.getSelectedItem() + "");
+
             Rut rutEmpresa = Rut.of(comboBoxrut.getSelectedItem() + "");
             switch (TipoTripulante.toUpperCase()) {
                 case "AUXILIAR":
@@ -205,6 +225,22 @@ public class GUIContrataTripulante extends JDialog {
                 Comuna == null;
 
 
+    }
+
+    private void VerificacionID() {
+        String input = numDoc.getText();
+
+        if (RUT.isSelected()) {
+            advertencia.setVisible(!input.matches("\\d{1,2}\\.\\d{3}\\.\\d{3}-[0-9Kk]"));
+        } else {
+            advertencia.setVisible(!input.matches("^[a-zA-Z0-9]+$"));
+        }
+    }
+
+    private void VerificacionNombre() {
+        String input = nomtx.getText();
+        boolean contieneSimbolos = !input.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+");
+        advertencianom.setVisible(contieneSimbolos);
     }
 
 }
