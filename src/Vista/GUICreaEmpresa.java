@@ -29,12 +29,7 @@ public class GUICreaEmpresa extends JDialog {
             }
         });
         advertencianom.setVisible(false);
-        nombretx.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                VerificacionNombre();
-            }
-        });
+
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
@@ -68,6 +63,10 @@ public class GUICreaEmpresa extends JDialog {
             JOptionPane.showMessageDialog(null,"Aún Faltan Campos por llenar");
          return;
         }
+        if(!(ruttx.getText()).matches("\\d{1,2}\\.\\d{3}\\.\\d{3}-[0-9Kk]")){
+            JOptionPane.showMessageDialog(null,"Error en el formato del rut(xx.xxx.xxx-x)");
+            return;
+        }
         try {
             String rut = ruttx.getText();
             String nom = nombretx.getText();
@@ -99,11 +98,6 @@ public class GUICreaEmpresa extends JDialog {
         String input = ruttx.getText();
         advertencia.setVisible(!input.matches("\\d{1,2}\\.\\d{3}\\.\\d{3}-[0-9Kk]"));
 
-    }
-    private void VerificacionNombre() {
-        String input = nombretx.getText();
-        boolean contieneSimbolos = !input.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+");
-        advertencianom.setVisible(contieneSimbolos);
     }
 
     private boolean verificarllenado(){
