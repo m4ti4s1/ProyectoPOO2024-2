@@ -175,9 +175,11 @@ public class GUIContrataTripulante extends JDialog {
         dispose();
     }
 
-    public static void main(String[] args) {
+    public static void display() {
         GUIContrataTripulante dialog = new GUIContrataTripulante();
+        dialog.setLocationRelativeTo(null);
         dialog.pack();
+        dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
 
     }
@@ -214,17 +216,15 @@ public class GUIContrataTripulante extends JDialog {
     }
 
     private boolean entradaCorrectas() {
-        return numDoc == null ||
-                TipoTripulante == null ||
-                tratamiento == null ||
-                nomtx == null ||
-                paternotx == null ||
-                maternotx == null ||
-                calle == null ||
-                numCalle == null ||
+        return numDoc.getText().trim().isEmpty() ||
+                TipoTripulante==null ||
+                tratamiento==null ||
+                nomtx.getText().trim().isEmpty() ||
+                paternotx.getText().trim().isEmpty() ||
+                maternotx.getText().trim().isEmpty() ||
+                calle.getText().trim().isEmpty() ||
+                numCalle.getText().trim().isEmpty() ||
                 Comuna == null;
-
-
     }
 
     private void VerificacionID() {

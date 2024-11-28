@@ -64,6 +64,10 @@ public class GUICreaEmpresa extends JDialog {
     }
 
     private void onOK() {
+        if(verificarllenado()){
+            JOptionPane.showMessageDialog(null,"Aún Faltan Campos por llenar");
+         return;
+        }
         try {
             String rut = ruttx.getText();
             String nom = nombretx.getText();
@@ -89,8 +93,6 @@ public class GUICreaEmpresa extends JDialog {
         dialog.pack();
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
-
-
     }
 
     private void VerificacionRut() {
@@ -102,5 +104,11 @@ public class GUICreaEmpresa extends JDialog {
         String input = nombretx.getText();
         boolean contieneSimbolos = !input.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+");
         advertencianom.setVisible(contieneSimbolos);
+    }
+
+    private boolean verificarllenado(){
+        return ruttx.getText().trim().isEmpty() ||
+                nombretx.getText().trim().isEmpty() ||
+                urltx.getText().trim().isEmpty() ;
     }
 }

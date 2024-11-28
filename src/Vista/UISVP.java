@@ -91,81 +91,82 @@ public class UISVP {
 
 
     private void contrataTripulante() {
-        try {
-            System.out.println("...:::: Contratando un nuevo tripulante ::::....\n");
-
-            System.out.println(":::: Dato de la Empresa");
-
-            Rut rutEmpresa = Rut.of(leeString("R.U.T"));
-
-            System.out.println(":::: Datos tripulante");
-
-            int opcTripulante = leeOpc("Auxiliar[1] o Conductor[2]", 2);
-
-            int opcTipoDocumento = leeOpc("Rut[1] o Pasaporte[2]", 2);
-
-            IdPersona idPersona = null;
-            String rut = "";
-            String numero = "";
-            String nacionalidad = "";
-
-            switch (opcTipoDocumento) {
-                case 1:
-                    // Rut
-                    rut = leeString("R.U.T");
-                    idPersona = Rut.of(rut);
-
-                    break;
-                case 2:
-                    // Pasaporte
-                    numero = leeString("Numero");
-                    nacionalidad = leeString("Nacionalidad");
-
-                    idPersona = Pasaporte.of(numero, nacionalidad);
-                    break;
-            }
-
-            Nombre nombreTripulante = new Nombre();
-
-            int opcTratamiento = leeOpc("Sr. [1] o Sra. [2]", 2);
-
-            switch (opcTratamiento) {
-                case 1:
-                    nombreTripulante.setTratamiento(Tratamiento.valueOf("SR"));
-                    break;
-                case 2:
-                    nombreTripulante.setTratamiento(Tratamiento.valueOf("SRA"));
-                    break;
-            }
-
-            String nombres = leeString("Nombres");
-            nombreTripulante.setNombres(nombres);
-
-            String apellidoPaterno = leeString("Apellido Paterno");
-            nombreTripulante.setApellidoPaterno(apellidoPaterno);
-
-            String apellidoMaterno = leeString("Apellido Materno");
-            nombreTripulante.setApellidoMaterno(apellidoMaterno);
-
-            String calle = leeString("Calle");
-            int numCalle = leeInt("Numero");
-            String Comuna = leeString("Comuna");
-
-            Direccion dir = new Direccion(calle, numCalle, Comuna);
-
-            switch (opcTripulante) {
-                case 1:
-                    ControladorEmpresas.getInstance().hireAuxiliarForEmpresa(rutEmpresa, idPersona, nombreTripulante, dir);
-                    System.out.println("\n...:::: Auxiliar contratado exitosamente ::::....");
-                    break;
-                case 2:
-                    ControladorEmpresas.getInstance().hireConductorForEmpresa(rutEmpresa, idPersona, nombreTripulante, dir);
-                    System.out.println("\n...:::: Conductor contratado exitosamente ::::....");
-                    break;
-            }
-        } catch (SVPException e) {
-            System.out.println("\t\t...::: Error : " + e.getMessage());
-        }
+        GUIContrataTripulante.display();
+//        try {
+//            System.out.println("...:::: Contratando un nuevo tripulante ::::....\n");
+//
+//            System.out.println(":::: Dato de la Empresa");
+//
+//            Rut rutEmpresa = Rut.of(leeString("R.U.T"));
+//
+//            System.out.println(":::: Datos tripulante");
+//
+//            int opcTripulante = leeOpc("Auxiliar[1] o Conductor[2]", 2);
+//
+//            int opcTipoDocumento = leeOpc("Rut[1] o Pasaporte[2]", 2);
+//
+//            IdPersona idPersona = null;
+//            String rut = "";
+//            String numero = "";
+//            String nacionalidad = "";
+//
+//            switch (opcTipoDocumento) {
+//                case 1:
+//                    // Rut
+//                    rut = leeString("R.U.T");
+//                    idPersona = Rut.of(rut);
+//
+//                    break;
+//                case 2:
+//                    // Pasaporte
+//                    numero = leeString("Numero");
+//                    nacionalidad = leeString("Nacionalidad");
+//
+//                    idPersona = Pasaporte.of(numero, nacionalidad);
+//                    break;
+//            }
+//
+//            Nombre nombreTripulante = new Nombre();
+//
+//            int opcTratamiento = leeOpc("Sr. [1] o Sra. [2]", 2);
+//
+//            switch (opcTratamiento) {
+//                case 1:
+//                    nombreTripulante.setTratamiento(Tratamiento.valueOf("SR"));
+//                    break;
+//                case 2:
+//                    nombreTripulante.setTratamiento(Tratamiento.valueOf("SRA"));
+//                    break;
+//            }
+//
+//            String nombres = leeString("Nombres");
+//            nombreTripulante.setNombres(nombres);
+//
+//            String apellidoPaterno = leeString("Apellido Paterno");
+//            nombreTripulante.setApellidoPaterno(apellidoPaterno);
+//
+//            String apellidoMaterno = leeString("Apellido Materno");
+//            nombreTripulante.setApellidoMaterno(apellidoMaterno);
+//
+//            String calle = leeString("Calle");
+//            int numCalle = leeInt("Numero");
+//            String Comuna = leeString("Comuna");
+//
+//            Direccion dir = new Direccion(calle, numCalle, Comuna);
+//
+//            switch (opcTripulante) {
+//                case 1:
+//                    ControladorEmpresas.getInstance().hireAuxiliarForEmpresa(rutEmpresa, idPersona, nombreTripulante, dir);
+//                    System.out.println("\n...:::: Auxiliar contratado exitosamente ::::....");
+//                    break;
+//                case 2:
+//                    ControladorEmpresas.getInstance().hireConductorForEmpresa(rutEmpresa, idPersona, nombreTripulante, dir);
+//                    System.out.println("\n...:::: Conductor contratado exitosamente ::::....");
+//                    break;
+//            }
+//        } catch (SVPException e) {
+//            System.out.println("\t\t...::: Error : " + e.getMessage());
+//        }
     }
 
 
@@ -257,30 +258,30 @@ public class UISVP {
         //Interface Grafica
         GUICreaBus.display();
 
-        System.out.println("...:::: Creando un nuevo Bus ::::....");
-
-        String patente = leeString("Patente");
-
-        do {
-            if (!esPatenteAlfanumerica(patente)) {
-                System.out.println("La Patente debe ser alfanumerica");
-                patente = leeString("Patente");
-            }
-        } while (!esPatenteAlfanumerica(patente));
-
-        String marca = leeString("Marca");
-        String modelo = leeString("Modelo");
-        int nroAsientos = leeInt("Numero de asientos");
-
-        System.out.println(":::: Dato de la empresa");
-        Rut rutEmpresa = Rut.of(leeString("R.U.T"));
-
-        try {
-            ControladorEmpresas.getInstance().createBus(patente, marca, modelo, nroAsientos, rutEmpresa);
-            System.out.println("...:::: Bus guardado exitosamente ::::....");
-        } catch (SVPException e) {
-            System.err.println("..:: Error : " + e.getMessage());
-        }
+//        System.out.println("...:::: Creando un nuevo Bus ::::....");
+//
+//        String patente = leeString("Patente");
+//
+//        do {
+//            if (!esPatenteAlfanumerica(patente)) {
+//                System.out.println("La Patente debe ser alfanumerica");
+//                patente = leeString("Patente");
+//            }
+//        } while (!esPatenteAlfanumerica(patente));
+//
+//        String marca = leeString("Marca");
+//        String modelo = leeString("Modelo");
+//        int nroAsientos = leeInt("Numero de asientos");
+//
+//        System.out.println(":::: Dato de la empresa");
+//        Rut rutEmpresa = Rut.of(leeString("R.U.T"));
+//
+//        try {
+//            ControladorEmpresas.getInstance().createBus(patente, marca, modelo, nroAsientos, rutEmpresa);
+//            System.out.println("...:::: Bus guardado exitosamente ::::....");
+//        } catch (SVPException e) {
+//            System.err.println("..:: Error : " + e.getMessage());
+//        }
     }
 
 
@@ -780,35 +781,36 @@ public class UISVP {
     }
 
     private void listVentasEmpresas() {
-        try {
-            System.out.println("...:::: Listado de ventas de una empresa ::::....\n");
-
-            String rut = leeString("R.U.T");
-            String[][] lista = ControladorEmpresas.getInstance().listVentasEmpresa(Rut.of(rut));
-
-
-            if (lista.length != 0) {
-
-                System.out.printf(" *-------------*-----------*---------------*----------------*%n");
-                System.out.printf(" | FECHA       | TIPO      | MONTO PAGADO  |      TIPO PAGO |%n");
-                System.out.printf(" *-------------*-----------*---------------*----------------*%n");
-
-                DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                for (int i = 0; i < lista.length; i++) {
-                    String fechaOriginal = lista[i][0];
-                    LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
-                    String fechaFormateada = fecha.format(nuevoFormato);
-                    System.out.printf(" | %-10s  | %-8s  | %-8s      | %-14s |%n",
-                            fechaFormateada, lista[i][1], "$" + lista[i][2], "Pago " + lista[i][3]);
-                    System.out.printf(" *-------------*-----------*---------------*----------------*%n");
-                }
-            } else {
-                System.out.println("...::: No existen ventas registradas en la empresa");
-            }
-        } catch (SVPException e) {
-            System.out.println("...::: Error : " + e.getMessage());
-        }
+        GUIListaVentasEmpresas.display();
+//        try {
+//            System.out.println("...:::: Listado de ventas de una empresa ::::....\n");
+//
+//            String rut = leeString("R.U.T");
+//            String[][] lista = ControladorEmpresas.getInstance().listVentasEmpresa(Rut.of(rut));
+//
+//
+//            if (lista.length != 0) {
+//
+//                System.out.printf(" *-------------*-----------*---------------*----------------*%n");
+//                System.out.printf(" | FECHA       | TIPO      | MONTO PAGADO  |      TIPO PAGO |%n");
+//                System.out.printf(" *-------------*-----------*---------------*----------------*%n");
+//
+//                DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//                DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//                for (int i = 0; i < lista.length; i++) {
+//                    String fechaOriginal = lista[i][0];
+//                    LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
+//                    String fechaFormateada = fecha.format(nuevoFormato);
+//                    System.out.printf(" | %-10s  | %-8s  | %-8s      | %-14s |%n",
+//                            fechaFormateada, lista[i][1], "$" + lista[i][2], "Pago " + lista[i][3]);
+//                    System.out.printf(" *-------------*-----------*---------------*----------------*%n");
+//                }
+//            } else {
+//                System.out.println("...::: No existen ventas registradas en la empresa");
+//            }
+//        } catch (SVPException e) {
+//            System.out.println("...::: Error : " + e.getMessage());
+//        }
     }
 
     private void pagaVentaPasajes(String idDocumento, TipoDocumento tipo) {
