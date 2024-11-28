@@ -57,7 +57,7 @@ public class Rut implements IdPersona, Serializable {
     //---------Metodo rut-----------
     public static Rut of(String rutConDv) {
         boolean matches = rutConDv.matches("\\d{1,2}\\.\\d{3}\\.\\d{3}-[0-9Kk]");
-        if(matches){
+        if(!matches){
             throw new SVPException("El Formato del rut no es Correcto(xx.xxx.xxx-x)");
         }
         char[] toChar = rutConDv.toCharArray();
