@@ -25,7 +25,10 @@ public class GUICreaBus extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         String[][] empresa = ControladorEmpresas.getInstance().listEmpresas();
-
+        for (int i = 0; i < empresa.length; i++) {
+            comboBoxRut.addItem(empresa[i][0]);
+            comboBoxNombre.addItem(empresa[i][1]);
+        }
         ordenarRut(empresa, comboBoxRut, comboBoxNombre);
         ordenarRut(empresa, comboBoxNombre, comboBoxRut);
 
