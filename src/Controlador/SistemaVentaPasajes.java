@@ -329,11 +329,12 @@ public class SistemaVentaPasajes implements Serializable {
 
     public String[][] listVentas() {
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return ventas.stream()
                 .map(venta -> new String[]{
                         String.valueOf(venta.getIdDocumento()),
                         String.valueOf(venta.getTipo()),
-                        String.valueOf(venta.getFecha()),
+                        venta.getFecha().format(dtf),
                         String.valueOf(venta.getCliente().getIdPersona()),
                         String.valueOf(venta.getCliente().getNombreCompleto()),
                         String.valueOf(venta.getPasajes().length),
@@ -362,7 +363,7 @@ public class SistemaVentaPasajes implements Serializable {
 
         return viajes.stream()
                 .map(viaje -> new String[]{
-                        String.valueOf(viaje.getFecha()),
+                        viaje.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                         String.valueOf(viaje.getHora()),
                         String.format("%02d:%02d", viaje.getFechaHoraTermino().getHour(), viaje.getFechaHoraTermino().getMinute()),
                         String.valueOf(viaje.getPrecio()),
@@ -412,6 +413,9 @@ public class SistemaVentaPasajes implements Serializable {
 
     }
 
+
+
+
     // metodo no esta en el UML
     // cambiar nombre a genearte PasajesVenta y cambiar retorno por void
     // Genera un archivo de texto con los pasajes
@@ -443,6 +447,10 @@ public class SistemaVentaPasajes implements Serializable {
 
         return resultado.toArray(new String[0]);
     }
+
+
+
+
 
     public void generatePasajesVenta(String idDocumento, TipoDocumento tipo) throws SVPException {
 

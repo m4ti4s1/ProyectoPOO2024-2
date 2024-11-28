@@ -15,6 +15,7 @@ import Excepciones.SVPException;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -229,10 +230,11 @@ public class ControladorEmpresas implements Serializable {
 
     public String[][] listVentasEmpresa(Rut rut) throws SVPException {
         Empresa empresa = findEmpresa(rut).orElseThrow(() -> new SVPException("No existe empresa con el rut indicado"));
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         return Arrays.stream(empresa.getVentas())
                 .map(venta -> new String[]{
-                        String.valueOf(venta.getFecha()),
+                        venta.getFecha().format(dtf),
                         String.valueOf(venta.getTipo()),
                         String.valueOf(venta.getMontoPagado()),
                         String.valueOf(venta.getTipoPago())
