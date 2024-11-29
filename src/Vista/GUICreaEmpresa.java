@@ -15,6 +15,10 @@ public class GUICreaEmpresa extends JDialog {
     private JTextField nombretx;
     private JTextField urltx;
     private JLabel advertencia;
+    private JLabel rutTexto;
+    private JLabel nomTexto;
+    private JLabel urlTexto;
+    private JLabel imagenytitulo;
     private JLabel advertencianom;
 
     public GUICreaEmpresa() {
