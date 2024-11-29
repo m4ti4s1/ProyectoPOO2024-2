@@ -49,7 +49,7 @@ public class GUIContrataTripulante extends JDialog {
         conductorRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TipoTripulante = "Tripulante";
+                TipoTripulante = "CONDUCTOR";
             }
         });
         auxiliarRadioButton.addActionListener(new ActionListener() {
@@ -167,9 +167,9 @@ public class GUIContrataTripulante extends JDialog {
                     ControladorEmpresas.getInstance().hireAuxiliarForEmpresa(rutEmpresa, idPersona, nombre, direccion);
                     JOptionPane.showMessageDialog(this, "Auxiliar Creado Exitosamente ", "Creacion Auxiliar", JOptionPane.INFORMATION_MESSAGE);
                     break;
-                case "TRIPULANTE":
+                case "CONDUCTOR":
                     ControladorEmpresas.getInstance().hireConductorForEmpresa(rutEmpresa, idPersona, nombre, direccion);
-                    JOptionPane.showMessageDialog(this, "Tripulante Creado Exitosamente ", "Creacion Tripulante", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Conductor Creado Exitosamente ", "Creacion Conductor", JOptionPane.INFORMATION_MESSAGE);
 
                     break;
             }
