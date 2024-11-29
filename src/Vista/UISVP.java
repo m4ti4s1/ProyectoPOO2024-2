@@ -642,8 +642,6 @@ public class UISVP {
     }
 
     private void listVentas() {
-        DateTimeFormatter formatoOriginal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter nuevoFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         String[][] listaVentas = SistemaVentaPasajes.getInstance().listVentas();
 
@@ -655,12 +653,9 @@ public class UISVP {
             System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
 
             for (int i = 0; i < listaVentas.length; i++) {
-                String fechaOriginal = listaVentas[i][2];
-                LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
-                String fechaFormateada = fecha.format(nuevoFormato);
 
                 System.out.printf(" |      %-5s | %-7s  | %-10s |    %-5s | %-32s |            %-2s|       %-6s |%n",
-                        listaVentas[i][0], listaVentas[i][1], fechaFormateada, listaVentas[i][3], listaVentas[i][4], listaVentas[i][5], "$" + listaVentas[i][6]);
+                        listaVentas[i][0], listaVentas[i][1], listaVentas[i][2], listaVentas[i][3], listaVentas[i][4], listaVentas[i][5], "$" + listaVentas[i][6]);
                 System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
             }
         } else {
