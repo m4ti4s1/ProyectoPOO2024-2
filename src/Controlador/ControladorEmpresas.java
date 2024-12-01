@@ -94,7 +94,7 @@ public class ControladorEmpresas implements Serializable {
             throw new SVPException("No existe empresa con el rut indicado ");
         }
         if(findConductor(id, rutEmp).isPresent()){
-            throw new SVPException("Ya está contratado conductor/auxiliar con el id dado en la empresa señalada ");
+            throw new SVPException("Ya está contratado conductor con el id dado en la empresa señalada ");
         }
         empresa.get().addConductor(id,nom,dir);
     }
@@ -112,7 +112,7 @@ public class ControladorEmpresas implements Serializable {
 
 
         if(findAuxliar(id, rutEmp).isPresent()) {
-            throw new SVPException("Ya está contratado conductor/auxiliar con el id dado en la empresa señalada ");
+            throw new SVPException("Ya está contratado auxiliar con el id dado en la empresa señalada ");
         }
 
         empresa.get().addAuxiliar(id,nom,dir);
