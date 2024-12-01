@@ -49,19 +49,17 @@ public class ControladorEmpresas implements Serializable {
 
     // todo Arreglar clase Bus, tiene que tener empresa
     public void createBus(String patente, String marca, String modelo, int nroAsientos, Rut rutEmp) throws SVPException {
-
-        Empresa empresa = findEmpresa(rutEmp).orElseThrow(() -> new SVPException("No existe empresa con el rut indicado"));
+        Empresa empresa = findEmpresa(rutEmp)
+                .orElseThrow(() -> new SVPException("No existe empresa con el rut indicado"));
+        if (findBus(patente).isPresent()) {
+            throw new SVPException("Ya existe bus con la patente indicada");
+        }
 
         Bus bus = new Bus(patente, nroAsientos, empresa);
         bus.setMarca(marca);
         bus.setModelo(modelo);
-
-        if (findBus(patente).isEmpty()) {
-            //logica para bus que ya existe
-            buses.add(bus);
-        } else {
-            throw new SVPException("Ya existe bus con la patente indicada");
-        }
+        buses.add(bus);
+        empresa.addBus(bus);
     }
 
 
@@ -70,13 +68,13 @@ public class ControladorEmpresas implements Serializable {
 
     public void createTerminal(String nombre,Direccion direccion)throws SVPException {
 
+        if(findTerminalPorComuna(direccion.getComuna()).isPresent()) {
+            throw new SVPException("Ya existe terminal en la comuna indicada");
+        }
         if(findTerminal(nombre).isPresent()) {
             throw new SVPException("Ya existe Terminal con el nombre indicado");
         }
 
-        if(findTerminalPorComuna(direccion.getComuna()).isPresent()) {
-            throw new SVPException("Ya existe terminal en la comuna indicada");
-        }
 
         // Si pasa ambas verificaciones, crea y añade el terminal
         Terminal terminal =new Terminal(nombre,direccion);
