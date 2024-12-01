@@ -146,7 +146,7 @@
                 </constraints>
                 <properties>
                   <font name="Calibri" size="16" style="1"/>
-                  <text value="Número de Aisentos:"/>
+                  <text value="Número de Asientos:"/>
                 </properties>
               </component>
               <component id="da200" class="javax.swing.JTextField" binding="numAsientostx">

@@ -82,7 +82,7 @@ public class GUICreaBus extends JDialog {
             int numAsientos = Integer.parseInt(numAsientostx.getText());
             Rut rut = Rut.of(comboBoxRut.getSelectedItem() + "");
             ControladorEmpresas.getInstance().createBus(patente, marca, modelo, numAsientos, rut);
-            JOptionPane.showMessageDialog(null,"Se ah creado el Bus con éxito");
+            JOptionPane.showMessageDialog(this,"Se ah creado el Bus con éxito","Creacion Exitosa",JOptionPane.INFORMATION_MESSAGE);
         } catch (SVPException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
          return;
