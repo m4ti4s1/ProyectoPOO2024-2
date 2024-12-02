@@ -631,11 +631,6 @@ public class UISVP {
             System.out.println();
 
             pagaVentaPasajes(IdDocumento, tipoDocumento);
-
-            String[] boleta = SistemaVentaPasajes.getInstance().pasajesAImprimir(IdDocumento, tipoDocumento);
-            for (String s : boleta) {
-                System.out.println(s);
-            }
         } catch (SVPException e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -712,10 +707,10 @@ public class UISVP {
                     System.out.printf(" +---------+-----------------+-----------------------------------+-----------------------------------+-------------------+%n");
                 }
             } else {
-                System.out.println("...::: No existen pasajeros en el viaje indicado");
+                System.out.println("\n...::: No existen pasajeros en el viaje indicado");
             }
         } catch (SVPException e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -821,10 +816,10 @@ public class UISVP {
     private void generatePasajesVenta() {
         try {
 
-            System.out.println("Ingrese id de la venta: ");
+            System.out.print("Ingrese id de la venta: ");
             String id = sc.next();
 
-            System.out.println("Ingrese tipo documento de la venta: ");
+            System.out.print("\nIngrese tipo documento de la venta: ");
             TipoDocumento tipo = TipoDocumento.valueOf(sc.next().toUpperCase());
 
             SistemaVentaPasajes.getInstance().generatePasajesVenta(id, tipo);

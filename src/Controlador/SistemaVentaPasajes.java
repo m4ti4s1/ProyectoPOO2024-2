@@ -413,45 +413,6 @@ public class SistemaVentaPasajes implements Serializable {
 
     }
 
-
-
-
-    // metodo no esta en el UML
-    // cambiar nombre a genearte PasajesVenta y cambiar retorno por void
-    // Genera un archivo de texto con los pasajes
-    public String[] pasajesAImprimir(String idDocumento, TipoDocumento tipoDocumento) {
-        Optional<Venta> venta = findVenta(idDocumento, tipoDocumento);
-
-        if (venta.isEmpty()) {
-            return new String[] {"No se encontraron pasajes para la venta con ID: " + idDocumento};
-        }
-
-        ArrayList<String> resultado = new ArrayList<>();
-
-        resultado.add(":::: Imprimiendo los pasajes\n");
-        resultado.add("------------------ PASAJE ------------------");
-
-        for (Pasaje pasaje : venta.get().getPasajes()) {
-            Viaje viaje = pasaje.getViaje();
-            Pasajero pasajero = pasaje.getPasajero();
-
-            resultado.add("NUMERO DE PASAJE  : " + pasaje.getNumero());
-            resultado.add("FECHA DE VIAJE    : " + viaje.getFecha().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            resultado.add("HORA DE VIAJE     : " + viaje.getHora().format(DateTimeFormatter.ofPattern("HH:mm")));
-            resultado.add("PATENTE BUS       : " + viaje.getBus().getPatente());
-            resultado.add("ASIENTO           : " + pasaje.getAsiento());
-            resultado.add("RUT/PASAPORTE     : " + pasajero.getIdPersona());
-            resultado.add("NOMBRE PASAJERO   : " + pasajero.getNombreCompleto().toString());
-            resultado.add("--------------------------------------------\n");
-        }
-
-        return resultado.toArray(new String[0]);
-    }
-
-
-
-
-
     public void generatePasajesVenta(String idDocumento, TipoDocumento tipo) throws SVPException {
 
         Optional<Venta> venta = findVenta(idDocumento, tipo);
