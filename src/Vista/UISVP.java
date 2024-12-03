@@ -677,8 +677,6 @@ public class UISVP {
             System.out.printf(" *--------------*--------------*---------------*--------*----------------*---------------*----------------*-----------------*%n");
 
             for (String[] strings : lista) {
-                System.out.printf(" | %-10s   |       %-6s |        %-6s | %-6s |             %-2s | %-8s      | %-12s   | %-12s    |%n",
-                        strings[0], strings[1], strings[2], strings[3], strings[4], strings[5], strings[6], strings[7]);
                 String fechaOriginal = strings[0];
                 //LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
                 //String fechaFormateada = fecha.format(nuevoFormato);
