@@ -648,9 +648,18 @@ public class UISVP {
             System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
 
             for (int i = 0; i < listaVentas.length; i++) {
+<<<<<<< Updated upstream
 
                 System.out.printf(" |      %-5s | %-7s  | %-10s |    %-5s | %-32s |            %-2s|       %-6s |%n",
                         listaVentas[i][0], listaVentas[i][1], listaVentas[i][2], listaVentas[i][3], listaVentas[i][4], listaVentas[i][5], "$" + listaVentas[i][6]);
+=======
+                String fechaOriginal = listaVentas[i][2];
+                //LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
+                //String fechaFormateada = fecha.format(nuevoFormato);
+
+                System.out.printf(" |      %-5s | %-7s  | %-10s |    %-5s | %-32s |            %-2s|       %-6s |%n",
+                        listaVentas[i][0], listaVentas[i][1], fechaOriginal, listaVentas[i][3], listaVentas[i][4], listaVentas[i][5], "$" + listaVentas[i][6]);
+>>>>>>> Stashed changes
                 System.out.printf(" +------------+----------+------------+-----------------+----------------------------------+--------------+--------------+%n");
             }
         } else {
@@ -671,8 +680,16 @@ public class UISVP {
             System.out.printf(" *--------------*--------------*---------------*--------*----------------*---------------*----------------*-----------------*%n");
 
             for (String[] strings : lista) {
+<<<<<<< Updated upstream
                 System.out.printf(" | %-10s   |       %-6s |        %-6s | %-6s |             %-2s | %-8s      | %-12s   | %-12s    |%n",
                         strings[0], strings[1], strings[2], strings[3], strings[4], strings[5], strings[6], strings[7]);
+=======
+                String fechaOriginal = strings[0];
+                //LocalDate fecha = LocalDate.parse(fechaOriginal, formatoOriginal);
+                //String fechaFormateada = fecha.format(nuevoFormato);
+                System.out.printf(" | %-10s   |       %-6s |        %-6s | %-6s |             %-2s | %-8s      | %-12s   | %-12s    |%n",
+                        fechaOriginal, strings[1], strings[2], strings[3], strings[4], strings[5], strings[6], strings[7]);
+>>>>>>> Stashed changes
                 System.out.printf(" *--------------*--------------*---------------*--------*----------------*---------------*----------------*-----------------*%n");
             }
         } else {
