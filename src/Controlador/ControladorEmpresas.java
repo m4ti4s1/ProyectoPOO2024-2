@@ -151,7 +151,7 @@ public class ControladorEmpresas implements Serializable {
 
     public String[][] listLlegadaSalidasTerminal(String nombre, LocalDate fecha) throws SVPException {
 
-        Terminal terminal = findTerminal(nombre).orElseThrow(() -> new SVPException("No existe terminal con el nombre indicado"));
+        Terminal terminal = findTerminal(nombre).orElseThrow(() -> new SVPException("\nNo existe terminal con el nombre indicado"));
 
 
         List<String[]> viajes = Stream.concat(

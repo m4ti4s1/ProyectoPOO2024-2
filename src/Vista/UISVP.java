@@ -764,7 +764,7 @@ public class UISVP {
             }
 
         } catch (SVPException e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
