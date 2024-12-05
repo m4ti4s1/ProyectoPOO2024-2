@@ -191,7 +191,7 @@ public class UISVP {
 
     private void createCliente() {
 
-        System.out.println("...::: Crear un nuevo Modelo.Cliente :::...\n");
+        System.out.println("...::: Crear un nuevo Cliente :::...\n");
 
         int tipoDocumento = leeOpc("Rut[1] o Pasaporte[2]", 2);
 
@@ -398,7 +398,7 @@ public class UISVP {
                 break;
         }
 
-        System.out.println("\n\n:::: Datos del Cliente\n\n");
+        System.out.println("\n\n:::: Datos del Cliente\n");
         int op = leeOpc("Rut[1] o Pasaporte[2]", 2);
 
         IdPersona idCliente = null;
@@ -517,7 +517,7 @@ public class UISVP {
 
                             Nombre newPasajero = new Nombre();
                             System.out.println("..: Cree al pasajero :..");
-                            System.out.println("\n...::: Datos Modelo.Pasajero :::...");
+                            System.out.println("\n...::: Datos Pasajero :::...");
 
                             int opcTratamiento = leeOpc("Sr.[1] o Sra.[2]", 2);
 
@@ -828,8 +828,14 @@ public class UISVP {
             System.out.print("Ingrese id de la venta: ");
             String id = sc.next();
 
-            System.out.print("\nIngrese tipo documento de la venta: ");
-            TipoDocumento tipo = TipoDocumento.valueOf(sc.next().toUpperCase());
+            System.out.print("Tipo Documento : [1] Boleta [2] Factura : ");
+            int tipoOpc = elegirOpc(2);
+
+            TipoDocumento tipo = switch (tipoOpc) {
+                case 1 -> TipoDocumento.BOLETA;
+                case 2 -> TipoDocumento.FACTURA;
+                default -> null;
+            };
 
             SistemaVentaPasajes.getInstance().generatePasajesVenta(id, tipo);
         } catch (SVPException e) {
