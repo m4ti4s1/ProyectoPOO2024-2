@@ -43,6 +43,7 @@ public class GUIContrataTripulante extends JDialog {
             comboBoxnom.addItem(empresas[i][1]);
         }
         ordenarRut(empresas, comboBoxrut, comboBoxnom);
+
         ButtonGroup grupotripulante = new ButtonGroup();
         grupotripulante.add(conductorRadioButton);
         grupotripulante.add(auxiliarRadioButton);
@@ -194,37 +195,42 @@ public class GUIContrataTripulante extends JDialog {
 
     }
 
-    public static void ordenarRut(String[][] empresas, JComboBox<String> comboBox1, JComboBox<String> comboBox2) {
-        comboBox1.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    String seleccion = (String) comboBox1.getSelectedItem();
-                    for (int i = 0; i < empresas[0].length; i++) {
-                        if (empresas[0][i].equalsIgnoreCase(seleccion)) {
-                            comboBox2.setSelectedItem(empresas[1][i]);
-                            break;
-                        }
-                    }
-                }
-            }
-        });
-        comboBox2.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    String seleccion = (String) comboBox2.getSelectedItem();
-                    for (int i = 0; i < empresas[1].length; i++) {
-                        if (empresas[1][i].equalsIgnoreCase(seleccion)) {
-                            comboBox1.setSelectedItem(empresas[0][i]);
-                            break;
-                        }
-                    }
-                }
-            }
-        });
-    }
+    private static void ordenarRut(String[][] empresas, JComboBox<String> comborut, JComboBox<String> combonom) {
 
+
+        comborut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String seleccion = (String) comborut.getSelectedItem();
+                combonom.setSelectedItem(null);
+                for (int i = 0; i < empresas.length; i++) {
+                    if (empresas[i][0].equalsIgnoreCase(seleccion)) {
+                        combonom.setSelectedItem(empresas[i][1]);
+                        break;
+                    }
+                }
+            }
+        });
+
+
+        combonom.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String seleccion = (String) combonom.getSelectedItem();
+                comborut.setSelectedItem(null);
+                for (int i = 0; i < empresas.length; i++) {
+                    if (empresas[i][1].equalsIgnoreCase(seleccion)) {
+                        comborut.setSelectedItem(empresas[i][0]);
+                        break;
+                    }
+                }
+            }
+        });
+
+
+
+
+    }
     private boolean entradaCorrectas() {
         return numDoc.getText().trim().isEmpty() ||
                 TipoTripulante == null ||

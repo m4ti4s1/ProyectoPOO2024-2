@@ -95,37 +95,40 @@ public class GUIListaVentasEmpresas extends JDialog {
     }
 
     //--------------------------------------------------------------------------------------------------------
-    public static void ordenarRut(String[][] empresas, JComboBox<String> comboBox1, JComboBox<String> comboBox2) {
+    private static void ordenarRut(String[][] empresas, JComboBox<String> comborut, JComboBox<String> combonom) {
 
-        comboBox1.addItemListener(new ItemListener() {
+
+        comborut.addActionListener(new ActionListener() {
             @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    String seleccion = (String) comboBox1.getSelectedItem();
-
-                    for (int i = 0; i < empresas[0].length; i++) {
-                        if (empresas[0][i].equalsIgnoreCase(seleccion)) {
-                            comboBox2.setSelectedItem(empresas[1][i]);
-                            break;
-                        }
+            public void actionPerformed(ActionEvent e) {
+                String seleccion = (String) comborut.getSelectedItem();
+                combonom.setSelectedItem(null);
+                for (int i = 0; i < empresas.length; i++) {
+                    if (empresas[i][0].equalsIgnoreCase(seleccion)) {
+                        combonom.setSelectedItem(empresas[i][1]);
+                        break;
                     }
                 }
             }
         });
 
-        comboBox2.addItemListener(new ItemListener() {
+
+        combonom.addActionListener(new ActionListener() {
             @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    String seleccion = (String) comboBox2.getSelectedItem();
-                    for (int i = 0; i < empresas[1].length; i++) {
-                        if (empresas[1][i].equalsIgnoreCase(seleccion)) {
-                            comboBox1.setSelectedItem(empresas[0][i]);
-                            break;
-                        }
+            public void actionPerformed(ActionEvent e) {
+                String seleccion = (String) combonom.getSelectedItem();
+                comborut.setSelectedItem(null);
+                for (int i = 0; i < empresas.length; i++) {
+                    if (empresas[i][1].equalsIgnoreCase(seleccion)) {
+                        comborut.setSelectedItem(empresas[i][0]);
+                        break;
                     }
                 }
             }
         });
+
+
+
+
     }
 }
