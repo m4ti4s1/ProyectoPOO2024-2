@@ -95,9 +95,10 @@ public class SistemaVentaPasajes implements Serializable {
         // ctrlEmpresas.findAuxliar(idTripulantes[0], )
         Auxiliar auxiliar = ctrlEmpresas.findAuxliar(idTripulantes[0], Rut.of(rutEmpresa))
                     .orElseThrow(() -> new SVPException("No existe Auxiliar con el id indicado en la empresa con el rut indicado"));
+
         Conductor[] conductores = new Conductor[idTripulantes.length - 1];
-        for (int i = 1; i < conductores.length; i++) {
-            conductores[i] = ctrlEmpresas.findConductor(idTripulantes[i], Rut.of(rutEmpresa))
+        for (int i = 1; i < idTripulantes.length; i++) {
+            conductores[i-1] = ctrlEmpresas.findConductor(idTripulantes[i], Rut.of(rutEmpresa))
                     .orElseThrow(() -> new SVPException("No existe conductor con el id indicado en la empresa con el rut indicado"));
         }
 
