@@ -379,7 +379,7 @@ public class UISVP {
 
         LocalDate fechaVenta = LocalDate.now();
 
-        String fechaViaje = leeString("Fecha de viaje[dd/mm/yyyy]");
+        String fechaViaje = leeString("Fecha de viaje [dd/mm/yyyy]");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fechaV = LocalDate.parse(fechaViaje, formatter);
         // Salida
@@ -406,30 +406,15 @@ public class UISVP {
             case 1:
                 String idRUT = leeString("R.U.T");
 
-                if (null == SistemaVentaPasajes.getInstance().getNombreCliente(Rut.of(idRUT))) {
-                    System.out.println(":::: Cliente no Encontrado");
-                    return;
-                } else {
-                    System.out.printf("%30s : %s", "Nombre Cliente", SistemaVentaPasajes.getInstance().getNombreCliente(Rut.of(idRUT)));
-                    idCliente = Rut.of(idRUT);
-                    break;
-                }
+
+                idCliente = Rut.of(idRUT);
+                break;
 
             case 2:
                 String num = leeString("Numero Pasaporte");
                 String nacionalidad = leeString("Nacionalidad");
-
-                if (null == SistemaVentaPasajes.getInstance().getNombreCliente(Pasaporte.of(num, nacionalidad))) {
-                    System.out.println("\nNo se ah Encontrado al Usuario");
-                    return;
-                } else {
-
-                    System.out.println("\nNombre Cliente : " + SistemaVentaPasajes.getInstance().getNombreCliente(Pasaporte.of(num, nacionalidad)));
-
-                    idCliente = Pasaporte.of(num, nacionalidad);
-                    break;
-                }
-
+                idCliente = Pasaporte.of(num, nacionalidad);
+                break;
 
         }
 
