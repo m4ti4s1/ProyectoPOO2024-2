@@ -1,8 +1,9 @@
 package Utilidades;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Nombre {
+public class Nombre implements Serializable {
 
     private Tratamiento tratamiento;
     private String nombres;

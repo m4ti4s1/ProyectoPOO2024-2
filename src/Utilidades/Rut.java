@@ -1,8 +1,11 @@
 package Utilidades;
 
+import Excepciones.SVPException;
+
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Rut implements IdPersona {
+public class Rut implements IdPersona, Serializable {
     private int numero;
     private char dv;
 
@@ -51,12 +54,12 @@ public class Rut implements IdPersona {
     public char getDv() {
         return dv;
     }
-    //?---------Metodo rut-----------
+    //---------Metodo rut-----------
     public static Rut of(String rutConDv) {
-        if(!VerificarRut(rutConDv)){
-            return null;
+        boolean matches = rutConDv.matches("\\d{1,2}\\.\\d{3}\\.\\d{3}-[0-9Kk]");
+        if(!matches){
+            throw new SVPException("El Formato del rut no es Correcto(xx.xxx.xxx-x)");
         }
-
         char[] toChar = rutConDv.toCharArray();
         int cont=0;
         char[] rutvacio=new char[20];
@@ -76,69 +79,6 @@ public class Rut implements IdPersona {
 
         return new Rut(numerorut,rutvacio[cont-1]);
 
-    }
-
-    //?--------- FUNCIONES Para  RUT OF-----------
-
-    private static boolean VerificarRut(String rutConDv) {
-        for (int i = 0; i < rutConDv.length() - 1; i++) {
-            if (!Character.isDigit(rutConDv.charAt(i)) && rutConDv.charAt(i) != '.' && rutConDv.charAt(i) != '-') {
-                System.out.println("Error: El RUT contiene caracteres no permitidos.");
-                return false;
-            }
-        }
-        char[] toChar = rutConDv.toCharArray();
-        int posicion = 0;
-
-        int num = 0;
-        for (int i = 0; i < toChar.length ; i++) {
-            if (toChar[i] == '.' || toChar[i] == '-') {
-                num++;
-
-            }
-        }
-        if(num!=3){
-            System.out.println("--- El Formato No es el Correcto ---");return false;}
-        char[] rutvacio = new char[20];
-        int cont = 0;
-
-        for (int i = 0; i < toChar.length ; i++) {
-            if (toChar[i] == '-' ){
-                break;
-            }
-            if (toChar[i] != '.' ) {
-                rutvacio[cont] = toChar[i];
-                cont++;
-            }
-        }
-
-        int i = cont-1;
-        int mul = 2;
-        int sum = 0;
-        while (i >= 0) {
-            sum += (rutvacio[i]-'0') * mul;
-            i--;
-            mul++;
-            if (mul == 8) {
-                mul = 2;
-            }
-        }
-
-
-        double modulo = 11-(Math.round(sum %11));
-
-        char dvCalculado;
-        if (modulo == 11) {
-            dvCalculado = '0';
-        } else if (modulo == 10) {
-            dvCalculado = 'K';
-        } else {
-            dvCalculado = (char) (modulo + '0');
-        }
-        if(dvCalculado==toChar[toChar.length-1]){
-            return true;
-        }
-        return false;
     }
 
 }

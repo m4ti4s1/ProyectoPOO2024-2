@@ -1,14 +1,15 @@
 package Modelo;
 
-import Utilidades.Nombre;
+import Utilidades.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-public class Cliente extends Persona {
+public class Cliente extends Persona implements Serializable {
 
     private String email;
     private ArrayList<Venta> ventas;
 
-    public Cliente(Utilidades.IdPersona id, Nombre nom, String email) {
+    public Cliente(IdPersona id, Nombre nom, String email) {
         super(id, nom);
         this.email = email;
         this.ventas = new ArrayList<>();

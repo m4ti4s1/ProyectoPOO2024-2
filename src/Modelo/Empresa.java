@@ -5,10 +5,11 @@ import Utilidades.IdPersona;
 import Utilidades.Nombre;
 import Utilidades.Rut;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Empresa {
+public class Empresa implements Serializable {
     private Rut rut;
     private String nombre;
     private String url;
@@ -66,7 +67,7 @@ public class Empresa {
 
     public boolean addAuxiliar(IdPersona id, Nombre nom, Direccion dir){
         Auxiliar auxiliar = new Auxiliar (id,nom,dir);
-        if(conductores.contains(auxiliar)){
+        if(auxiliares.contains(auxiliar)){
             return false;
         }else{
             auxiliares.add(auxiliar);

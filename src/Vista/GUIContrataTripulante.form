@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Vista.GUIContrataTripulante">
+  <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
+    <constraints>
+      <xy x="48" y="54" width="526" height="703"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="94766" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <hspacer id="98af6">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+          <grid id="9538f" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="true" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="e7465" class="javax.swing.JButton" binding="buttonOK">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="OK"/>
+                </properties>
+              </component>
+              <component id="5723f" class="javax.swing.JButton" binding="buttonCancel">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Cancel"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="e3588" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="400" height="600"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="5a2d7" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Arial Black" size="20" style="1"/>
+              <icon value="icons/Tamaño128x128/registroNuevo.png"/>
+              <text value="Contratacion de Tripulante"/>
+            </properties>
+          </component>
+          <hspacer id="f74e5">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+          <vspacer id="b308f">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <grid id="a49d6" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none" title="Datos de la empresa"/>
+            <children>
+              <component id="b9617" class="javax.swing.JComboBox" binding="comboBoxrut">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+              </component>
+              <vspacer id="a4972">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <component id="2c5e9" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="16" style="1"/>
+                  <text value="R.U.T:"/>
+                </properties>
+              </component>
+              <component id="8e3f7" class="javax.swing.JComboBox" binding="comboBoxnom">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="7124c" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="16" style="1"/>
+                  <text value="Nombre:"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="789ab" layout-manager="GridLayoutManager" row-count="10" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none" title="Datos Tripulante"/>
+            <children>
+              <component id="f2cf3" class="javax.swing.JRadioButton" binding="conductorRadioButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Conductor"/>
+                </properties>
+              </component>
+              <component id="4c070" class="javax.swing.JRadioButton" binding="auxiliarRadioButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Auxiliar"/>
+                </properties>
+              </component>
+              <component id="8d987" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Tipo Tripulante:"/>
+                </properties>
+              </component>
+              <component id="d8380" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Tratamiento:"/>
+                </properties>
+              </component>
+              <component id="6f755" class="javax.swing.JRadioButton" binding="Sr">
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Sr."/>
+                </properties>
+              </component>
+              <component id="6eb0f" class="javax.swing.JRadioButton" binding="Sra">
+                <constraints>
+                  <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Sra."/>
+                </properties>
+              </component>
+              <component id="abe79" class="javax.swing.JRadioButton" binding="RUT">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="R.U.T"/>
+                </properties>
+              </component>
+              <component id="25070" class="javax.swing.JTextField" binding="numDoc">
+                <constraints>
+                  <grid row="2" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="36c98" class="javax.swing.JRadioButton" binding="PASAPORTE">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Pasaporte"/>
+                </properties>
+              </component>
+              <component id="1a20d" class="javax.swing.JComboBox" binding="Nacionalidad">
+                <constraints>
+                  <grid row="3" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value="Afganistán"/>
+                    <item value="Albania"/>
+                    <item value="Alemania"/>
+                    <item value="Andorra"/>
+                    <item value="Angola"/>
+                    <item value="Antigua y Barbuda"/>
+                    <item value="Arabia Saudita"/>
+                    <item value="Argelia"/>
+                    <item value="Argentina"/>
+                    <item value="Armenia"/>
+                    <item value="Australia"/>
+                    <item value="Austria"/>
+                    <item value="Azerbaiyán"/>
+                    <item value="Bahamas"/>
+                    <item value="Bangladés"/>
+                    <item value="Barbados"/>
+                    <item value="Baréin"/>
+                    <item value="Bélgica"/>
+                    <item value="Belice"/>
+                    <item value="Benín"/>
+                    <item value="Bielorrusia"/>
+                    <item value="Birmania"/>
+                    <item value="Bolivia"/>
+                    <item value="Bosnia y Herzegovina"/>
+                    <item value="Botsuana"/>
+                    <item value="Brasil"/>
+                    <item value="Brunéi"/>
+                    <item value="Bulgaria"/>
+                    <item value="Burkina Faso"/>
+                    <item value="Burundi"/>
+                    <item value="Bután"/>
+                    <item value="Cabo Verde"/>
+                    <item value="Camboya"/>
+                    <item value="Camerún"/>
+                    <item value="Canadá"/>
+                    <item value="Catar"/>
+                    <item value="Chad"/>
+                    <item value="Chile"/>
+                    <item value="China"/>
+                    <item value="Chipre"/>
+                    <item value="Colombia"/>
+                    <item value="Comoras"/>
+                    <item value="Corea del Norte"/>
+                    <item value="Corea del Sur"/>
+                    <item value="Costa de Marfil"/>
+                    <item value="Costa Rica"/>
+                    <item value="Croacia"/>
+                    <item value="Cuba"/>
+                    <item value="Dinamarca"/>
+                    <item value="Dominica"/>
+                    <item value="Ecuador"/>
+                    <item value="Egipto"/>
+                    <item value="El Salvador"/>
+                    <item value="Emiratos Árabes Unidos"/>
+                    <item value="Eritrea"/>
+                    <item value="Eslovaquia"/>
+                    <item value="Eslovenia"/>
+                    <item value="España"/>
+                    <item value="Estados Unidos"/>
+                    <item value="Estonia"/>
+                    <item value="Esuatini"/>
+                    <item value="Etiopía"/>
+                    <item value="Filipinas"/>
+                    <item value="Finlandia"/>
+                    <item value="Fiyi"/>
+                    <item value="Francia"/>
+                    <item value="Gabón"/>
+                    <item value="Gambia"/>
+                    <item value="Georgia"/>
+                    <item value="Ghana"/>
+                    <item value="Granada"/>
+                    <item value="Grecia"/>
+                    <item value="Guatemala"/>
+                    <item value="Guinea"/>
+                    <item value="Guinea-Bisáu"/>
+                    <item value="Guinea Ecuatorial"/>
+                    <item value="Guyana"/>
+                    <item value="Haití"/>
+                    <item value="Honduras"/>
+                    <item value="Hungría"/>
+                    <item value="India"/>
+                    <item value="Indonesia"/>
+                    <item value="Irak"/>
+                    <item value="Irán"/>
+                    <item value="Irlanda"/>
+                    <item value="Islandia"/>
+                    <item value="Islas Marshall"/>
+                    <item value="Islas Salomón"/>
+                    <item value="Israel"/>
+                    <item value="Italia"/>
+                    <item value="Jamaica"/>
+                    <item value="Japón"/>
+                    <item value="Jordania"/>
+                    <item value="Kazajistán"/>
+                    <item value="Kenia"/>
+                    <item value="Kirguistán"/>
+                    <item value="Kiribati"/>
+                    <item value="Kosovo"/>
+                    <item value="Kuwait"/>
+                    <item value="Laos"/>
+                    <item value="Lesoto"/>
+                    <item value="Letonia"/>
+                    <item value="Líbano"/>
+                    <item value="Liberia"/>
+                    <item value="Libia"/>
+                    <item value="Liechtenstein"/>
+                    <item value="Lituania"/>
+                    <item value="Luxemburgo"/>
+                    <item value="Macedonia del Norte"/>
+                    <item value="Madagascar"/>
+                    <item value="Malasia"/>
+                    <item value="Malaui"/>
+                    <item value="Maldivas"/>
+                    <item value="Malí"/>
+                    <item value="Malta"/>
+                    <item value="Marruecos"/>
+                    <item value="Mauricio"/>
+                    <item value="Mauritania"/>
+                    <item value="México"/>
+                    <item value="Micronesia"/>
+                    <item value="Moldavia"/>
+                    <item value="Mónaco"/>
+                    <item value="Mongolia"/>
+                    <item value="Montenegro"/>
+                    <item value="Mozambique"/>
+                    <item value="Namibia"/>
+                    <item value="Nauru"/>
+                    <item value="Nepal"/>
+                    <item value="Nicaragua"/>
+                    <item value="Níger"/>
+                    <item value="Nigeria"/>
+                    <item value="Noruega"/>
+                    <item value="Nueva Zelanda"/>
+                    <item value="Omán"/>
+                    <item value="Países Bajos"/>
+                    <item value="Pakistán"/>
+                    <item value="Palaos"/>
+                    <item value="Panamá"/>
+                    <item value="Papúa Nueva Guinea"/>
+                    <item value="Paraguay"/>
+                    <item value="Perú"/>
+                    <item value="Polonia"/>
+                    <item value="Portugal"/>
+                    <item value="Reino Unido"/>
+                    <item value="República Centroafricana"/>
+                    <item value="República Checa"/>
+                    <item value="República del Congo"/>
+                    <item value="República Democrática del Congo"/>
+                    <item value="República Dominicana"/>
+                    <item value="Ruanda"/>
+                    <item value="Rumania"/>
+                    <item value="Rusia"/>
+                    <item value="Samoa"/>
+                    <item value="San Cristóbal y Nieves"/>
+                    <item value="San Marino"/>
+                    <item value="San Vicente y las Granadinas"/>
+                    <item value="Santa Lucía"/>
+                    <item value="Santo Tomé y Príncipe"/>
+                    <item value="Senegal"/>
+                    <item value="Serbia"/>
+                    <item value="Seychelles"/>
+                    <item value="Sierra Leona"/>
+                    <item value="Singapur"/>
+                    <item value="Siria"/>
+                    <item value="Somalia"/>
+                    <item value="Sri Lanka"/>
+                    <item value="Sudáfrica"/>
+                    <item value="Sudán"/>
+                    <item value="Sudán del Sur"/>
+                    <item value="Suecia"/>
+                    <item value="Suiza"/>
+                    <item value="Surinam"/>
+                    <item value="Tailandia"/>
+                    <item value="Tanzania"/>
+                    <item value="Tayikistán"/>
+                    <item value="Timor Oriental"/>
+                    <item value="Togo"/>
+                    <item value="Tonga"/>
+                    <item value="Trinidad y Tobago"/>
+                    <item value="Túnez"/>
+                    <item value="Turkmenistán"/>
+                    <item value="Turquía"/>
+                    <item value="Tuvalu"/>
+                    <item value="Ucrania"/>
+                    <item value="Uganda"/>
+                    <item value="Uruguay"/>
+                    <item value="Uzbekistán"/>
+                    <item value="Vanuatu"/>
+                    <item value="Venezuela"/>
+                    <item value="Vietnam"/>
+                    <item value="Yemen"/>
+                    <item value="Yibuti"/>
+                    <item value="Zambia"/>
+                    <item value="Zimbabue"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="669d0" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Nacionalidad:"/>
+                </properties>
+              </component>
+              <component id="a9dd0" class="javax.swing.JTextField" binding="nomtx">
+                <constraints>
+                  <grid row="4" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="95e77" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Nombre:"/>
+                </properties>
+              </component>
+              <component id="e8389" class="javax.swing.JTextField" binding="paternotx">
+                <constraints>
+                  <grid row="5" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="872c4" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Apellido Paterno"/>
+                </properties>
+              </component>
+              <component id="196bc" class="javax.swing.JTextField" binding="maternotx">
+                <constraints>
+                  <grid row="6" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="d9771" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Apellido Materno"/>
+                </properties>
+              </component>
+              <component id="cb9d4" class="javax.swing.JTextField" binding="calle">
+                <constraints>
+                  <grid row="7" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="86e32" class="javax.swing.JTextField" binding="numCalle">
+                <constraints>
+                  <grid row="8" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="eab0f" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Calle:"/>
+                </properties>
+              </component>
+              <component id="f0ad7" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Número:"/>
+                </properties>
+              </component>
+              <component id="445b0" class="javax.swing.JComboBox" binding="Comuna">
+                <constraints>
+                  <grid row="9" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value="Algarrobo"/>
+                    <item value="Alhué"/>
+                    <item value="Alto del Carmen"/>
+                    <item value="Alto Hospicio"/>
+                    <item value="Ancud"/>
+                    <item value="Andacollo"/>
+                    <item value="Angol"/>
+                    <item value="Antofagasta"/>
+                    <item value="Antártica"/>
+                    <item value="Arauco"/>
+                    <item value="Arica"/>
+                    <item value="Bulnes"/>
+                    <item value="Cabildo"/>
+                    <item value="Cabo de Hornos"/>
+                    <item value="Calama"/>
+                    <item value="Calbuco"/>
+                    <item value="Caldera"/>
+                    <item value="Calera"/>
+                    <item value="Calera de Tango"/>
+                    <item value="Calle Larga"/>
+                    <item value="Camiña"/>
+                    <item value="Canela"/>
+                    <item value="Carahue"/>
+                    <item value="Cartagena"/>
+                    <item value="Casablanca"/>
+                    <item value="Castro"/>
+                    <item value="Catemu"/>
+                    <item value="Cerrillos"/>
+                    <item value="Cerro Navia"/>
+                    <item value="Chaitén"/>
+                    <item value="Chanco"/>
+                    <item value="Chépica"/>
+                    <item value="Chiguayante"/>
+                    <item value="Chile Chico"/>
+                    <item value="Chillán"/>
+                    <item value="Chillán Viejo"/>
+                    <item value="Cholchol"/>
+                    <item value="Cobquecura"/>
+                    <item value="Cochamó"/>
+                    <item value="Codegua"/>
+                    <item value="Coelemu"/>
+                    <item value="Coihueco"/>
+                    <item value="Coinco"/>
+                    <item value="Colbún"/>
+                    <item value="Colchane"/>
+                    <item value="Colina"/>
+                    <item value="Collipulli"/>
+                    <item value="Coltauco"/>
+                    <item value="Combarbalá"/>
+                    <item value="Concón"/>
+                    <item value="Concepción"/>
+                    <item value="Conchalí"/>
+                    <item value="Constitución"/>
+                    <item value="Contulmo"/>
+                    <item value="Coronel"/>
+                    <item value="Corral"/>
+                    <item value="Cunco"/>
+                    <item value="Curacaví"/>
+                    <item value="Curacautín"/>
+                    <item value="Curanilahue"/>
+                    <item value="Curarrehue"/>
+                    <item value="Curepto"/>
+                    <item value="Curicó"/>
+                    <item value="Dalcahue"/>
+                    <item value="Diego de Almagro"/>
+                    <item value="Doñihue"/>
+                    <item value="El Bosque"/>
+                    <item value="El Carmen"/>
+                    <item value="El Monte"/>
+                    <item value="El Quisco"/>
+                    <item value="El Tabo"/>
+                    <item value="Empedrado"/>
+                    <item value="Ercilla"/>
+                    <item value="Estación Central"/>
+                    <item value="Freire"/>
+                    <item value="Fresia"/>
+                    <item value="Frutillar"/>
+                    <item value="Futrono"/>
+                    <item value="Galvarino"/>
+                    <item value="General Lagos"/>
+                    <item value="Gorbea"/>
+                    <item value="Graneros"/>
+                    <item value="Guaitecas"/>
+                    <item value="Hijuelas"/>
+                    <item value="Hualaihué"/>
+                    <item value="Hualañé"/>
+                    <item value="Hualpén"/>
+                    <item value="Hualqui"/>
+                    <item value="Huara"/>
+                    <item value="Huechuraba"/>
+                    <item value="Illapel"/>
+                    <item value="Independencia"/>
+                    <item value="Iquique"/>
+                    <item value="Isla de Maipo"/>
+                    <item value="Isla de Pascua"/>
+                    <item value="Juan Fernández"/>
+                    <item value="La Cisterna"/>
+                    <item value="La Cruz"/>
+                    <item value="La Estrella"/>
+                    <item value="La Florida"/>
+                    <item value="La Granja"/>
+                    <item value="La Higuera"/>
+                    <item value="La Ligua"/>
+                    <item value="La Pintana"/>
+                    <item value="La Reina"/>
+                    <item value="La Serena"/>
+                    <item value="La Unión"/>
+                    <item value="Lago Ranco"/>
+                    <item value="Lago Verde"/>
+                    <item value="Laja"/>
+                    <item value="Lampa"/>
+                    <item value="Lanco"/>
+                    <item value="Las Cabras"/>
+                    <item value="Las Condes"/>
+                    <item value="Lautaro"/>
+                    <item value="Lebu"/>
+                    <item value="Licantén"/>
+                    <item value="Limache"/>
+                    <item value="Linares"/>
+                    <item value="Litueche"/>
+                    <item value="Llanquihue"/>
+                    <item value="Llay-Llay"/>
+                    <item value="Lo Barnechea"/>
+                    <item value="Lo Espejo"/>
+                    <item value="Lo Prado"/>
+                    <item value="Lolol"/>
+                    <item value="Loncoche"/>
+                    <item value="Longaví"/>
+                    <item value="Los Álamos"/>
+                    <item value="Los Andes"/>
+                    <item value="Los Ángeles"/>
+                    <item value="Los Lagos"/>
+                    <item value="Los Muermos"/>
+                    <item value="Los Sauces"/>
+                    <item value="Lota"/>
+                    <item value="Lumaco"/>
+                    <item value="Machalí"/>
+                    <item value="Macul"/>
+                    <item value="Máfil"/>
+                    <item value="Maipú"/>
+                    <item value="Malloa"/>
+                    <item value="María Elena"/>
+                    <item value="María Pinto"/>
+                    <item value="Mariquina"/>
+                    <item value="Mejillones"/>
+                    <item value="Melipeuco"/>
+                    <item value="Melipilla"/>
+                    <item value="Molina"/>
+                    <item value="Monte Patria"/>
+                    <item value="Mostazal"/>
+                    <item value="Mulchén"/>
+                    <item value="Nacimiento"/>
+                    <item value="Nancagua"/>
+                    <item value="Natales"/>
+                    <item value="Navidad"/>
+                    <item value="Negrete"/>
+                    <item value="Ninhue"/>
+                    <item value="Ñiquén"/>
+                    <item value="Nogales"/>
+                    <item value="Nueva Imperial"/>
+                    <item value="Ñuñoa"/>
+                    <item value="Olivar"/>
+                    <item value="Ollagüe"/>
+                    <item value="Osorno"/>
+                    <item value="Ovalle"/>
+                    <item value="Padre Hurtado"/>
+                    <item value="Padre Las Casas"/>
+                    <item value="Paiguano"/>
+                    <item value="Paillaco"/>
+                    <item value="Paine"/>
+                    <item value="Palena"/>
+                    <item value="Palmilla"/>
+                    <item value="Panquehue"/>
+                    <item value="Papudo"/>
+                    <item value="Paredones"/>
+                    <item value="Parral"/>
+                    <item value="Pedro Aguirre Cerda"/>
+                    <item value="Pelarco"/>
+                    <item value="Pelluhue"/>
+                    <item value="Pemuco"/>
+                    <item value="Peñaflor"/>
+                    <item value="Peñalolén"/>
+                    <item value="Perquenco"/>
+                    <item value="Petorca"/>
+                    <item value="Pica"/>
+                    <item value="Pichidegua"/>
+                    <item value="Pichilemu"/>
+                    <item value="Pinto"/>
+                    <item value="Pirque"/>
+                    <item value="Pitrufquén"/>
+                    <item value="Placilla"/>
+                    <item value="Porvenir"/>
+                    <item value="Portezuelo"/>
+                    <item value="Pozo Almonte"/>
+                    <item value="Primavera"/>
+                    <item value="Providencia"/>
+                    <item value="Puchuncaví"/>
+                    <item value="Pucón"/>
+                    <item value="Pudahuel"/>
+                    <item value="Puente Alto"/>
+                    <item value="Puerto Montt"/>
+                    <item value="Puerto Natales"/>
+                    <item value="Puerto Octay"/>
+                    <item value="Puerto Varas"/>
+                    <item value="Puqueldón"/>
+                    <item value="Pumanque"/>
+                    <item value="Punitaqui"/>
+                    <item value="Punta Arenas"/>
+                    <item value="Purén"/>
+                    <item value="Purranque"/>
+                    <item value="Putaendo"/>
+                    <item value="Putre"/>
+                    <item value="Puyehue"/>
+                    <item value="Queilén"/>
+                    <item value="Quemchi"/>
+                    <item value="Quellón"/>
+                    <item value="Quilicura"/>
+                    <item value="Quillón"/>
+                    <item value="Quillota"/>
+                    <item value="Quilpué"/>
+                    <item value="Quinchao"/>
+                    <item value="Quinta de Tilcoco"/>
+                    <item value="Quinta Normal"/>
+                    <item value="Quintero"/>
+                    <item value="Quirihue"/>
+                    <item value="Rancagua"/>
+                    <item value="Ránquil"/>
+                    <item value="Rauco"/>
+                    <item value="Recoleta"/>
+                    <item value="Renaico"/>
+                    <item value="Renca"/>
+                    <item value="Rengo"/>
+                    <item value="Requínoa"/>
+                    <item value="Retiro"/>
+                    <item value="Río Bueno"/>
+                    <item value="Río Claro"/>
+                    <item value="Río Hurtado"/>
+                    <item value="Río Ibáñez"/>
+                    <item value="Río Negro"/>
+                    <item value="Romeral"/>
+                    <item value="Saavedra"/>
+                    <item value="Sagrada Familia"/>
+                    <item value="Salamanca"/>
+                    <item value="San Antonio"/>
+                    <item value="San Bernardo"/>
+                    <item value="San Carlos"/>
+                    <item value="San Clemente"/>
+                    <item value="San Esteban"/>
+                    <item value="San Fabián"/>
+                    <item value="San Felipe"/>
+                    <item value="San Fernando"/>
+                    <item value="San Francisco de Mostazal"/>
+                    <item value="San Ignacio"/>
+                    <item value="San Javier"/>
+                    <item value="San Joaquín"/>
+                    <item value="San José de Maipo"/>
+                    <item value="San Miguel"/>
+                    <item value="San Nicolás"/>
+                    <item value="San Pablo"/>
+                    <item value="San Pedro"/>
+                    <item value="San Pedro de Atacama"/>
+                    <item value="San Ramón"/>
+                    <item value="San Rafael"/>
+                    <item value="Santa Bárbara"/>
+                    <item value="Santa Cruz"/>
+                    <item value="Santa Juana"/>
+                    <item value="Santa María"/>
+                    <item value="Santiago"/>
+                    <item value="Santo Domingo"/>
+                    <item value="Talagante"/>
+                    <item value="Talca"/>
+                    <item value="Talcahuano"/>
+                    <item value="Taltal"/>
+                    <item value="Temuco"/>
+                    <item value="Teno"/>
+                    <item value="Teodoro Schmidt"/>
+                    <item value="Tiltil"/>
+                    <item value="Timaukel"/>
+                    <item value="Tirúa"/>
+                    <item value="Tocopilla"/>
+                    <item value="Toltén"/>
+                    <item value="Tomé"/>
+                    <item value="Torres del Paine"/>
+                    <item value="Traiguén"/>
+                    <item value="Treguaco"/>
+                    <item value="Trehuaco"/>
+                    <item value="Valdivia"/>
+                    <item value="Vallenar"/>
+                    <item value="Valparaíso"/>
+                    <item value="Vichuquén"/>
+                    <item value="Victoria"/>
+                    <item value="Villa Alemana"/>
+                    <item value="Villa Alegre"/>
+                    <item value="Villarrica"/>
+                    <item value="Viña del Mar"/>
+                    <item value="Vitacura"/>
+                    <item value="Yumbel"/>
+                    <item value="Yungay"/>
+                    <item value="ZapallarAlgarrobo"/>
+                    <item value="Alhué"/>
+                    <item value="Alto del Carmen"/>
+                    <item value="Alto Hospicio"/>
+                    <item value="Ancud"/>
+                    <item value="Andacollo"/>
+                    <item value="Angol"/>
+                    <item value="Antofagasta"/>
+                    <item value="Antártica"/>
+                    <item value="Arauco"/>
+                    <item value="Arica"/>
+                    <item value="Bulnes"/>
+                    <item value="Cabildo"/>
+                    <item value="Cabo de Hornos"/>
+                    <item value="Calama"/>
+                    <item value="Calbuco"/>
+                    <item value="Caldera"/>
+                    <item value="Calera"/>
+                    <item value="Calera de Tango"/>
+                    <item value="Calle Larga"/>
+                    <item value="Camiña"/>
+                    <item value="Canela"/>
+                    <item value="Carahue"/>
+                    <item value="Cartagena"/>
+                    <item value="Casablanca"/>
+                    <item value="Castro"/>
+                    <item value="Catemu"/>
+                    <item value="Cerrillos"/>
+                    <item value="Cerro Navia"/>
+                    <item value="Chaitén"/>
+                    <item value="Chanco"/>
+                    <item value="Chépica"/>
+                    <item value="Chiguayante"/>
+                    <item value="Chile Chico"/>
+                    <item value="Chillán"/>
+                    <item value="Chillán Viejo"/>
+                    <item value="Cholchol"/>
+                    <item value="Cobquecura"/>
+                    <item value="Cochamó"/>
+                    <item value="Codegua"/>
+                    <item value="Coelemu"/>
+                    <item value="Coihueco"/>
+                    <item value="Coinco"/>
+                    <item value="Colbún"/>
+                    <item value="Colchane"/>
+                    <item value="Colina"/>
+                    <item value="Collipulli"/>
+                    <item value="Coltauco"/>
+                    <item value="Combarbalá"/>
+                    <item value="Concón"/>
+                    <item value="Concepción"/>
+                    <item value="Conchalí"/>
+                    <item value="Constitución"/>
+                    <item value="Contulmo"/>
+                    <item value="Coronel"/>
+                    <item value="Corral"/>
+                    <item value="Cunco"/>
+                    <item value="Curacaví"/>
+                    <item value="Curacautín"/>
+                    <item value="Curanilahue"/>
+                    <item value="Curarrehue"/>
+                    <item value="Curepto"/>
+                    <item value="Curicó"/>
+                    <item value="Dalcahue"/>
+                    <item value="Diego de Almagro"/>
+                    <item value="Doñihue"/>
+                    <item value="El Bosque"/>
+                    <item value="El Carmen"/>
+                    <item value="El Monte"/>
+                    <item value="El Quisco"/>
+                    <item value="El Tabo"/>
+                    <item value="Empedrado"/>
+                    <item value="Ercilla"/>
+                    <item value="Estación Central"/>
+                    <item value="Freire"/>
+                    <item value="Fresia"/>
+                    <item value="Frutillar"/>
+                    <item value="Futrono"/>
+                    <item value="Galvarino"/>
+                    <item value="General Lagos"/>
+                    <item value="Gorbea"/>
+                    <item value="Graneros"/>
+                    <item value="Guaitecas"/>
+                    <item value="Hijuelas"/>
+                    <item value="Hualaihué"/>
+                    <item value="Hualañé"/>
+                    <item value="Hualpén"/>
+                    <item value="Hualqui"/>
+                    <item value="Huara"/>
+                    <item value="Huechuraba"/>
+                    <item value="Illapel"/>
+                    <item value="Independencia"/>
+                    <item value="Iquique"/>
+                    <item value="Isla de Maipo"/>
+                    <item value="Isla de Pascua"/>
+                    <item value="Juan Fernández"/>
+                    <item value="La Cisterna"/>
+                    <item value="La Cruz"/>
+                    <item value="La Estrella"/>
+                    <item value="La Florida"/>
+                    <item value="La Granja"/>
+                    <item value="La Higuera"/>
+                    <item value="La Ligua"/>
+                    <item value="La Pintana"/>
+                    <item value="La Reina"/>
+                    <item value="La Serena"/>
+                    <item value="La Unión"/>
+                    <item value="Lago Ranco"/>
+                    <item value="Lago Verde"/>
+                    <item value="Laja"/>
+                    <item value="Lampa"/>
+                    <item value="Lanco"/>
+                    <item value="Las Cabras"/>
+                    <item value="Las Condes"/>
+                    <item value="Lautaro"/>
+                    <item value="Lebu"/>
+                    <item value="Licantén"/>
+                    <item value="Limache"/>
+                    <item value="Linares"/>
+                    <item value="Litueche"/>
+                    <item value="Llanquihue"/>
+                    <item value="Llay-Llay"/>
+                    <item value="Lo Barnechea"/>
+                    <item value="Lo Espejo"/>
+                    <item value="Lo Prado"/>
+                    <item value="Lolol"/>
+                    <item value="Loncoche"/>
+                    <item value="Longaví"/>
+                    <item value="Los Álamos"/>
+                    <item value="Los Andes"/>
+                    <item value="Los Ángeles"/>
+                    <item value="Los Lagos"/>
+                    <item value="Los Muermos"/>
+                    <item value="Los Sauces"/>
+                    <item value="Lota"/>
+                    <item value="Lumaco"/>
+                    <item value="Machalí"/>
+                    <item value="Macul"/>
+                    <item value="Máfil"/>
+                    <item value="Maipú"/>
+                    <item value="Malloa"/>
+                    <item value="María Elena"/>
+                    <item value="María Pinto"/>
+                    <item value="Mariquina"/>
+                    <item value="Mejillones"/>
+                    <item value="Melipeuco"/>
+                    <item value="Melipilla"/>
+                    <item value="Molina"/>
+                    <item value="Monte Patria"/>
+                    <item value="Mostazal"/>
+                    <item value="Mulchén"/>
+                    <item value="Nacimiento"/>
+                    <item value="Nancagua"/>
+                    <item value="Natales"/>
+                    <item value="Navidad"/>
+                    <item value="Negrete"/>
+                    <item value="Ninhue"/>
+                    <item value="Ñiquén"/>
+                    <item value="Nogales"/>
+                    <item value="Nueva Imperial"/>
+                    <item value="Ñuñoa"/>
+                    <item value="Olivar"/>
+                    <item value="Ollagüe"/>
+                    <item value="Osorno"/>
+                    <item value="Ovalle"/>
+                    <item value="Padre Hurtado"/>
+                    <item value="Padre Las Casas"/>
+                    <item value="Paiguano"/>
+                    <item value="Paillaco"/>
+                    <item value="Paine"/>
+                    <item value="Palena"/>
+                    <item value="Palmilla"/>
+                    <item value="Panquehue"/>
+                    <item value="Papudo"/>
+                    <item value="Paredones"/>
+                    <item value="Parral"/>
+                    <item value="Pedro Aguirre Cerda"/>
+                    <item value="Pelarco"/>
+                    <item value="Pelluhue"/>
+                    <item value="Pemuco"/>
+                    <item value="Peñaflor"/>
+                    <item value="Peñalolén"/>
+                    <item value="Perquenco"/>
+                    <item value="Petorca"/>
+                    <item value="Pica"/>
+                    <item value="Pichidegua"/>
+                    <item value="Pichilemu"/>
+                    <item value="Pinto"/>
+                    <item value="Pirque"/>
+                    <item value="Pitrufquén"/>
+                    <item value="Placilla"/>
+                    <item value="Porvenir"/>
+                    <item value="Portezuelo"/>
+                    <item value="Pozo Almonte"/>
+                    <item value="Primavera"/>
+                    <item value="Providencia"/>
+                    <item value="Puchuncaví"/>
+                    <item value="Pucón"/>
+                    <item value="Pudahuel"/>
+                    <item value="Puente Alto"/>
+                    <item value="Puerto Montt"/>
+                    <item value="Puerto Natales"/>
+                    <item value="Puerto Octay"/>
+                    <item value="Puerto Varas"/>
+                    <item value="Puqueldón"/>
+                    <item value="Pumanque"/>
+                    <item value="Punitaqui"/>
+                    <item value="Punta Arenas"/>
+                    <item value="Purén"/>
+                    <item value="Purranque"/>
+                    <item value="Putaendo"/>
+                    <item value="Putre"/>
+                    <item value="Puyehue"/>
+                    <item value="Queilén"/>
+                    <item value="Quemchi"/>
+                    <item value="Quellón"/>
+                    <item value="Quilicura"/>
+                    <item value="Quillón"/>
+                    <item value="Quillota"/>
+                    <item value="Quilpué"/>
+                    <item value="Quinchao"/>
+                    <item value="Quinta de Tilcoco"/>
+                    <item value="Quinta Normal"/>
+                    <item value="Quintero"/>
+                    <item value="Quirihue"/>
+                    <item value="Rancagua"/>
+                    <item value="Ránquil"/>
+                    <item value="Rauco"/>
+                    <item value="Recoleta"/>
+                    <item value="Renaico"/>
+                    <item value="Renca"/>
+                    <item value="Rengo"/>
+                    <item value="Requínoa"/>
+                    <item value="Retiro"/>
+                    <item value="Río Bueno"/>
+                    <item value="Río Claro"/>
+                    <item value="Río Hurtado"/>
+                    <item value="Río Ibáñez"/>
+                    <item value="Río Negro"/>
+                    <item value="Romeral"/>
+                    <item value="Saavedra"/>
+                    <item value="Sagrada Familia"/>
+                    <item value="Salamanca"/>
+                    <item value="San Antonio"/>
+                    <item value="San Bernardo"/>
+                    <item value="San Carlos"/>
+                    <item value="San Clemente"/>
+                    <item value="San Esteban"/>
+                    <item value="San Fabián"/>
+                    <item value="San Felipe"/>
+                    <item value="San Fernando"/>
+                    <item value="San Francisco de Mostazal"/>
+                    <item value="San Ignacio"/>
+                    <item value="San Javier"/>
+                    <item value="San Joaquín"/>
+                    <item value="San José de Maipo"/>
+                    <item value="San Miguel"/>
+                    <item value="San Nicolás"/>
+                    <item value="San Pablo"/>
+                    <item value="San Pedro"/>
+                    <item value="San Pedro de Atacama"/>
+                    <item value="San Ramón"/>
+                    <item value="San Rafael"/>
+                    <item value="Santa Bárbara"/>
+                    <item value="Santa Cruz"/>
+                    <item value="Santa Juana"/>
+                    <item value="Santa María"/>
+                    <item value="Santiago"/>
+                    <item value="Santo Domingo"/>
+                    <item value="Talagante"/>
+                    <item value="Talca"/>
+                    <item value="Talcahuano"/>
+                    <item value="Taltal"/>
+                    <item value="Temuco"/>
+                    <item value="Teno"/>
+                    <item value="Teodoro Schmidt"/>
+                    <item value="Tiltil"/>
+                    <item value="Timaukel"/>
+                    <item value="Tirúa"/>
+                    <item value="Tocopilla"/>
+                    <item value="Toltén"/>
+                    <item value="Tomé"/>
+                    <item value="Torres del Paine"/>
+                    <item value="Traiguén"/>
+                    <item value="Treguaco"/>
+                    <item value="Trehuaco"/>
+                    <item value="Valdivia"/>
+                    <item value="Vallenar"/>
+                    <item value="Valparaíso"/>
+                    <item value="Vichuquén"/>
+                    <item value="Victoria"/>
+                    <item value="Villa Alemana"/>
+                    <item value="Villa Alegre"/>
+                    <item value="Villarrica"/>
+                    <item value="Viña del Mar"/>
+                    <item value="Vitacura"/>
+                    <item value="Yumbel"/>
+                    <item value="Yungay"/>
+                    <item value="Zapallar"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="79d25" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="14"/>
+                  <text value="Comuna:"/>
+                </properties>
+              </component>
+              <component id="30312" class="javax.swing.JLabel" binding="advertencia">
+                <constraints>
+                  <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <icon value="icons/Tamaño32x32/caution.png"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="7aa81" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="   "/>
+                </properties>
+              </component>
+              <component id="40736" class="javax.swing.JLabel" binding="advertencianom">
+                <constraints>
+                  <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <icon value="icons/Tamaño32x32/caution.png"/>
+                  <text value=""/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

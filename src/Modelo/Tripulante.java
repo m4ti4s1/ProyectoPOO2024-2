@@ -4,7 +4,9 @@ import Utilidades.Direccion;
 import Utilidades.IdPersona;
 import Utilidades.Nombre;
 
-public abstract class Tripulante extends Persona{
+import java.io.Serializable;
+
+public abstract class Tripulante extends Persona implements Serializable {
 
     private Direccion direccion;
 
