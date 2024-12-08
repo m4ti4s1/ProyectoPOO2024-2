@@ -129,23 +129,6 @@ public class ControladorEmpresas implements Serializable {
                         String.valueOf(empresa.getVentas().length)
                 })
                 .toArray(String[][]::new);
-        /*
-
-        String[][] listEmpresas=new String[empresas.size()][6];
-
-        for (int i=0; i<empresas.size(); i++) {
-            listEmpresas[i][0]=(empresas.get(i).getRut())+"";
-            listEmpresas[i][1]=(empresas.get(i).getNombre());
-            listEmpresas[i][2]=empresas.get(i).getUrl();
-            listEmpresas[i][3]=""+((empresas.get(i).getTripulantes()).length);
-            listEmpresas[i][4]=""+((empresas.get(i).getBuses()).length);
-            listEmpresas[i][5]=""+((empresas.get(i).getVentas()).length);
-
-        }
-
-        return listEmpresas;
-
-         */
 
     }
 
@@ -180,48 +163,6 @@ public class ControladorEmpresas implements Serializable {
         return viajes.toArray(new String[0][0]);
 
 
-        /*
-
-        Viaje[] llegadas= terminal.getLlegadas();
-        Viaje[] salidas= terminal.getSalidas();
-
-        //Pasar ambas a lista
-        ArrayList<Viaje> salida= new ArrayList<>(Arrays.asList(salidas));
-        ArrayList<Viaje> llegada= new ArrayList<>(Arrays.asList(llegadas));
-
-
-        //Eliminar las fechas que no nos sirven
-        salida.removeIf(viaje -> viaje.getFecha().isBefore(fecha));
-        llegada.removeIf(viaje -> viaje.getFecha().isBefore(fecha));
-
-
-        //creamos el arreglo de retorno
-        String[][] ArrayViajes=new String[salida.size()+llegada.size()][5];
-        int index = 0;
-
-        // Agregar salidas al arreglo
-        for (Viaje viaje : salida) {
-            ArrayViajes[index][0] = "Salida";
-            ArrayViajes[index][1] = "" + viaje.getHora();
-            ArrayViajes[index][2] = viaje.getBus().getPatente();
-            ArrayViajes[index][3] = viaje.getBus().getEmpresa().getNombre();
-            ArrayViajes[index][4] = "" + viaje.getListaPasajeros().length;
-            index++;
-        }
-
-        // Agregar llegadas al arreglo
-        for (Viaje viaje : llegada) {
-            ArrayViajes[index][0] = "Llegada";
-            ArrayViajes[index][1] = "" + viaje.getHora();
-            ArrayViajes[index][2] = viaje.getBus().getPatente();
-            ArrayViajes[index][3] = viaje.getBus().getEmpresa().getNombre();
-            ArrayViajes[index][4] = "" + viaje.getListaPasajeros().length;
-            index++;
-        }
-
-        return ArrayViajes;
-
-         */
 
     }
 
@@ -240,27 +181,6 @@ public class ControladorEmpresas implements Serializable {
                 .toArray(String[][]::new);
 
 
-        /*
-        Venta[] ArregloEmpresa= empresa.getVentas();
-
-        if(ArregloEmpresa.length==0){
-            return new String[0][0];
-        }
-
-        String[][] fast=new String[ArregloEmpresa.length][4];
-
-
-        for (int i=0;i<ArregloEmpresa.length;i++){
-            fast[i][0]=""+ArregloEmpresa[i].getFecha();
-            fast[i][1]=""+ArregloEmpresa[i].getTipo();
-            fast[i][2]=""+ArregloEmpresa[i].getMontoPagado();
-            fast[i][3]=ArregloEmpresa[i].getTipoPago();
-        }
-
-
-        return fast;
-
-         */
 
     }
 

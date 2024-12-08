@@ -85,14 +85,7 @@ public class SistemaVentaPasajes implements Serializable {
         Bus busOptional = ctrlEmpresas.findBus(patBus).orElseThrow(() -> new SVPException("No existe un bus con la patente indicada"));
 
 
-        //No existe auxiliar con el id indicado en la empresa con el rut indicado
-        //No existe conductor con el id indicado en la empresa con el rut indicado
-        // No existe terminal de salida en la comuna indicada
-        // No existe terminal de llegada en la comuna indicada
-
-        // todo Falta el rut de la empresa para usar este metodo
         String rutEmpresa = busOptional.getEmpresa().getRut() + "";
-        // ctrlEmpresas.findAuxliar(idTripulantes[0], )
         Auxiliar auxiliar = ctrlEmpresas.findAuxliar(idTripulantes[0], Rut.of(rutEmpresa))
                     .orElseThrow(() -> new SVPException("No existe Auxiliar con el id indicado en la empresa con el rut indicado"));
 
@@ -170,39 +163,6 @@ public class SistemaVentaPasajes implements Serializable {
         return horarios.toArray(new String[0][0]);
 
 
-        /*
-        // Crea una lista temporal para almacenar los datos de los viajes que coinciden con la fecha
-        ArrayList<String[]> horarios = new ArrayList<>();
-
-        // Recorre todos los viajes
-        for (Viaje viaje : viajes) {
-            // Verifica si la fecha del viaje coincide con la fecha dada
-            if (viaje.getFecha().equals(fechaViaje) &&
-                viaje.getTerminalSalida().getDireccion().getComuna().equals(comunaSalida) &&
-                viaje.getTerminalLlegada().getDireccion().getComuna().equals(comunaLlegada) &&
-                viaje.existeDisponibilidad(nroPasajes)) {
-
-                // Obtener los datos relevantes
-                String patenteBus = viaje.getBus().getPatente(); // Obtener la patente del bus
-                String horaViaje = viaje.getHora().toString();   // Obtener la hora del viaje
-                String precioPasaje = String.valueOf(viaje.getPrecio()); // Obtener el precio del pasaje
-                String asientosDisponibles = String.valueOf(viaje.getNroAsientosDisponibles()); // Obtener asientos disponibles
-
-                // Añade estos datos como un arreglo unidimensional a la lista
-                horarios.add(new String[] {patenteBus, horaViaje, precioPasaje, asientosDisponibles});
-            }
-        }
-
-        // Convierte la lista a un arreglo bidimensional
-        String[][] resultado = new String[horarios.size()][4];
-        for (int i = 0; i < horarios.size(); i++) {
-            resultado[i] = horarios.get(i);
-        }
-
-        // Retorna el arreglo con los horarios disponibles, o un arreglo vacío si no hay viajes
-        return resultado;
-
-         */
     }
 
     public String[] listAsientosDeViaje(LocalDate fecha, LocalTime hora, String patBus) {
@@ -217,24 +177,6 @@ public class SistemaVentaPasajes implements Serializable {
 
 
 
-        /*
-
-        Optional<Viaje> viajeOpt = findViaje("" + fecha, "" + hora, patBus);
-        if(viajeOpt.isEmpty()){
-            return new String[]{"0"};
-        }
-
-        String[][] matriz= viajeOpt.get().getAsientos();
-
-        String []listAsientos=new String[matriz.length];
-        for (int i=0;i<listAsientos.length;i++){
-            if(matriz[i][1].equalsIgnoreCase("vacío")){
-                listAsientos[i] = matriz[i][0];
-            }else {listAsientos[i]="*";}
-        }
-        return listAsientos;
-
-         */
 
     }
 
@@ -245,14 +187,6 @@ public class SistemaVentaPasajes implements Serializable {
                 .map(Venta::getMonto)
                 .findFirst();
 
-        /*
-        for (Venta venta : ventas) {
-            if (venta.getIdDocumento().equals(idDocumento) && venta.getTipo().equals(tipo)) {
-                return Optional.of(venta.getMonto());
-            }
-        }
-        return Optional.empty();
-         */
     }
 
     public Optional<String> getNombrePasajero(IdPersona idPasajero) {
@@ -262,15 +196,6 @@ public class SistemaVentaPasajes implements Serializable {
                 .map(String::valueOf)
                 .findFirst();
 
-        /*
-        for (Pasajero pasajero: pasajeros) {
-            if (pasajero.getIdPersona().equals(idPasajero)) {
-                return Optional.of(pasajero.getNombreCompleto().toString());
-            }
-        }
-        return Optional.empty();
-
-         */
     }
 
     public void vendePasaje(String idDoc, TipoDocumento tipo , LocalDate fechaViaje, LocalTime hora, String patBus, int asiento, IdPersona idPasajero) throws SVPException {
@@ -298,15 +223,6 @@ public class SistemaVentaPasajes implements Serializable {
                 .findFirst()
                 .orElse(null);
 
-        /*
-        for (Cliente cliente : clientes) {
-            if (cliente.getIdPersona().equals(idCliente)) {
-                return cliente.getNombreCompleto().toString();
-            }
-        }
-        return null;
-
-         */
     }
 
     public void pagaVenta(String idDocumento, TipoDocumento tipo) throws SVPException {
@@ -343,21 +259,6 @@ public class SistemaVentaPasajes implements Serializable {
                 })
                 .toArray(String[][]::new);
 
-        /*
-        String[][] listventas = new String[ventas.size()][7];
-        for (int i=0;i<listventas.length;i++){
-            listventas[i][0]=""+ventas.get(i).getIdDocumento();
-            listventas[i][1]=""+ventas.get(i).getTipo();
-            listventas[i][2]=""+ventas.get(i).getFecha();
-            listventas[i][3]=""+ventas.get(i).getCliente().getIdPersona();
-            listventas[i][4]=""+ventas.get(i).getCliente().getNombreCompleto();
-            listventas[i][5]=""+ventas.get(i).getPasajes().length;
-            listventas[i][6]=""+ventas.get(i).getMonto();
-
-        }
-        return listventas;
-
-         */
     }
 
     public String[][] listViajes() {
@@ -375,25 +276,6 @@ public class SistemaVentaPasajes implements Serializable {
                         String.valueOf(viaje.getBus().getPatente()),
                 })
                 .toArray(String[][]::new);
-        /*
-
-        String[][] pasajes = new String[viajes.size()][8] ;
-        for(int i=0;i<pasajes.length;i++){
-            pasajes[i][0]=""+viajes.get(i).getFecha();
-            pasajes[i][1]=""+viajes.get(i).getHora();
-            LocalDateTime horaLlegada = viajes.get(i).getFechaHoraTermino();
-            pasajes[i][2]=String.format("%02d:%02d", horaLlegada.getHour(), horaLlegada.getMinute());
-            pasajes[i][3]=""+viajes.get(i).getPrecio();
-            pasajes[i][4]=""+viajes.get(i).getNroAsientosDisponibles();
-            pasajes[i][5]=viajes.get(i).getBus().getPatente();
-            pasajes[i][6]=viajes.get(i).getTerminalSalida().getDireccion().getComuna();
-            pasajes[i][7]=viajes.get(i).getTerminalLlegada().getDireccion().getComuna();
-
-
-        }
-        return pasajes;
-
-         */
 
     }
 
@@ -402,15 +284,6 @@ public class SistemaVentaPasajes implements Serializable {
         return findViaje(String.valueOf(fecha), String.valueOf(hora), String.valueOf(patBus))
                 .map(Viaje::getListaPasajeros)
                 .orElseThrow(() -> new SVPException("No existe viaje con la fecha, hora y patente de bus indicados"));
-
-        /*
-        Viaje viaje = findViaje(fecha.toString(), hora.toString(), patBus)
-                .orElseThrow(() -> new SVPException("No existe viaje con la fecha, hora y patente de bus indicados"));
-
-        return viaje.getListaPasajeros();
-
-         */
-
 
     }
 
